@@ -1,0 +1,105 @@
+disease,rank,drug,mechanism_support
+Precursor Cell Lymphoblastic Leukemia-Lymphoma,1,clofarabine,機制支持
+Precursor Cell Lymphoblastic Leukemia-Lymphoma,2,paclitaxel,機制支持
+Precursor Cell Lymphoblastic Leukemia-Lymphoma,3,teniposide,機制支持
+Precursor Cell Lymphoblastic Leukemia-Lymphoma,4,DB06176,機制支持
+Precursor Cell Lymphoblastic Leukemia-Lymphoma,5,carmustine,機制支持
+Precursor Cell Lymphoblastic Leukemia-Lymphoma,6,naprosyn,機制支持
+Precursor Cell Lymphoblastic Leukemia-Lymphoma,7,venetoclax,機制支持
+Precursor Cell Lymphoblastic Leukemia-Lymphoma,8,sulfasalazine,機制支持
+"Leukemia, Mast-Cell",1,streptozocin,
+"Leukemia, Mast-Cell",2,r-vindesine,
+"Leukemia, Mast-Cell",3,melphalan,
+"Leukemia, Mast-Cell",4,dacarbazine,
+"Leukemia, Mast-Cell",5,ranimustine,
+"Leukemia, Mast-Cell",6,topotecan,
+"Leukemia, Mast-Cell",7,cyclosporine,
+"Leukemia, Mast-Cell",8,DB08871,
+"Leukemia, Myeloid, Acute",1,temozolomide,
+"Leukemia, Myeloid, Acute",2,imatinib,
+"Leukemia, Myeloid, Acute",3,fludarabine,
+"Leukemia, Myeloid, Acute",4,oxymetholone,機制支持
+"Leukemia, Myeloid, Acute",5,docetaxel,機制支持
+"Leukemia, Myeloid, Acute",6,paclitaxel,機制支持
+"Leukemia, Myeloid, Acute",7,carglumic acid,
+"Leukemia, Myeloid, Acute",8,DB01254,機制支持
+Osteosarcoma,1,paclitaxel,機制支持
+Osteosarcoma,2,etoposide,機制支持
+Osteosarcoma,3,ibuprofen,機制支持
+Osteosarcoma,4,ketoprofen,機制支持
+Osteosarcoma,5,piroxicam,機制支持
+Osteosarcoma,6,captopril,機制支持
+Osteosarcoma,7,ciloprost,
+Osteosarcoma,8,eltrombopag,
+Hemangiosarcoma,1,ifosfamide,
+Hemangiosarcoma,2,paclitaxel,
+Hemangiosarcoma,3,pomalidomide,
+Hemangiosarcoma,4,etoposide,
+Hemangiosarcoma,5,melphalan,
+Hemangiosarcoma,6,angiopeptin acetate,
+Hemangiosarcoma,7,estradiol,
+Hemangiosarcoma,8,clofazimine,
+Melanoma,1,oxymetholone,機制支持
+Melanoma,2,busulfan,
+Melanoma,3,benzenebutanoic acid,
+Melanoma,4,dacarbazine,
+Melanoma,5,venetoclax,機制支持
+Melanoma,6,pentostatin,機制支持
+Melanoma,7,arginine glutamate,
+Melanoma,8,pipobroman,
+Urinary Bladder Neoplasms,1,mebendazole,
+Urinary Bladder Neoplasms,2,carmustine,
+Urinary Bladder Neoplasms,3,teniposide,
+Urinary Bladder Neoplasms,4,lomustine,
+Urinary Bladder Neoplasms,5,fludarabine,
+Urinary Bladder Neoplasms,6,imatinib,
+Urinary Bladder Neoplasms,7,mitomycin c,
+Urinary Bladder Neoplasms,8,melphalan,
+Squamous Cell Carcinoma of Head and Neck,1,sulfasalazine,機制支持
+Squamous Cell Carcinoma of Head and Neck,2,ibuprofen,機制支持
+Squamous Cell Carcinoma of Head and Neck,3,venetoclax,機制支持
+Squamous Cell Carcinoma of Head and Neck,4,naprosyn,機制支持
+Squamous Cell Carcinoma of Head and Neck,5,celecoxib,機制支持
+Squamous Cell Carcinoma of Head and Neck,6,carmustine,機制支持
+Squamous Cell Carcinoma of Head and Neck,7,mebendazole,
+Squamous Cell Carcinoma of Head and Neck,8,eltrombopag,
+Multiple Myeloma,1,teniposide,機制支持
+Multiple Myeloma,2,etoposide,機制支持
+Multiple Myeloma,3,streptozocin,
+Multiple Myeloma,4,cyclosporine,
+Multiple Myeloma,5,cevimeline,
+Multiple Myeloma,6,mepron,
+Multiple Myeloma,7,diazoxide,
+Multiple Myeloma,8,emflaza,
+"Mycobacterium Infections, Nontuberculous",1,rifampicin,
+"Mycobacterium Infections, Nontuberculous",2,norfloxacin,
+"Mycobacterium Infections, Nontuberculous",3,ofloxacin,
+"Mycobacterium Infections, Nontuberculous",4,clofazimine,
+"Mycobacterium Infections, Nontuberculous",5,cephalexin,
+"Mycobacterium Infections, Nontuberculous",6,pyrazinamide,
+"Mycobacterium Infections, Nontuberculous",7,nitrofurantoin,
+"Mycobacterium Infections, Nontuberculous",8,methimazole,
+Cryptococcosis,1,posaconazole,
+Cryptococcosis,2,flucytosine,
+Cryptococcosis,3,voriconazole,
+Cryptococcosis,4,itraconazole,
+Cryptococcosis,5,isavuconazonium,
+Cryptococcosis,6,micafungin,
+Cryptococcosis,7,ketoconazole,
+Cryptococcosis,8,anidulafungin,
+Aspergillosis,1,flucytosine,
+Aspergillosis,2,fluconazole,
+Aspergillosis,3,amphotericin,
+Aspergillosis,4,posaconazole,
+Aspergillosis,5,clotrimazole,
+Aspergillosis,6,ketoconazole,
+Aspergillosis,7,micafungin,
+Aspergillosis,8,stamycin,
+Histoplasmosis,1,ketoconazole,
+Histoplasmosis,2,amphotericin,
+Histoplasmosis,3,clotrimazole,
+Histoplasmosis,4,flucytosine,
+Histoplasmosis,5,posaconazole,
+Histoplasmosis,6,erythromycin,
+Histoplasmosis,7,isavuconazonium,
+Histoplasmosis,8,terconazole,

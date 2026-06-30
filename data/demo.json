@@ -1,0 +1,2371 @@
+{
+  "meta": {
+    "title": "老藥新用 · 寵物腫瘤 — 跨物種分子證據鏈",
+    "subtitle": "輸入寵物癌症 → 以『犬腫瘤 driver ∩ 既有犬藥物反應』找線索 → 輸出有文獻可追溯的候選藥",
+    "method_note": "證據鏈核心:藥打的是 driver(分子引擎),不是癌的名字。只有當犬腫瘤實際帶同一個 driver 時,人類的藥才轉移得過去。本 Demo 每條推薦皆附已發表文獻,無需我方濕實驗。",
+    "tiers": {
+      "confirmed": {
+        "label": "可轉移 · 已有犬證據",
+        "color": "#1a9850",
+        "icon": "✅"
+      },
+      "conditional": {
+        "label": "有條件 · 需生物標記選病人",
+        "color": "#f1a340",
+        "icon": "⚠️"
+      },
+      "refuted": {
+        "label": "不轉移 · 證據反對",
+        "color": "#d73027",
+        "icon": "❌"
+      }
+    }
+  },
+  "diseases": [
+    {
+      "id": "bladder",
+      "pet_disease_zh": "犬 膀胱泌尿上皮癌",
+      "pet_disease_en": "Canine Bladder / Urothelial Carcinoma (TCC)",
+      "species": "dog",
+      "human_disease": "Urothelial / Bladder Carcinoma",
+      "human_mesh": "D001749",
+      "tier": "confirmed",
+      "tier_label": "可轉移 · 已有犬證據",
+      "tier_color": "#1a9850",
+      "tier_icon": "✅",
+      "storyline": "犬膀胱癌 80% 帶 BRAF V595E(等同人類 V600E)——這個 driver 人類膀胱癌沒有,所以純人類細胞株 oracle 反而漏掉;靠犬基因體才抓到 → sorafenib。",
+      "driver": {
+        "gene": "BRAF",
+        "variant": "V595E",
+        "freq": "~80%",
+        "note": "犬泌尿上皮癌特有 driver,與人類 BRAF V600E 同源。人類膀胱癌非 BRAF 驅動,故人類細胞株 oracle 漏報;必須以犬基因體為準。",
+        "citation": {
+          "title": "Canine TCC cell lines harboring BRAF V595E as therapeutic target (Int J Mol Sci 2021)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8430554/"
+        }
+      },
+      "pathway": "BRAF → MAPK/ERK",
+      "analogy": {
+        "basis": "老藥新用的關鍵:sorafenib 與人類 BRAF 標準藥 vemurafenib 同屬 RAF 激酶抑制劑——犬膀胱癌帶同源 BRAF V595E,等於把成熟人藥『結構/標靶類比』過來(犬細胞株顯示 sorafenib 甚至優於 vemurafenib)。",
+        "siblings": [
+          {
+            "drug": "vemurafenib",
+            "relation": "BRAF V600E 抑制劑(同 RAF 標靶)",
+            "known_for": "人類 BRAF V600E 黑色素瘤(已核准)"
+          },
+          {
+            "drug": "dabrafenib",
+            "relation": "BRAF 抑制劑",
+            "known_for": "人類 BRAF 黑色素瘤 / 非小細胞肺癌(已核准)"
+          },
+          {
+            "drug": "encorafenib",
+            "relation": "BRAF 抑制劑",
+            "known_for": "人類 BRAF 黑色素瘤 / 大腸癌(已核准)"
+          },
+          {
+            "drug": "regorafenib",
+            "relation": "sorafenib 結構類似物(multikinase)",
+            "known_for": "人類大腸癌 / GIST / 肝癌"
+          }
+        ]
+      },
+      "headline": [
+        {
+          "drug": "sorafenib",
+          "rationale": "RAF/VEGFR 多激酶抑制劑,直接抑制 BRAF/MAPK 通路。",
+          "evidence": "犬 TCC 細胞株對 sorafenib 比 vemurafenib 更敏感,可誘導凋亡(in vitro)。",
+          "citation": {
+            "title": "Sorafenib inhibits BRAF/MAPK in canine TCC cell lines (IJMS 2021)",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8430554/"
+          }
+        }
+      ],
+      "refuted_note": "",
+      "model_candidates": [
+        {
+          "drug": "mebendazole",
+          "rank": 1,
+          "mechanism_support": "",
+          "cellline_pct": 76,
+          "selective": true,
+          "note": ""
+        },
+        {
+          "drug": "carmustine",
+          "rank": 2,
+          "mechanism_support": "",
+          "cellline_pct": 7,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "teniposide",
+          "rank": 3,
+          "mechanism_support": "",
+          "cellline_pct": 93,
+          "selective": true,
+          "note": ""
+        },
+        {
+          "drug": "lomustine",
+          "rank": 4,
+          "mechanism_support": "",
+          "cellline_pct": null,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "fludarabine",
+          "rank": 5,
+          "mechanism_support": "",
+          "cellline_pct": 56,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "imatinib",
+          "rank": 6,
+          "mechanism_support": "",
+          "cellline_pct": 42,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "mitomycin C",
+          "rank": 7,
+          "mechanism_support": "",
+          "cellline_pct": null,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "melphalan",
+          "rank": 8,
+          "mechanism_support": "",
+          "cellline_pct": 54,
+          "selective": false,
+          "note": ""
+        }
+      ],
+      "sources": [
+        {
+          "title": "Canine TCC BRAF V595E cell lines as therapeutic target (IJMS 2021)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8430554/"
+        },
+        {
+          "title": "BRAF V595E IHC detection in canine urothelial/prostate carcinoma (Vet Comp Oncol 2024)",
+          "url": "https://onlinelibrary.wiley.com/doi/full/10.1111/vco.12978"
+        }
+      ],
+      "graph": {
+        "nodes": [
+          {
+            "data": {
+              "id": "bladder__pet",
+              "label": "犬 膀胱泌尿上皮癌",
+              "ntype": "pet",
+              "sub": "Canine Bladder / Urothelial Carcinoma (TCC)",
+              "species": "dog"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__human",
+              "label": "Urothelial / Bladder Carcinoma",
+              "ntype": "human",
+              "sub": "D001749"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__driver",
+              "label": "BRAF",
+              "ntype": "driver",
+              "variant": "V595E",
+              "freq": "~80%",
+              "badge": "犬 ~80%",
+              "citation": {
+                "title": "Canine TCC cell lines harboring BRAF V595E as therapeutic target (Int J Mol Sci 2021)",
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8430554/"
+              }
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__pathway",
+              "label": "BRAF → MAPK/ERK",
+              "ntype": "pathway"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__rec-0-sorafenib",
+              "label": "sorafenib",
+              "ntype": "drug_rec",
+              "rationale": "RAF/VEGFR 多激酶抑制劑,直接抑制 BRAF/MAPK 通路。",
+              "evidence": "犬 TCC 細胞株對 sorafenib 比 vemurafenib 更敏感,可誘導凋亡(in vitro)。",
+              "citation": {
+                "title": "Sorafenib inhibits BRAF/MAPK in canine TCC cell lines (IJMS 2021)",
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8430554/"
+              }
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__rec-0-sorafenib__ev",
+              "label": "犬證據",
+              "ntype": "evidence",
+              "text": "犬 TCC 細胞株對 sorafenib 比 vemurafenib 更敏感,可誘導凋亡(in vitro)。",
+              "citation": {
+                "title": "Sorafenib inhibits BRAF/MAPK in canine TCC cell lines (IJMS 2021)",
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8430554/"
+              }
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__sib-0",
+              "label": "vemurafenib",
+              "ntype": "sibling",
+              "relation": "BRAF V600E 抑制劑(同 RAF 標靶)",
+              "known_for": "人類 BRAF V600E 黑色素瘤(已核准)",
+              "basis": "老藥新用的關鍵:sorafenib 與人類 BRAF 標準藥 vemurafenib 同屬 RAF 激酶抑制劑——犬膀胱癌帶同源 BRAF V595E,等於把成熟人藥『結構/標靶類比』過來(犬細胞株顯示 sorafenib 甚至優於 vemurafenib)。",
+              "broken": false
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__ind-0",
+              "label": "人類 BRAF V600E 黑色素瘤(已核准)",
+              "ntype": "indication"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__sib-1",
+              "label": "dabrafenib",
+              "ntype": "sibling",
+              "relation": "BRAF 抑制劑",
+              "known_for": "人類 BRAF 黑色素瘤 / 非小細胞肺癌(已核准)",
+              "basis": "老藥新用的關鍵:sorafenib 與人類 BRAF 標準藥 vemurafenib 同屬 RAF 激酶抑制劑——犬膀胱癌帶同源 BRAF V595E,等於把成熟人藥『結構/標靶類比』過來(犬細胞株顯示 sorafenib 甚至優於 vemurafenib)。",
+              "broken": false
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__ind-1",
+              "label": "人類 BRAF 黑色素瘤 / 非小細胞肺癌(已核准)",
+              "ntype": "indication"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__sib-2",
+              "label": "encorafenib",
+              "ntype": "sibling",
+              "relation": "BRAF 抑制劑",
+              "known_for": "人類 BRAF 黑色素瘤 / 大腸癌(已核准)",
+              "basis": "老藥新用的關鍵:sorafenib 與人類 BRAF 標準藥 vemurafenib 同屬 RAF 激酶抑制劑——犬膀胱癌帶同源 BRAF V595E,等於把成熟人藥『結構/標靶類比』過來(犬細胞株顯示 sorafenib 甚至優於 vemurafenib)。",
+              "broken": false
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__ind-2",
+              "label": "人類 BRAF 黑色素瘤 / 大腸癌(已核准)",
+              "ntype": "indication"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__sib-3",
+              "label": "regorafenib",
+              "ntype": "sibling",
+              "relation": "sorafenib 結構類似物(multikinase)",
+              "known_for": "人類大腸癌 / GIST / 肝癌",
+              "basis": "老藥新用的關鍵:sorafenib 與人類 BRAF 標準藥 vemurafenib 同屬 RAF 激酶抑制劑——犬膀胱癌帶同源 BRAF V595E,等於把成熟人藥『結構/標靶類比』過來(犬細胞株顯示 sorafenib 甚至優於 vemurafenib)。",
+              "broken": false
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__ind-3",
+              "label": "人類大腸癌 / GIST / 肝癌",
+              "ntype": "indication"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__model-mebendazole",
+              "label": "mebendazole  ·76%",
+              "ntype": "drug_model",
+              "cellline_pct": 76,
+              "selective": true,
+              "mech": ""
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__model-carmustine",
+              "label": "carmustine  ·7%",
+              "ntype": "drug_model",
+              "cellline_pct": 7,
+              "selective": false,
+              "mech": ""
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__model-teniposide",
+              "label": "teniposide  ·93%",
+              "ntype": "drug_model",
+              "cellline_pct": 93,
+              "selective": true,
+              "mech": ""
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__model-lomustine",
+              "label": "lomustine",
+              "ntype": "drug_model",
+              "cellline_pct": null,
+              "selective": false,
+              "mech": ""
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__model-fludarabine",
+              "label": "fludarabine  ·56%",
+              "ntype": "drug_model",
+              "cellline_pct": 56,
+              "selective": false,
+              "mech": ""
+            }
+          }
+        ],
+        "edges": [
+          {
+            "data": {
+              "id": "bladder__pet__bladder__human",
+              "source": "bladder__pet",
+              "target": "bladder__human",
+              "label": "疾病橋接",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__human__bladder__driver",
+              "source": "bladder__human",
+              "target": "bladder__driver",
+              "label": "driver 基因",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__driver__bladder__pathway",
+              "source": "bladder__driver",
+              "target": "bladder__pathway",
+              "label": "活化",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__pathway__bladder__rec-0-sorafenib",
+              "source": "bladder__pathway",
+              "target": "bladder__rec-0-sorafenib",
+              "label": "抑制 → 治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__rec-0-sorafenib__bladder__rec-0-sorafenib__ev",
+              "source": "bladder__rec-0-sorafenib",
+              "target": "bladder__rec-0-sorafenib__ev",
+              "label": "已發表",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__sib-0__bladder__ind-0",
+              "source": "bladder__sib-0",
+              "target": "bladder__ind-0",
+              "label": "已知治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__sib-0__bladder__rec-0-sorafenib",
+              "source": "bladder__sib-0",
+              "target": "bladder__rec-0-sorafenib",
+              "label": "結構相似 → 老藥新用",
+              "etype": "sim"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__sib-1__bladder__ind-1",
+              "source": "bladder__sib-1",
+              "target": "bladder__ind-1",
+              "label": "已知治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__sib-1__bladder__rec-0-sorafenib",
+              "source": "bladder__sib-1",
+              "target": "bladder__rec-0-sorafenib",
+              "label": "結構相似 → 老藥新用",
+              "etype": "sim"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__sib-2__bladder__ind-2",
+              "source": "bladder__sib-2",
+              "target": "bladder__ind-2",
+              "label": "已知治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__sib-2__bladder__rec-0-sorafenib",
+              "source": "bladder__sib-2",
+              "target": "bladder__rec-0-sorafenib",
+              "label": "結構相似 → 老藥新用",
+              "etype": "sim"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__sib-3__bladder__ind-3",
+              "source": "bladder__sib-3",
+              "target": "bladder__ind-3",
+              "label": "已知治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__sib-3__bladder__rec-0-sorafenib",
+              "source": "bladder__sib-3",
+              "target": "bladder__rec-0-sorafenib",
+              "label": "結構相似 → 老藥新用",
+              "etype": "sim"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__pet__bladder__model-mebendazole",
+              "source": "bladder__pet",
+              "target": "bladder__model-mebendazole",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__pet__bladder__model-carmustine",
+              "source": "bladder__pet",
+              "target": "bladder__model-carmustine",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__pet__bladder__model-teniposide",
+              "source": "bladder__pet",
+              "target": "bladder__model-teniposide",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__pet__bladder__model-lomustine",
+              "source": "bladder__pet",
+              "target": "bladder__model-lomustine",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "bladder__pet__bladder__model-fludarabine",
+              "source": "bladder__pet",
+              "target": "bladder__model-fludarabine",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "mct",
+      "pet_disease_zh": "犬 肥大細胞瘤",
+      "pet_disease_en": "Canine Mast Cell Tumor (MCT)",
+      "species": "dog",
+      "human_disease": "Mastocytosis / Mast cell neoplasm",
+      "human_mesh": "D034721",
+      "tier": "confirmed",
+      "tier_label": "可轉移 · 已有犬證據",
+      "tier_color": "#1a9850",
+      "tier_icon": "✅",
+      "storyline": "約 1/3 犬肥大細胞瘤帶 KIT 活化突變 → KIT 抑制劑 toceranib 已是 FDA 核准犬藥,隨機對照試驗反應率約 40%。這是『活體犬證實』的最強案例。",
+      "driver": {
+        "gene": "KIT",
+        "variant": "exon 11 / juxtamembrane 活化突變",
+        "freq": "~33%",
+        "note": "KIT 受體酪胺酸激酶活化突變導致配體無關的持續磷酸化,驅動腫瘤。",
+        "citation": {
+          "title": "Toceranib phosphate RCT in canine MCT — KIT mutation & response (Clin Cancer Res 2009)",
+          "url": "https://aacrjournals.org/clincancerres/article/15/11/3856/73614/"
+        }
+      },
+      "pathway": "KIT → PI3K/MAPK",
+      "analogy": {
+        "basis": "老藥新用的關鍵:toceranib(SU11654)本身就是人類藥 sunitinib(SU11248)的結構類似物,同為 KIT/VEGFR 抑制劑——犬肥大細胞瘤帶 KIT 活化突變,直接套用。",
+        "siblings": [
+          {
+            "drug": "sunitinib",
+            "relation": "近乎同骨架(SU 系列類似物)",
+            "known_for": "人類 GIST / 腎細胞癌(KIT/VEGFR 驅動)"
+          },
+          {
+            "drug": "imatinib",
+            "relation": "KIT / PDGFR 抑制劑",
+            "known_for": "人類 GIST / 慢性骨髓性白血病(已核准)"
+          },
+          {
+            "drug": "masitinib",
+            "relation": "KIT 抑制劑(獸醫用)",
+            "known_for": "犬肥大細胞瘤(歐盟核准)"
+          },
+          {
+            "drug": "dasatinib",
+            "relation": "KIT / SRC 抑制劑",
+            "known_for": "人類 CML / Ph+ ALL(已核准)"
+          }
+        ]
+      },
+      "headline": [
+        {
+          "drug": "toceranib (Palladia)",
+          "rationale": "VEGFR/PDGFR/KIT 酪胺酸激酶抑制劑,直接抑制活化的 KIT。",
+          "evidence": "FDA 核准犬肥大細胞瘤藥;多中心隨機雙盲對照試驗客觀反應率 37–43%(對照安慰劑 ~8%)。",
+          "citation": {
+            "title": "Multi-center placebo-controlled RCT of oral toceranib for canine MCT (Clin Cancer Res 2009)",
+            "url": "https://aacrjournals.org/clincancerres/article/15/11/3856/73614/"
+          }
+        }
+      ],
+      "refuted_note": "",
+      "model_candidates": [
+        {
+          "drug": "streptozocin",
+          "rank": 1,
+          "mechanism_support": "",
+          "cellline_pct": null,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "vindesine",
+          "rank": 2,
+          "mechanism_support": "",
+          "cellline_pct": null,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "melphalan",
+          "rank": 3,
+          "mechanism_support": "",
+          "cellline_pct": null,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "dacarbazine",
+          "rank": 4,
+          "mechanism_support": "",
+          "cellline_pct": null,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "ranimustine",
+          "rank": 5,
+          "mechanism_support": "",
+          "cellline_pct": null,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "topotecan",
+          "rank": 6,
+          "mechanism_support": "",
+          "cellline_pct": null,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "cyclosporine",
+          "rank": 7,
+          "mechanism_support": "",
+          "cellline_pct": null,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "eribulin",
+          "rank": 8,
+          "mechanism_support": "",
+          "cellline_pct": null,
+          "selective": false,
+          "note": ""
+        }
+      ],
+      "sources": [
+        {
+          "title": "Toceranib (Palladia) RCT for canine MCT (Clin Cancer Res 2009)",
+          "url": "https://aacrjournals.org/clincancerres/article/15/11/3856/73614/"
+        },
+        {
+          "title": "Tyrosine kinase inhibitors in canine mast cell tumor (review, 2023)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10285312/"
+        }
+      ],
+      "graph": {
+        "nodes": [
+          {
+            "data": {
+              "id": "mct__pet",
+              "label": "犬 肥大細胞瘤",
+              "ntype": "pet",
+              "sub": "Canine Mast Cell Tumor (MCT)",
+              "species": "dog"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__human",
+              "label": "Mastocytosis / Mast cell neoplasm",
+              "ntype": "human",
+              "sub": "D034721"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__driver",
+              "label": "KIT",
+              "ntype": "driver",
+              "variant": "exon 11 / juxtamembrane 活化突變",
+              "freq": "~33%",
+              "badge": "犬 ~33%",
+              "citation": {
+                "title": "Toceranib phosphate RCT in canine MCT — KIT mutation & response (Clin Cancer Res 2009)",
+                "url": "https://aacrjournals.org/clincancerres/article/15/11/3856/73614/"
+              }
+            }
+          },
+          {
+            "data": {
+              "id": "mct__pathway",
+              "label": "KIT → PI3K/MAPK",
+              "ntype": "pathway"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__rec-0-toceranib-palladia",
+              "label": "toceranib (Palladia)",
+              "ntype": "drug_rec",
+              "rationale": "VEGFR/PDGFR/KIT 酪胺酸激酶抑制劑,直接抑制活化的 KIT。",
+              "evidence": "FDA 核准犬肥大細胞瘤藥;多中心隨機雙盲對照試驗客觀反應率 37–43%(對照安慰劑 ~8%)。",
+              "citation": {
+                "title": "Multi-center placebo-controlled RCT of oral toceranib for canine MCT (Clin Cancer Res 2009)",
+                "url": "https://aacrjournals.org/clincancerres/article/15/11/3856/73614/"
+              }
+            }
+          },
+          {
+            "data": {
+              "id": "mct__rec-0-toceranib-palladia__ev",
+              "label": "犬證據",
+              "ntype": "evidence",
+              "text": "FDA 核准犬肥大細胞瘤藥;多中心隨機雙盲對照試驗客觀反應率 37–43%(對照安慰劑 ~8%)。",
+              "citation": {
+                "title": "Multi-center placebo-controlled RCT of oral toceranib for canine MCT (Clin Cancer Res 2009)",
+                "url": "https://aacrjournals.org/clincancerres/article/15/11/3856/73614/"
+              }
+            }
+          },
+          {
+            "data": {
+              "id": "mct__sib-0",
+              "label": "sunitinib",
+              "ntype": "sibling",
+              "relation": "近乎同骨架(SU 系列類似物)",
+              "known_for": "人類 GIST / 腎細胞癌(KIT/VEGFR 驅動)",
+              "basis": "老藥新用的關鍵:toceranib(SU11654)本身就是人類藥 sunitinib(SU11248)的結構類似物,同為 KIT/VEGFR 抑制劑——犬肥大細胞瘤帶 KIT 活化突變,直接套用。",
+              "broken": false
+            }
+          },
+          {
+            "data": {
+              "id": "mct__ind-0",
+              "label": "人類 GIST / 腎細胞癌(KIT/VEGFR 驅動)",
+              "ntype": "indication"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__sib-1",
+              "label": "imatinib",
+              "ntype": "sibling",
+              "relation": "KIT / PDGFR 抑制劑",
+              "known_for": "人類 GIST / 慢性骨髓性白血病(已核准)",
+              "basis": "老藥新用的關鍵:toceranib(SU11654)本身就是人類藥 sunitinib(SU11248)的結構類似物,同為 KIT/VEGFR 抑制劑——犬肥大細胞瘤帶 KIT 活化突變,直接套用。",
+              "broken": false
+            }
+          },
+          {
+            "data": {
+              "id": "mct__ind-1",
+              "label": "人類 GIST / 慢性骨髓性白血病(已核准)",
+              "ntype": "indication"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__sib-2",
+              "label": "masitinib",
+              "ntype": "sibling",
+              "relation": "KIT 抑制劑(獸醫用)",
+              "known_for": "犬肥大細胞瘤(歐盟核准)",
+              "basis": "老藥新用的關鍵:toceranib(SU11654)本身就是人類藥 sunitinib(SU11248)的結構類似物,同為 KIT/VEGFR 抑制劑——犬肥大細胞瘤帶 KIT 活化突變,直接套用。",
+              "broken": false
+            }
+          },
+          {
+            "data": {
+              "id": "mct__ind-2",
+              "label": "犬肥大細胞瘤(歐盟核准)",
+              "ntype": "indication"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__sib-3",
+              "label": "dasatinib",
+              "ntype": "sibling",
+              "relation": "KIT / SRC 抑制劑",
+              "known_for": "人類 CML / Ph+ ALL(已核准)",
+              "basis": "老藥新用的關鍵:toceranib(SU11654)本身就是人類藥 sunitinib(SU11248)的結構類似物,同為 KIT/VEGFR 抑制劑——犬肥大細胞瘤帶 KIT 活化突變,直接套用。",
+              "broken": false
+            }
+          },
+          {
+            "data": {
+              "id": "mct__ind-3",
+              "label": "人類 CML / Ph+ ALL(已核准)",
+              "ntype": "indication"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__model-streptozocin",
+              "label": "streptozocin",
+              "ntype": "drug_model",
+              "cellline_pct": null,
+              "selective": false,
+              "mech": ""
+            }
+          },
+          {
+            "data": {
+              "id": "mct__model-vindesine",
+              "label": "vindesine",
+              "ntype": "drug_model",
+              "cellline_pct": null,
+              "selective": false,
+              "mech": ""
+            }
+          },
+          {
+            "data": {
+              "id": "mct__model-melphalan",
+              "label": "melphalan",
+              "ntype": "drug_model",
+              "cellline_pct": null,
+              "selective": false,
+              "mech": ""
+            }
+          },
+          {
+            "data": {
+              "id": "mct__model-dacarbazine",
+              "label": "dacarbazine",
+              "ntype": "drug_model",
+              "cellline_pct": null,
+              "selective": false,
+              "mech": ""
+            }
+          },
+          {
+            "data": {
+              "id": "mct__model-ranimustine",
+              "label": "ranimustine",
+              "ntype": "drug_model",
+              "cellline_pct": null,
+              "selective": false,
+              "mech": ""
+            }
+          }
+        ],
+        "edges": [
+          {
+            "data": {
+              "id": "mct__pet__mct__human",
+              "source": "mct__pet",
+              "target": "mct__human",
+              "label": "疾病橋接",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__human__mct__driver",
+              "source": "mct__human",
+              "target": "mct__driver",
+              "label": "driver 基因",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__driver__mct__pathway",
+              "source": "mct__driver",
+              "target": "mct__pathway",
+              "label": "活化",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__pathway__mct__rec-0-toceranib-palladia",
+              "source": "mct__pathway",
+              "target": "mct__rec-0-toceranib-palladia",
+              "label": "抑制 → 治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__rec-0-toceranib-palladia__mct__rec-0-toceranib-palladia__ev",
+              "source": "mct__rec-0-toceranib-palladia",
+              "target": "mct__rec-0-toceranib-palladia__ev",
+              "label": "已發表",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__sib-0__mct__ind-0",
+              "source": "mct__sib-0",
+              "target": "mct__ind-0",
+              "label": "已知治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__sib-0__mct__rec-0-toceranib-palladia",
+              "source": "mct__sib-0",
+              "target": "mct__rec-0-toceranib-palladia",
+              "label": "結構相似 → 老藥新用",
+              "etype": "sim"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__sib-1__mct__ind-1",
+              "source": "mct__sib-1",
+              "target": "mct__ind-1",
+              "label": "已知治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__sib-1__mct__rec-0-toceranib-palladia",
+              "source": "mct__sib-1",
+              "target": "mct__rec-0-toceranib-palladia",
+              "label": "結構相似 → 老藥新用",
+              "etype": "sim"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__sib-2__mct__ind-2",
+              "source": "mct__sib-2",
+              "target": "mct__ind-2",
+              "label": "已知治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__sib-2__mct__rec-0-toceranib-palladia",
+              "source": "mct__sib-2",
+              "target": "mct__rec-0-toceranib-palladia",
+              "label": "結構相似 → 老藥新用",
+              "etype": "sim"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__sib-3__mct__ind-3",
+              "source": "mct__sib-3",
+              "target": "mct__ind-3",
+              "label": "已知治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__sib-3__mct__rec-0-toceranib-palladia",
+              "source": "mct__sib-3",
+              "target": "mct__rec-0-toceranib-palladia",
+              "label": "結構相似 → 老藥新用",
+              "etype": "sim"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__pet__mct__model-streptozocin",
+              "source": "mct__pet",
+              "target": "mct__model-streptozocin",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__pet__mct__model-vindesine",
+              "source": "mct__pet",
+              "target": "mct__model-vindesine",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__pet__mct__model-melphalan",
+              "source": "mct__pet",
+              "target": "mct__model-melphalan",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__pet__mct__model-dacarbazine",
+              "source": "mct__pet",
+              "target": "mct__model-dacarbazine",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "mct__pet__mct__model-ranimustine",
+              "source": "mct__pet",
+              "target": "mct__model-ranimustine",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "hsa",
+      "pet_disease_zh": "犬 血管肉瘤",
+      "pet_disease_en": "Canine Hemangiosarcoma (HSA)",
+      "species": "dog",
+      "human_disease": "Angiosarcoma",
+      "human_mesh": "D006394",
+      "tier": "confirmed",
+      "tier_label": "可轉移 · 已有犬證據",
+      "tier_color": "#1a9850",
+      "tier_icon": "✅",
+      "storyline": "犬血管肉瘤 90% 以上有可標靶 driver:TP53 66%、PIK3CA 46%、NRAS 24%。真實世界基因-療效資料顯示 TP53 突變對 HDAC/mTOR 抑制反應好、PIK3CA 可標靶。",
+      "driver": {
+        "gene": "PIK3CA / TP53 / NRAS",
+        "variant": "PIK3CA 活化、TP53 失活、NRAS 活化",
+        "freq": "PIK3CA 46% · TP53 66% · NRAS 24%",
+        "note": "PIK3CA/PTEN 異常→PI3K 通路活化;NRAS→MAPK 活化;TP53 失活廣泛存在。與人類血管肉瘤分子亞型相似。",
+        "citation": {
+          "title": "Real-world genomic biomarkers & therapeutic outcomes in canine HSA (Sci Rep 2025)",
+          "url": "https://www.nature.com/articles/s41598-025-89862-9"
+        }
+      },
+      "pathway": "PI3K/AKT/mTOR · MAPK",
+      "analogy": {
+        "basis": "老藥新用的關鍵:犬血管肉瘤的 PIK3CA / mTOR driver,對應人類已成熟的 PI3K/mTOR 抑制劑——把這些老藥依分子標靶類比過來。",
+        "siblings": [
+          {
+            "drug": "alpelisib",
+            "relation": "PI3Kα 抑制劑(對應 PIK3CA 突變)",
+            "known_for": "人類 PIK3CA 突變乳癌(已核准)"
+          },
+          {
+            "drug": "copanlisib",
+            "relation": "pan-PI3K 抑制劑",
+            "known_for": "人類濾泡性淋巴瘤(已核准)"
+          },
+          {
+            "drug": "everolimus",
+            "relation": "mTOR 抑制劑(對應 TP53→mTOR 敏感)",
+            "known_for": "人類腎細胞癌 / 乳癌(已核准)"
+          },
+          {
+            "drug": "temsirolimus",
+            "relation": "rapamycin 衍生(mTOR)",
+            "known_for": "人類腎細胞癌(已核准)"
+          }
+        ]
+      },
+      "headline": [
+        {
+          "drug": "PI3K 抑制劑(PIK3CA 突變時)",
+          "rationale": "直接抑制 PIK3CA 活化突變驅動的 PI3K/AKT 通路。",
+          "evidence": "PIK3CA 為犬 HSA 最常見可標靶活化突變;標靶抑制劑於人類已進臨床,為犬 HSA 精準治療基礎。",
+          "citation": {
+            "title": "Actionable mutations in canine hemangiosarcoma (PLOS One 2017)",
+            "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0188667"
+          }
+        },
+        {
+          "drug": "mTOR / HDAC 抑制劑(TP53 突變時)",
+          "rationale": "TP53 突變腫瘤對 HDAC 或 mTOR 抑制較敏感。",
+          "evidence": "真實世界資料:帶 TP53 突變的犬 HSA 對 HDAC/mTOR 抑制反應較佳。",
+          "citation": {
+            "title": "Real-world genomic-therapeutic coupling in canine HSA (Sci Rep 2025)",
+            "url": "https://www.nature.com/articles/s41598-025-89862-9"
+          }
+        }
+      ],
+      "refuted_note": "",
+      "model_candidates": [
+        {
+          "drug": "ifosfamide",
+          "rank": 1,
+          "mechanism_support": "",
+          "cellline_pct": 5,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "paclitaxel",
+          "rank": 2,
+          "mechanism_support": "",
+          "cellline_pct": 97,
+          "selective": true,
+          "note": ""
+        },
+        {
+          "drug": "pomalidomide",
+          "rank": 3,
+          "mechanism_support": "",
+          "cellline_pct": null,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "etoposide",
+          "rank": 4,
+          "mechanism_support": "",
+          "cellline_pct": 85,
+          "selective": true,
+          "note": ""
+        },
+        {
+          "drug": "melphalan",
+          "rank": 5,
+          "mechanism_support": "",
+          "cellline_pct": 65,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "angiopeptin acetate",
+          "rank": 6,
+          "mechanism_support": "",
+          "cellline_pct": null,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "estradiol",
+          "rank": 7,
+          "mechanism_support": "",
+          "cellline_pct": null,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "clofazimine",
+          "rank": 8,
+          "mechanism_support": "",
+          "cellline_pct": null,
+          "selective": false,
+          "note": ""
+        }
+      ],
+      "sources": [
+        {
+          "title": "Actionable mutations in canine hemangiosarcoma (PLOS One 2017)",
+          "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0188667"
+        },
+        {
+          "title": "Real-world genomic biomarkers in canine HSA (Sci Rep 2025)",
+          "url": "https://www.nature.com/articles/s41598-025-89862-9"
+        }
+      ],
+      "graph": {
+        "nodes": [
+          {
+            "data": {
+              "id": "hsa__pet",
+              "label": "犬 血管肉瘤",
+              "ntype": "pet",
+              "sub": "Canine Hemangiosarcoma (HSA)",
+              "species": "dog"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__human",
+              "label": "Angiosarcoma",
+              "ntype": "human",
+              "sub": "D006394"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__driver",
+              "label": "PIK3CA / TP53 / NRAS",
+              "ntype": "driver",
+              "variant": "PIK3CA 活化、TP53 失活、NRAS 活化",
+              "freq": "PIK3CA 46% · TP53 66% · NRAS 24%",
+              "badge": "犬 PIK3CA 46% · TP53 66% · NRAS 24%",
+              "citation": {
+                "title": "Real-world genomic biomarkers & therapeutic outcomes in canine HSA (Sci Rep 2025)",
+                "url": "https://www.nature.com/articles/s41598-025-89862-9"
+              }
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__pathway",
+              "label": "PI3K/AKT/mTOR · MAPK",
+              "ntype": "pathway"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__rec-0-pi3k-pik3ca",
+              "label": "PI3K 抑制劑(PIK3CA 突變時)",
+              "ntype": "drug_rec",
+              "rationale": "直接抑制 PIK3CA 活化突變驅動的 PI3K/AKT 通路。",
+              "evidence": "PIK3CA 為犬 HSA 最常見可標靶活化突變;標靶抑制劑於人類已進臨床,為犬 HSA 精準治療基礎。",
+              "citation": {
+                "title": "Actionable mutations in canine hemangiosarcoma (PLOS One 2017)",
+                "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0188667"
+              }
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__rec-0-pi3k-pik3ca__ev",
+              "label": "犬證據",
+              "ntype": "evidence",
+              "text": "PIK3CA 為犬 HSA 最常見可標靶活化突變;標靶抑制劑於人類已進臨床,為犬 HSA 精準治療基礎。",
+              "citation": {
+                "title": "Actionable mutations in canine hemangiosarcoma (PLOS One 2017)",
+                "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0188667"
+              }
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__rec-1-mtor-hdac-tp53",
+              "label": "mTOR / HDAC 抑制劑(TP53 突變時)",
+              "ntype": "drug_rec",
+              "rationale": "TP53 突變腫瘤對 HDAC 或 mTOR 抑制較敏感。",
+              "evidence": "真實世界資料:帶 TP53 突變的犬 HSA 對 HDAC/mTOR 抑制反應較佳。",
+              "citation": {
+                "title": "Real-world genomic-therapeutic coupling in canine HSA (Sci Rep 2025)",
+                "url": "https://www.nature.com/articles/s41598-025-89862-9"
+              }
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__rec-1-mtor-hdac-tp53__ev",
+              "label": "犬證據",
+              "ntype": "evidence",
+              "text": "真實世界資料:帶 TP53 突變的犬 HSA 對 HDAC/mTOR 抑制反應較佳。",
+              "citation": {
+                "title": "Real-world genomic-therapeutic coupling in canine HSA (Sci Rep 2025)",
+                "url": "https://www.nature.com/articles/s41598-025-89862-9"
+              }
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__sib-0",
+              "label": "alpelisib",
+              "ntype": "sibling",
+              "relation": "PI3Kα 抑制劑(對應 PIK3CA 突變)",
+              "known_for": "人類 PIK3CA 突變乳癌(已核准)",
+              "basis": "老藥新用的關鍵:犬血管肉瘤的 PIK3CA / mTOR driver,對應人類已成熟的 PI3K/mTOR 抑制劑——把這些老藥依分子標靶類比過來。",
+              "broken": false
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__ind-0",
+              "label": "人類 PIK3CA 突變乳癌(已核准)",
+              "ntype": "indication"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__sib-1",
+              "label": "copanlisib",
+              "ntype": "sibling",
+              "relation": "pan-PI3K 抑制劑",
+              "known_for": "人類濾泡性淋巴瘤(已核准)",
+              "basis": "老藥新用的關鍵:犬血管肉瘤的 PIK3CA / mTOR driver,對應人類已成熟的 PI3K/mTOR 抑制劑——把這些老藥依分子標靶類比過來。",
+              "broken": false
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__ind-1",
+              "label": "人類濾泡性淋巴瘤(已核准)",
+              "ntype": "indication"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__sib-2",
+              "label": "everolimus",
+              "ntype": "sibling",
+              "relation": "mTOR 抑制劑(對應 TP53→mTOR 敏感)",
+              "known_for": "人類腎細胞癌 / 乳癌(已核准)",
+              "basis": "老藥新用的關鍵:犬血管肉瘤的 PIK3CA / mTOR driver,對應人類已成熟的 PI3K/mTOR 抑制劑——把這些老藥依分子標靶類比過來。",
+              "broken": false
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__ind-2",
+              "label": "人類腎細胞癌 / 乳癌(已核准)",
+              "ntype": "indication"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__sib-3",
+              "label": "temsirolimus",
+              "ntype": "sibling",
+              "relation": "rapamycin 衍生(mTOR)",
+              "known_for": "人類腎細胞癌(已核准)",
+              "basis": "老藥新用的關鍵:犬血管肉瘤的 PIK3CA / mTOR driver,對應人類已成熟的 PI3K/mTOR 抑制劑——把這些老藥依分子標靶類比過來。",
+              "broken": false
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__ind-3",
+              "label": "人類腎細胞癌(已核准)",
+              "ntype": "indication"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__model-ifosfamide",
+              "label": "ifosfamide  ·5%",
+              "ntype": "drug_model",
+              "cellline_pct": 5,
+              "selective": false,
+              "mech": ""
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__model-paclitaxel",
+              "label": "paclitaxel  ·97%",
+              "ntype": "drug_model",
+              "cellline_pct": 97,
+              "selective": true,
+              "mech": ""
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__model-pomalidomide",
+              "label": "pomalidomide",
+              "ntype": "drug_model",
+              "cellline_pct": null,
+              "selective": false,
+              "mech": ""
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__model-etoposide",
+              "label": "etoposide  ·85%",
+              "ntype": "drug_model",
+              "cellline_pct": 85,
+              "selective": true,
+              "mech": ""
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__model-melphalan",
+              "label": "melphalan  ·65%",
+              "ntype": "drug_model",
+              "cellline_pct": 65,
+              "selective": false,
+              "mech": ""
+            }
+          }
+        ],
+        "edges": [
+          {
+            "data": {
+              "id": "hsa__pet__hsa__human",
+              "source": "hsa__pet",
+              "target": "hsa__human",
+              "label": "疾病橋接",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__human__hsa__driver",
+              "source": "hsa__human",
+              "target": "hsa__driver",
+              "label": "driver 基因",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__driver__hsa__pathway",
+              "source": "hsa__driver",
+              "target": "hsa__pathway",
+              "label": "活化",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__pathway__hsa__rec-0-pi3k-pik3ca",
+              "source": "hsa__pathway",
+              "target": "hsa__rec-0-pi3k-pik3ca",
+              "label": "抑制 → 治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__rec-0-pi3k-pik3ca__hsa__rec-0-pi3k-pik3ca__ev",
+              "source": "hsa__rec-0-pi3k-pik3ca",
+              "target": "hsa__rec-0-pi3k-pik3ca__ev",
+              "label": "已發表",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__pathway__hsa__rec-1-mtor-hdac-tp53",
+              "source": "hsa__pathway",
+              "target": "hsa__rec-1-mtor-hdac-tp53",
+              "label": "抑制 → 治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__rec-1-mtor-hdac-tp53__hsa__rec-1-mtor-hdac-tp53__ev",
+              "source": "hsa__rec-1-mtor-hdac-tp53",
+              "target": "hsa__rec-1-mtor-hdac-tp53__ev",
+              "label": "已發表",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__sib-0__hsa__ind-0",
+              "source": "hsa__sib-0",
+              "target": "hsa__ind-0",
+              "label": "已知治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__sib-0__hsa__rec-0-pi3k-pik3ca",
+              "source": "hsa__sib-0",
+              "target": "hsa__rec-0-pi3k-pik3ca",
+              "label": "結構相似 → 老藥新用",
+              "etype": "sim"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__sib-1__hsa__ind-1",
+              "source": "hsa__sib-1",
+              "target": "hsa__ind-1",
+              "label": "已知治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__sib-1__hsa__rec-0-pi3k-pik3ca",
+              "source": "hsa__sib-1",
+              "target": "hsa__rec-0-pi3k-pik3ca",
+              "label": "結構相似 → 老藥新用",
+              "etype": "sim"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__sib-2__hsa__ind-2",
+              "source": "hsa__sib-2",
+              "target": "hsa__ind-2",
+              "label": "已知治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__sib-2__hsa__rec-0-pi3k-pik3ca",
+              "source": "hsa__sib-2",
+              "target": "hsa__rec-0-pi3k-pik3ca",
+              "label": "結構相似 → 老藥新用",
+              "etype": "sim"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__sib-3__hsa__ind-3",
+              "source": "hsa__sib-3",
+              "target": "hsa__ind-3",
+              "label": "已知治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__sib-3__hsa__rec-0-pi3k-pik3ca",
+              "source": "hsa__sib-3",
+              "target": "hsa__rec-0-pi3k-pik3ca",
+              "label": "結構相似 → 老藥新用",
+              "etype": "sim"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__pet__hsa__model-ifosfamide",
+              "source": "hsa__pet",
+              "target": "hsa__model-ifosfamide",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__pet__hsa__model-paclitaxel",
+              "source": "hsa__pet",
+              "target": "hsa__model-paclitaxel",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__pet__hsa__model-pomalidomide",
+              "source": "hsa__pet",
+              "target": "hsa__model-pomalidomide",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__pet__hsa__model-etoposide",
+              "source": "hsa__pet",
+              "target": "hsa__model-etoposide",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "hsa__pet__hsa__model-melphalan",
+              "source": "hsa__pet",
+              "target": "hsa__model-melphalan",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "osa",
+      "pet_disease_zh": "犬 骨肉瘤",
+      "pet_disease_en": "Canine Osteosarcoma (OSA)",
+      "species": "dog",
+      "human_disease": "Osteosarcoma",
+      "human_mesh": "D012516",
+      "tier": "conditional",
+      "tier_label": "有條件 · 需生物標記選病人",
+      "tier_color": "#f1a340",
+      "tier_icon": "⚠️",
+      "storyline": "犬骨肉瘤與人類共享 TP53/PTEN/mTOR driver,機制完全對得上 → mTOR 抑制劑。但 324 隻犬的 sirolimus 試驗『因為沒篩 mTOR 驅動個體而失敗』:機制對 ≠ 臨床有效,要先有生物標記選病人。",
+      "driver": {
+        "gene": "TP53 / PTEN / mTOR pathway",
+        "variant": "TP53 失活、PTEN 缺失、PI3K/mTOR 活化",
+        "freq": "與人類 OSA 共享(TP53/RB1/PTEN/MYC/MET)",
+        "note": "PI3K/AKT/mTOR 在人犬 OSA 皆常活化。但需分子分層才能預測 mTOR 抑制反應。",
+        "citation": {
+          "title": "Adjuvant sirolimus does not improve outcome in unselected canine OSA — RCT of 324 dogs (Clin Cancer Res 2021)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/33753454/"
+        }
+      },
+      "pathway": "PI3K/AKT/mTOR",
+      "analogy": {
+        "basis": "老藥新用的關鍵:sirolimus 與 everolimus/temsirolimus 同為 mTOR 抑制劑——犬骨肉瘤 mTOR 活化,類比人類腎癌的 mTOR 藥;但須先用生物標記選出 mTOR 驅動個體。",
+        "siblings": [
+          {
+            "drug": "everolimus",
+            "relation": "同為 mTOR 抑制劑",
+            "known_for": "人類腎細胞癌 / 乳癌(已核准)"
+          },
+          {
+            "drug": "temsirolimus",
+            "relation": "rapamycin 衍生物",
+            "known_for": "人類腎細胞癌(已核准)"
+          },
+          {
+            "drug": "ridaforolimus",
+            "relation": "mTOR 抑制劑(曾用於肉瘤試驗)",
+            "known_for": "人類肉瘤臨床試驗"
+          }
+        ]
+      },
+      "headline": [
+        {
+          "drug": "mTOR 抑制劑(sirolimus/rapamycin) — 僅限 mTOR 驅動個體",
+          "rationale": "抑制活化的 mTOR 通路;機制與犬 OSA driver 相符。",
+          "evidence": "⚠️ 未做基因篩選的 324 犬輔助性 sirolimus 隨機試驗未改善存活 → 需先以生物標記選出 mTOR 驅動者。臨床前細胞株/模型支持 mTOR 標靶。",
+          "citation": {
+            "title": "Adjuvant sirolimus RCT in canine OSA (Clin Cancer Res 2021)",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/33753454/"
+          }
+        }
+      ],
+      "refuted_note": "",
+      "model_candidates": [
+        {
+          "drug": "paclitaxel",
+          "rank": 1,
+          "mechanism_support": "機制支持",
+          "cellline_pct": 96,
+          "selective": true,
+          "note": ""
+        },
+        {
+          "drug": "etoposide",
+          "rank": 2,
+          "mechanism_support": "機制支持",
+          "cellline_pct": 81,
+          "selective": true,
+          "note": ""
+        },
+        {
+          "drug": "ibuprofen",
+          "rank": 3,
+          "mechanism_support": "機制支持",
+          "cellline_pct": null,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "ketoprofen",
+          "rank": 4,
+          "mechanism_support": "機制支持",
+          "cellline_pct": 51,
+          "selective": false,
+          "note": "NSAID/COX-2 機制,細胞毒篩照不到"
+        },
+        {
+          "drug": "piroxicam",
+          "rank": 5,
+          "mechanism_support": "機制支持",
+          "cellline_pct": 18,
+          "selective": false,
+          "note": "NSAID/COX-2 機制,細胞毒篩照不到"
+        },
+        {
+          "drug": "captopril",
+          "rank": 6,
+          "mechanism_support": "機制支持",
+          "cellline_pct": null,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "ciloprost",
+          "rank": 7,
+          "mechanism_support": "",
+          "cellline_pct": null,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "eltrombopag",
+          "rank": 8,
+          "mechanism_support": "",
+          "cellline_pct": 73,
+          "selective": false,
+          "note": ""
+        }
+      ],
+      "sources": [
+        {
+          "title": "Adjuvant sirolimus RCT in 324 dogs with OSA (Clin Cancer Res 2021)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/33753454/"
+        },
+        {
+          "title": "Genomic characterization of canine osteosarcoma cell lines (Front Vet Sci 2021)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8165228/"
+        }
+      ],
+      "graph": {
+        "nodes": [
+          {
+            "data": {
+              "id": "osa__pet",
+              "label": "犬 骨肉瘤",
+              "ntype": "pet",
+              "sub": "Canine Osteosarcoma (OSA)",
+              "species": "dog"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__human",
+              "label": "Osteosarcoma",
+              "ntype": "human",
+              "sub": "D012516"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__driver",
+              "label": "TP53 / PTEN / mTOR pathway",
+              "ntype": "driver",
+              "variant": "TP53 失活、PTEN 缺失、PI3K/mTOR 活化",
+              "freq": "與人類 OSA 共享(TP53/RB1/PTEN/MYC/MET)",
+              "badge": "犬 與人類 OSA 共享(TP53/RB1/PTEN/MYC/MET)",
+              "citation": {
+                "title": "Adjuvant sirolimus does not improve outcome in unselected canine OSA — RCT of 324 dogs (Clin Cancer Res 2021)",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/33753454/"
+              }
+            }
+          },
+          {
+            "data": {
+              "id": "osa__pathway",
+              "label": "PI3K/AKT/mTOR",
+              "ntype": "pathway"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__rec-0-mtor-sirolimus-rapamycin-mtor",
+              "label": "mTOR 抑制劑(sirolimus/rapamycin) — 僅限 mTOR 驅動個體",
+              "ntype": "drug_rec",
+              "rationale": "抑制活化的 mTOR 通路;機制與犬 OSA driver 相符。",
+              "evidence": "⚠️ 未做基因篩選的 324 犬輔助性 sirolimus 隨機試驗未改善存活 → 需先以生物標記選出 mTOR 驅動者。臨床前細胞株/模型支持 mTOR 標靶。",
+              "citation": {
+                "title": "Adjuvant sirolimus RCT in canine OSA (Clin Cancer Res 2021)",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/33753454/"
+              }
+            }
+          },
+          {
+            "data": {
+              "id": "osa__rec-0-mtor-sirolimus-rapamycin-mtor__ev",
+              "label": "犬證據",
+              "ntype": "evidence",
+              "text": "⚠️ 未做基因篩選的 324 犬輔助性 sirolimus 隨機試驗未改善存活 → 需先以生物標記選出 mTOR 驅動者。臨床前細胞株/模型支持 mTOR 標靶。",
+              "citation": {
+                "title": "Adjuvant sirolimus RCT in canine OSA (Clin Cancer Res 2021)",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/33753454/"
+              }
+            }
+          },
+          {
+            "data": {
+              "id": "osa__sib-0",
+              "label": "everolimus",
+              "ntype": "sibling",
+              "relation": "同為 mTOR 抑制劑",
+              "known_for": "人類腎細胞癌 / 乳癌(已核准)",
+              "basis": "老藥新用的關鍵:sirolimus 與 everolimus/temsirolimus 同為 mTOR 抑制劑——犬骨肉瘤 mTOR 活化,類比人類腎癌的 mTOR 藥;但須先用生物標記選出 mTOR 驅動個體。",
+              "broken": false
+            }
+          },
+          {
+            "data": {
+              "id": "osa__ind-0",
+              "label": "人類腎細胞癌 / 乳癌(已核准)",
+              "ntype": "indication"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__sib-1",
+              "label": "temsirolimus",
+              "ntype": "sibling",
+              "relation": "rapamycin 衍生物",
+              "known_for": "人類腎細胞癌(已核准)",
+              "basis": "老藥新用的關鍵:sirolimus 與 everolimus/temsirolimus 同為 mTOR 抑制劑——犬骨肉瘤 mTOR 活化,類比人類腎癌的 mTOR 藥;但須先用生物標記選出 mTOR 驅動個體。",
+              "broken": false
+            }
+          },
+          {
+            "data": {
+              "id": "osa__ind-1",
+              "label": "人類腎細胞癌(已核准)",
+              "ntype": "indication"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__sib-2",
+              "label": "ridaforolimus",
+              "ntype": "sibling",
+              "relation": "mTOR 抑制劑(曾用於肉瘤試驗)",
+              "known_for": "人類肉瘤臨床試驗",
+              "basis": "老藥新用的關鍵:sirolimus 與 everolimus/temsirolimus 同為 mTOR 抑制劑——犬骨肉瘤 mTOR 活化,類比人類腎癌的 mTOR 藥;但須先用生物標記選出 mTOR 驅動個體。",
+              "broken": false
+            }
+          },
+          {
+            "data": {
+              "id": "osa__ind-2",
+              "label": "人類肉瘤臨床試驗",
+              "ntype": "indication"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__model-paclitaxel",
+              "label": "paclitaxel  ·96%",
+              "ntype": "drug_model",
+              "cellline_pct": 96,
+              "selective": true,
+              "mech": "機制支持"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__model-etoposide",
+              "label": "etoposide  ·81%",
+              "ntype": "drug_model",
+              "cellline_pct": 81,
+              "selective": true,
+              "mech": "機制支持"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__model-ibuprofen",
+              "label": "ibuprofen",
+              "ntype": "drug_model",
+              "cellline_pct": null,
+              "selective": false,
+              "mech": "機制支持"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__model-ketoprofen",
+              "label": "ketoprofen  ·51%",
+              "ntype": "drug_model",
+              "cellline_pct": 51,
+              "selective": false,
+              "mech": "機制支持"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__model-piroxicam",
+              "label": "piroxicam  ·18%",
+              "ntype": "drug_model",
+              "cellline_pct": 18,
+              "selective": false,
+              "mech": "機制支持"
+            }
+          }
+        ],
+        "edges": [
+          {
+            "data": {
+              "id": "osa__pet__osa__human",
+              "source": "osa__pet",
+              "target": "osa__human",
+              "label": "疾病橋接",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__human__osa__driver",
+              "source": "osa__human",
+              "target": "osa__driver",
+              "label": "driver 基因",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__driver__osa__pathway",
+              "source": "osa__driver",
+              "target": "osa__pathway",
+              "label": "活化",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__pathway__osa__rec-0-mtor-sirolimus-rapamycin-mtor",
+              "source": "osa__pathway",
+              "target": "osa__rec-0-mtor-sirolimus-rapamycin-mtor",
+              "label": "抑制 → 治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__rec-0-mtor-sirolimus-rapamycin-mtor__osa__rec-0-mtor-sirolimus-rapamycin-mtor__ev",
+              "source": "osa__rec-0-mtor-sirolimus-rapamycin-mtor",
+              "target": "osa__rec-0-mtor-sirolimus-rapamycin-mtor__ev",
+              "label": "已發表",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__sib-0__osa__ind-0",
+              "source": "osa__sib-0",
+              "target": "osa__ind-0",
+              "label": "已知治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__sib-0__osa__rec-0-mtor-sirolimus-rapamycin-mtor",
+              "source": "osa__sib-0",
+              "target": "osa__rec-0-mtor-sirolimus-rapamycin-mtor",
+              "label": "結構相似 → 老藥新用",
+              "etype": "sim"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__sib-1__osa__ind-1",
+              "source": "osa__sib-1",
+              "target": "osa__ind-1",
+              "label": "已知治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__sib-1__osa__rec-0-mtor-sirolimus-rapamycin-mtor",
+              "source": "osa__sib-1",
+              "target": "osa__rec-0-mtor-sirolimus-rapamycin-mtor",
+              "label": "結構相似 → 老藥新用",
+              "etype": "sim"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__sib-2__osa__ind-2",
+              "source": "osa__sib-2",
+              "target": "osa__ind-2",
+              "label": "已知治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__sib-2__osa__rec-0-mtor-sirolimus-rapamycin-mtor",
+              "source": "osa__sib-2",
+              "target": "osa__rec-0-mtor-sirolimus-rapamycin-mtor",
+              "label": "結構相似 → 老藥新用",
+              "etype": "sim"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__pet__osa__model-paclitaxel",
+              "source": "osa__pet",
+              "target": "osa__model-paclitaxel",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__pet__osa__model-etoposide",
+              "source": "osa__pet",
+              "target": "osa__model-etoposide",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__pet__osa__model-ibuprofen",
+              "source": "osa__pet",
+              "target": "osa__model-ibuprofen",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__pet__osa__model-ketoprofen",
+              "source": "osa__pet",
+              "target": "osa__model-ketoprofen",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "osa__pet__osa__model-piroxicam",
+              "source": "osa__pet",
+              "target": "osa__model-piroxicam",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "melanoma",
+      "pet_disease_zh": "犬 口腔黑色素瘤",
+      "pet_disease_en": "Canine Oral Melanoma",
+      "species": "dog",
+      "human_disease": "Melanoma (cutaneous/mucosal)",
+      "human_mesh": "D008545",
+      "tier": "refuted",
+      "tier_label": "不轉移 · 證據反對",
+      "tier_color": "#d73027",
+      "tier_icon": "❌",
+      "storyline": "誠實負例:人類黑色素瘤是 BRAF/MEK 引擎、BRAF 抑制劑神效;但犬口腔黑色素瘤『幾乎全 BRAF 野生型』(~3–6%)→ 人類 BRAF 訊號不轉移。閘門主動把它標為『不可轉移』——證明這方法會證偽,不是事後合理化。",
+      "driver": {
+        "gene": "BRAF (野生型)",
+        "variant": "犬幾乎無 BRAF V600E;NRAS ~11%,MAPK 由其他機制活化",
+        "freq": "BRAF ~3–6%(野生型為主)",
+        "note": "犬黑色素瘤分子驅動與人類皮膚黑色素瘤分歧 → 人類 oracle 的 BRAF/MEK 預測在此會落空。",
+        "citation": {
+          "title": "Cross-species genomic landscape: human vs canine/equine melanoma (Nat Commun 2019)",
+          "url": "https://www.nature.com/articles/s41467-018-08081-1"
+        }
+      },
+      "pathway": "MAPK(非 BRAF 驅動)",
+      "analogy": {
+        "basis": "⚠️ 類比在此斷裂:人類黑色素瘤的成熟藥 vemurafenib/dabrafenib 靠 BRAF V600E 起效,但犬黑色素瘤幾乎全 BRAF 野生型——結構再像的 BRAF 藥也沒有 driver 可打,『結構相似』救不了缺 driver。",
+        "siblings": [
+          {
+            "drug": "vemurafenib",
+            "relation": "人類 BRAF 標準藥;但犬缺 BRAF driver",
+            "known_for": "人類 BRAF V600E 黑色素瘤",
+            "broken": true
+          },
+          {
+            "drug": "dabrafenib",
+            "relation": "另一 BRAF 抑制劑;犬同樣無 BRAF V600E 可打",
+            "known_for": "人類 BRAF 黑色素瘤",
+            "broken": true
+          }
+        ]
+      },
+      "headline": [],
+      "refuted_note": "不建議套用人類黑色素瘤的 BRAF/MEK 抑制劑——犬腫瘤缺該 driver。需另尋犬特有驅動機制。",
+      "model_candidates": [
+        {
+          "drug": "oxymetholone",
+          "rank": 1,
+          "mechanism_support": "機制支持",
+          "cellline_pct": null,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "busulfan",
+          "rank": 2,
+          "mechanism_support": "",
+          "cellline_pct": 58,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "benzenebutanoic acid",
+          "rank": 3,
+          "mechanism_support": "",
+          "cellline_pct": null,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "dacarbazine",
+          "rank": 4,
+          "mechanism_support": "",
+          "cellline_pct": 44,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "venetoclax",
+          "rank": 5,
+          "mechanism_support": "機制支持",
+          "cellline_pct": 32,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "pentostatin",
+          "rank": 6,
+          "mechanism_support": "機制支持",
+          "cellline_pct": 21,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "arginine glutamate",
+          "rank": 7,
+          "mechanism_support": "",
+          "cellline_pct": null,
+          "selective": false,
+          "note": ""
+        },
+        {
+          "drug": "pipobroman",
+          "rank": 8,
+          "mechanism_support": "",
+          "cellline_pct": null,
+          "selective": false,
+          "note": ""
+        }
+      ],
+      "sources": [
+        {
+          "title": "Cross-species genomic comparison of melanoma (Nat Commun 2019)",
+          "url": "https://www.nature.com/articles/s41467-018-08081-1"
+        },
+        {
+          "title": "BRAF mutations in canine cancers (PLOS One 2015)",
+          "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0129534"
+        }
+      ],
+      "graph": {
+        "nodes": [
+          {
+            "data": {
+              "id": "melanoma__pet",
+              "label": "犬 口腔黑色素瘤",
+              "ntype": "pet",
+              "sub": "Canine Oral Melanoma",
+              "species": "dog"
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__human",
+              "label": "Melanoma (cutaneous/mucosal)",
+              "ntype": "human",
+              "sub": "D008545"
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__driver",
+              "label": "BRAF (野生型)",
+              "ntype": "driver_refuted",
+              "variant": "犬幾乎無 BRAF V600E;NRAS ~11%,MAPK 由其他機制活化",
+              "freq": "BRAF ~3–6%(野生型為主)",
+              "badge": "犬 BRAF ~3–6%(野生型為主)",
+              "citation": {
+                "title": "Cross-species genomic landscape: human vs canine/equine melanoma (Nat Commun 2019)",
+                "url": "https://www.nature.com/articles/s41467-018-08081-1"
+              }
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__pathway",
+              "label": "MAPK(非 BRAF 驅動)",
+              "ntype": "pathway"
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__refuted",
+              "label": "✗ 不轉移",
+              "ntype": "refuted",
+              "note": "不建議套用人類黑色素瘤的 BRAF/MEK 抑制劑——犬腫瘤缺該 driver。需另尋犬特有驅動機制。"
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__sib-0",
+              "label": "vemurafenib",
+              "ntype": "sibling",
+              "relation": "人類 BRAF 標準藥;但犬缺 BRAF driver",
+              "known_for": "人類 BRAF V600E 黑色素瘤",
+              "basis": "⚠️ 類比在此斷裂:人類黑色素瘤的成熟藥 vemurafenib/dabrafenib 靠 BRAF V600E 起效,但犬黑色素瘤幾乎全 BRAF 野生型——結構再像的 BRAF 藥也沒有 driver 可打,『結構相似』救不了缺 driver。",
+              "broken": true
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__ind-0",
+              "label": "人類 BRAF V600E 黑色素瘤",
+              "ntype": "indication"
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__sib-1",
+              "label": "dabrafenib",
+              "ntype": "sibling",
+              "relation": "另一 BRAF 抑制劑;犬同樣無 BRAF V600E 可打",
+              "known_for": "人類 BRAF 黑色素瘤",
+              "basis": "⚠️ 類比在此斷裂:人類黑色素瘤的成熟藥 vemurafenib/dabrafenib 靠 BRAF V600E 起效,但犬黑色素瘤幾乎全 BRAF 野生型——結構再像的 BRAF 藥也沒有 driver 可打,『結構相似』救不了缺 driver。",
+              "broken": true
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__ind-1",
+              "label": "人類 BRAF 黑色素瘤",
+              "ntype": "indication"
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__model-oxymetholone",
+              "label": "oxymetholone",
+              "ntype": "drug_model",
+              "cellline_pct": null,
+              "selective": false,
+              "mech": "機制支持"
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__model-busulfan",
+              "label": "busulfan  ·58%",
+              "ntype": "drug_model",
+              "cellline_pct": 58,
+              "selective": false,
+              "mech": ""
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__model-benzenebutanoic-acid",
+              "label": "benzenebutanoic acid",
+              "ntype": "drug_model",
+              "cellline_pct": null,
+              "selective": false,
+              "mech": ""
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__model-dacarbazine",
+              "label": "dacarbazine  ·44%",
+              "ntype": "drug_model",
+              "cellline_pct": 44,
+              "selective": false,
+              "mech": ""
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__model-venetoclax",
+              "label": "venetoclax  ·32%",
+              "ntype": "drug_model",
+              "cellline_pct": 32,
+              "selective": false,
+              "mech": "機制支持"
+            }
+          }
+        ],
+        "edges": [
+          {
+            "data": {
+              "id": "melanoma__pet__melanoma__human",
+              "source": "melanoma__pet",
+              "target": "melanoma__human",
+              "label": "疾病橋接",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__human__melanoma__driver",
+              "source": "melanoma__human",
+              "target": "melanoma__driver",
+              "label": "driver 基因",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__driver__melanoma__pathway",
+              "source": "melanoma__driver",
+              "target": "melanoma__pathway",
+              "label": "(非此驅動)",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__pathway__melanoma__refuted",
+              "source": "melanoma__pathway",
+              "target": "melanoma__refuted",
+              "label": "閘門判定",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__sib-0__melanoma__ind-0",
+              "source": "melanoma__sib-0",
+              "target": "melanoma__ind-0",
+              "label": "已知治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__sib-0__melanoma__driver",
+              "source": "melanoma__sib-0",
+              "target": "melanoma__driver",
+              "label": "結構相似但無 driver",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__sib-1__melanoma__ind-1",
+              "source": "melanoma__sib-1",
+              "target": "melanoma__ind-1",
+              "label": "已知治療",
+              "etype": "solid"
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__sib-1__melanoma__driver",
+              "source": "melanoma__sib-1",
+              "target": "melanoma__driver",
+              "label": "結構相似但無 driver",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__pet__melanoma__model-oxymetholone",
+              "source": "melanoma__pet",
+              "target": "melanoma__model-oxymetholone",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__pet__melanoma__model-busulfan",
+              "source": "melanoma__pet",
+              "target": "melanoma__model-busulfan",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__pet__melanoma__model-benzenebutanoic-acid",
+              "source": "melanoma__pet",
+              "target": "melanoma__model-benzenebutanoic-acid",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__pet__melanoma__model-dacarbazine",
+              "source": "melanoma__pet",
+              "target": "melanoma__model-dacarbazine",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          },
+          {
+            "data": {
+              "id": "melanoma__pet__melanoma__model-venetoclax",
+              "source": "melanoma__pet",
+              "target": "melanoma__model-venetoclax",
+              "label": "模型初篩",
+              "etype": "dashed"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

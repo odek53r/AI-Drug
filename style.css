@@ -1,0 +1,79 @@
+:root{
+  --pet:#0f9b8e; --human:#2b6cb0; --driver:#1a9850; --driver-refuted:#9aa0a6;
+  --pathway:#7b5ea7; --drug-rec:#e8821a; --evidence:#5aa469; --drug-model:#b9c0c8;
+  --refuted:#d73027;
+  --bg:#0f1720; --panel:#16202b; --panel2:#1c2935; --ink:#e7edf3; --muted:#9fb0c0;
+  --line:#2a3a49; --accent:#36c5b0;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+body{display:flex;flex-direction:column;height:100vh;overflow:hidden}
+
+/* header */
+#topbar{padding:10px 18px;background:linear-gradient(90deg,#14202c,#16202b);border-bottom:1px solid var(--line);flex:0 0 auto}
+.brand{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+#app-title{margin:0;font-size:19px;letter-spacing:.5px}
+#app-subtitle{margin:0;color:var(--muted);font-size:13px}
+.story{margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px}
+.story-step{background:var(--panel2);border:1px solid var(--line);border-radius:20px;padding:4px 12px;color:var(--ink)}
+.story .arrow{color:var(--accent);font-weight:700}
+
+/* layout */
+#layout{flex:1 1 auto;display:grid;grid-template-columns:300px 1fr 360px;gap:1px;background:var(--line);min-height:0}
+aside,section{background:var(--panel);overflow-y:auto;min-height:0}
+#center{display:flex;flex-direction:column;overflow:hidden}
+.panel-title{font-size:13px;text-transform:none;color:var(--muted);margin:14px 14px 8px;font-weight:600;letter-spacing:.3px}
+
+/* disease list */
+#disease-list{padding:0 10px}
+.disease-item{display:flex;align-items:center;gap:8px;padding:10px 12px;margin:6px 0;border:1px solid var(--line);border-radius:10px;cursor:pointer;background:var(--panel2);transition:.15s}
+.disease-item:hover{border-color:var(--accent)}
+.disease-item.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset;background:#1a2c33}
+.disease-item .di-icon{font-size:16px}
+.disease-item .di-name{font-size:14px;font-weight:600}
+.disease-item .di-sub{font-size:11px;color:var(--muted)}
+
+/* candidate list */
+#candidate-list{padding:0 10px 16px}
+.cand{padding:8px 10px;margin:5px 0;border:1px solid var(--line);border-radius:8px;background:var(--panel2);cursor:pointer;transition:.15s}
+.cand:hover{border-color:var(--accent)}
+.cand.headline{border-color:var(--drug-rec);background:#2a2114}
+.cand-top{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.cand-name{font-size:13px;font-weight:600}
+.cand-tag{font-size:10px;padding:1px 7px;border-radius:10px;background:var(--drug-rec);color:#000;font-weight:700}
+.cand-tag.mech{background:#2b6cb0;color:#fff}
+.cand-bar{height:5px;border-radius:3px;background:#0c1218;margin-top:6px;overflow:hidden}
+.cand-bar > i{display:block;height:100%;background:linear-gradient(90deg,#3a7,#6c9)}
+.cand-meta{font-size:11px;color:var(--muted);margin-top:4px}
+
+/* storyline + tier */
+#storyline{margin:0 14px 6px;font-size:12.5px;color:var(--ink);background:var(--panel2);border-left:3px solid var(--accent);padding:8px 12px;border-radius:0 8px 8px 0;line-height:1.6}
+#center-head{display:flex;justify-content:space-between;align-items:center;padding-right:14px}
+#tier-badge{font-size:12px;font-weight:700;padding:3px 12px;border-radius:14px;color:#04130c}
+
+/* graph */
+#cy{flex:1 1 auto;min-height:0;margin:6px 12px;border:1px solid var(--line);border-radius:10px;background:radial-gradient(circle at 30% 20%,#152230,#0e1620)}
+#legend{flex:0 0 auto;display:flex;gap:6px;flex-wrap:wrap;padding:8px 14px}
+.lg{font-size:10.5px;padding:2px 9px;border-radius:10px;color:#06121a;font-weight:700}
+.lg-pet{background:var(--pet)} .lg-human{background:var(--human);color:#fff} .lg-driver{background:var(--driver)}
+.lg-pathway{background:var(--pathway);color:#fff} .lg-drug_rec{background:var(--drug-rec)}
+.lg-evidence{background:var(--evidence)} .lg-drug_model{background:var(--drug-model)}
+.lg-sibling{background:#4f8cd9;color:#fff} .lg-indication{background:#5b6b7b;color:#fff}
+
+/* evidence panel */
+#evidence-panel{padding:0 14px 18px}
+.hint{color:var(--muted);font-size:13px;line-height:1.7}
+.ev-head{display:flex;align-items:center;gap:8px;margin:6px 0 10px}
+.ev-kind{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:700}
+.ev-title{font-size:17px;font-weight:700}
+.ev-row{margin:10px 0;font-size:13px;line-height:1.7}
+.ev-row .k{color:var(--muted);font-size:11px;display:block;margin-bottom:2px;letter-spacing:.3px}
+.ev-badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:12px;margin-bottom:8px}
+.cite{display:block;margin-top:8px;padding:8px 10px;background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:12.5px}
+.cite a{color:var(--accent);text-decoration:none;word-break:break-all}
+.cite a:hover{text-decoration:underline}
+.sources-block{margin-top:16px;border-top:1px dashed var(--line);padding-top:10px}
+.sources-block h4{margin:0 0 6px;font-size:12px;color:var(--muted)}
+
+/* footer */
+#footer{flex:0 0 auto;padding:6px 18px;background:#0d161e;border-top:1px solid var(--line);font-size:11px;color:var(--muted)}

@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "title": "老藥新用 · 寵物腫瘤 — 跨物種分子證據鏈",
+    "subtitle": "輸入寵物癌症 → 以『犬腫瘤 driver ∩ 既有犬藥物反應』找線索 → 輸出有文獻可追溯的候選藥",
+    "method_note": "證據鏈核心:藥打的是 driver(分子引擎),不是癌的名字。只有當犬腫瘤實際帶同一個 driver 時,人類的藥才轉移得過去。本 Demo 每條推薦皆附已發表文獻,無需我方濕實驗。",
+    "tiers": {
+      "confirmed": {"label": "可轉移 · 已有犬證據", "color": "#1a9850", "icon": "✅"},
+      "conditional": {"label": "有條件 · 需生物標記選病人", "color": "#f1a340", "icon": "⚠️"},
+      "refuted": {"label": "不轉移 · 證據反對", "color": "#d73027", "icon": "❌"}
+    }
+  },
+  "diseases": [
+    {
+      "id": "bladder",
+      "pet_candidate_key": "Urinary Bladder Neoplasms",
+      "analogy": {
+        "basis": "老藥新用的關鍵:sorafenib 與人類 BRAF 標準藥 vemurafenib 同屬 RAF 激酶抑制劑——犬膀胱癌帶同源 BRAF V595E,等於把成熟人藥『結構/標靶類比』過來(犬細胞株顯示 sorafenib 甚至優於 vemurafenib)。",
+        "siblings": [
+          {"drug": "vemurafenib", "relation": "BRAF V600E 抑制劑(同 RAF 標靶)", "known_for": "人類 BRAF V600E 黑色素瘤(已核准)"},
+          {"drug": "dabrafenib", "relation": "BRAF 抑制劑", "known_for": "人類 BRAF 黑色素瘤 / 非小細胞肺癌(已核准)"},
+          {"drug": "encorafenib", "relation": "BRAF 抑制劑", "known_for": "人類 BRAF 黑色素瘤 / 大腸癌(已核准)"},
+          {"drug": "regorafenib", "relation": "sorafenib 結構類似物(multikinase)", "known_for": "人類大腸癌 / GIST / 肝癌"}
+        ]
+      },
+      "pet_disease_zh": "犬 膀胱泌尿上皮癌",
+      "pet_disease_en": "Canine Bladder / Urothelial Carcinoma (TCC)",
+      "species": "dog",
+      "human_disease": "Urothelial / Bladder Carcinoma",
+      "human_mesh": "D001749",
+      "tier": "confirmed",
+      "storyline": "犬膀胱癌 80% 帶 BRAF V595E(等同人類 V600E)——這個 driver 人類膀胱癌沒有,所以純人類細胞株 oracle 反而漏掉;靠犬基因體才抓到 → sorafenib。",
+      "driver": {
+        "gene": "BRAF",
+        "variant": "V595E",
+        "freq": "~80%",
+        "note": "犬泌尿上皮癌特有 driver,與人類 BRAF V600E 同源。人類膀胱癌非 BRAF 驅動,故人類細胞株 oracle 漏報;必須以犬基因體為準。",
+        "citation": {"title": "Canine TCC cell lines harboring BRAF V595E as therapeutic target (Int J Mol Sci 2021)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8430554/"}
+      },
+      "pathway": "BRAF → MAPK/ERK",
+      "recommended": [
+        {
+          "drug": "sorafenib",
+          "rationale": "RAF/VEGFR 多激酶抑制劑,直接抑制 BRAF/MAPK 通路。",
+          "evidence": "犬 TCC 細胞株對 sorafenib 比 vemurafenib 更敏感,可誘導凋亡(in vitro)。",
+          "citation": {"title": "Sorafenib inhibits BRAF/MAPK in canine TCC cell lines (IJMS 2021)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8430554/"}
+        }
+      ],
+      "sources": [
+        {"title": "Canine TCC BRAF V595E cell lines as therapeutic target (IJMS 2021)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8430554/"},
+        {"title": "BRAF V595E IHC detection in canine urothelial/prostate carcinoma (Vet Comp Oncol 2024)", "url": "https://onlinelibrary.wiley.com/doi/full/10.1111/vco.12978"}
+      ],
+      "model_candidate_scores": {
+        "teniposide": {"cellline_pct": 93, "selective": true},
+        "mebendazole": {"cellline_pct": 76, "selective": true},
+        "melphalan": {"cellline_pct": 54},
+        "fludarabine": {"cellline_pct": 56},
+        "imatinib": {"cellline_pct": 42},
+        "carmustine": {"cellline_pct": 7}
+      }
+    },
+    {
+      "id": "mct",
+      "pet_candidate_key": "Leukemia, Mast-Cell",
+      "analogy": {
+        "basis": "老藥新用的關鍵:toceranib(SU11654)本身就是人類藥 sunitinib(SU11248)的結構類似物,同為 KIT/VEGFR 抑制劑——犬肥大細胞瘤帶 KIT 活化突變,直接套用。",
+        "siblings": [
+          {"drug": "sunitinib", "relation": "近乎同骨架(SU 系列類似物)", "known_for": "人類 GIST / 腎細胞癌(KIT/VEGFR 驅動)"},
+          {"drug": "imatinib", "relation": "KIT / PDGFR 抑制劑", "known_for": "人類 GIST / 慢性骨髓性白血病(已核准)"},
+          {"drug": "masitinib", "relation": "KIT 抑制劑(獸醫用)", "known_for": "犬肥大細胞瘤(歐盟核准)"},
+          {"drug": "dasatinib", "relation": "KIT / SRC 抑制劑", "known_for": "人類 CML / Ph+ ALL(已核准)"}
+        ]
+      },
+      "pet_disease_zh": "犬 肥大細胞瘤",
+      "pet_disease_en": "Canine Mast Cell Tumor (MCT)",
+      "species": "dog",
+      "human_disease": "Mastocytosis / Mast cell neoplasm",
+      "human_mesh": "D034721",
+      "tier": "confirmed",
+      "storyline": "約 1/3 犬肥大細胞瘤帶 KIT 活化突變 → KIT 抑制劑 toceranib 已是 FDA 核准犬藥,隨機對照試驗反應率約 40%。這是『活體犬證實』的最強案例。",
+      "driver": {
+        "gene": "KIT",
+        "variant": "exon 11 / juxtamembrane 活化突變",
+        "freq": "~33%",
+        "note": "KIT 受體酪胺酸激酶活化突變導致配體無關的持續磷酸化,驅動腫瘤。",
+        "citation": {"title": "Toceranib phosphate RCT in canine MCT — KIT mutation & response (Clin Cancer Res 2009)", "url": "https://aacrjournals.org/clincancerres/article/15/11/3856/73614/"}
+      },
+      "pathway": "KIT → PI3K/MAPK",
+      "recommended": [
+        {
+          "drug": "toceranib (Palladia)",
+          "rationale": "VEGFR/PDGFR/KIT 酪胺酸激酶抑制劑,直接抑制活化的 KIT。",
+          "evidence": "FDA 核准犬肥大細胞瘤藥;多中心隨機雙盲對照試驗客觀反應率 37–43%(對照安慰劑 ~8%)。",
+          "citation": {"title": "Multi-center placebo-controlled RCT of oral toceranib for canine MCT (Clin Cancer Res 2009)", "url": "https://aacrjournals.org/clincancerres/article/15/11/3856/73614/"}
+        }
+      ],
+      "sources": [
+        {"title": "Toceranib (Palladia) RCT for canine MCT (Clin Cancer Res 2009)", "url": "https://aacrjournals.org/clincancerres/article/15/11/3856/73614/"},
+        {"title": "Tyrosine kinase inhibitors in canine mast cell tumor (review, 2023)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10285312/"}
+      ],
+      "model_candidate_scores": {
+        "topotecan": {},
+        "melphalan": {},
+        "dacarbazine": {},
+        "vindesine": {}
+      }
+    },
+    {
+      "id": "hsa",
+      "pet_candidate_key": "Hemangiosarcoma",
+      "analogy": {
+        "basis": "老藥新用的關鍵:犬血管肉瘤的 PIK3CA / mTOR driver,對應人類已成熟的 PI3K/mTOR 抑制劑——把這些老藥依分子標靶類比過來。",
+        "siblings": [
+          {"drug": "alpelisib", "relation": "PI3Kα 抑制劑(對應 PIK3CA 突變)", "known_for": "人類 PIK3CA 突變乳癌(已核准)"},
+          {"drug": "copanlisib", "relation": "pan-PI3K 抑制劑", "known_for": "人類濾泡性淋巴瘤(已核准)"},
+          {"drug": "everolimus", "relation": "mTOR 抑制劑(對應 TP53→mTOR 敏感)", "known_for": "人類腎細胞癌 / 乳癌(已核准)"},
+          {"drug": "temsirolimus", "relation": "rapamycin 衍生(mTOR)", "known_for": "人類腎細胞癌(已核准)"}
+        ]
+      },
+      "pet_disease_zh": "犬 血管肉瘤",
+      "pet_disease_en": "Canine Hemangiosarcoma (HSA)",
+      "species": "dog",
+      "human_disease": "Angiosarcoma",
+      "human_mesh": "D006394",
+      "tier": "confirmed",
+      "storyline": "犬血管肉瘤 90% 以上有可標靶 driver:TP53 66%、PIK3CA 46%、NRAS 24%。真實世界基因-療效資料顯示 TP53 突變對 HDAC/mTOR 抑制反應好、PIK3CA 可標靶。",
+      "driver": {
+        "gene": "PIK3CA / TP53 / NRAS",
+        "variant": "PIK3CA 活化、TP53 失活、NRAS 活化",
+        "freq": "PIK3CA 46% · TP53 66% · NRAS 24%",
+        "note": "PIK3CA/PTEN 異常→PI3K 通路活化;NRAS→MAPK 活化;TP53 失活廣泛存在。與人類血管肉瘤分子亞型相似。",
+        "citation": {"title": "Real-world genomic biomarkers & therapeutic outcomes in canine HSA (Sci Rep 2025)", "url": "https://www.nature.com/articles/s41598-025-89862-9"}
+      },
+      "pathway": "PI3K/AKT/mTOR · MAPK",
+      "recommended": [
+        {
+          "drug": "PI3K 抑制劑(PIK3CA 突變時)",
+          "rationale": "直接抑制 PIK3CA 活化突變驅動的 PI3K/AKT 通路。",
+          "evidence": "PIK3CA 為犬 HSA 最常見可標靶活化突變;標靶抑制劑於人類已進臨床,為犬 HSA 精準治療基礎。",
+          "citation": {"title": "Actionable mutations in canine hemangiosarcoma (PLOS One 2017)", "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0188667"}
+        },
+        {
+          "drug": "mTOR / HDAC 抑制劑(TP53 突變時)",
+          "rationale": "TP53 突變腫瘤對 HDAC 或 mTOR 抑制較敏感。",
+          "evidence": "真實世界資料:帶 TP53 突變的犬 HSA 對 HDAC/mTOR 抑制反應較佳。",
+          "citation": {"title": "Real-world genomic-therapeutic coupling in canine HSA (Sci Rep 2025)", "url": "https://www.nature.com/articles/s41598-025-89862-9"}
+        }
+      ],
+      "sources": [
+        {"title": "Actionable mutations in canine hemangiosarcoma (PLOS One 2017)", "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0188667"},
+        {"title": "Real-world genomic biomarkers in canine HSA (Sci Rep 2025)", "url": "https://www.nature.com/articles/s41598-025-89862-9"}
+      ],
+      "model_candidate_scores": {
+        "paclitaxel": {"cellline_pct": 97, "selective": true},
+        "etoposide": {"cellline_pct": 85, "selective": true},
+        "melphalan": {"cellline_pct": 65},
+        "ifosfamide": {"cellline_pct": 5}
+      }
+    },
+    {
+      "id": "osa",
+      "pet_candidate_key": "Osteosarcoma",
+      "analogy": {
+        "basis": "老藥新用的關鍵:sirolimus 與 everolimus/temsirolimus 同為 mTOR 抑制劑——犬骨肉瘤 mTOR 活化,類比人類腎癌的 mTOR 藥;但須先用生物標記選出 mTOR 驅動個體。",
+        "siblings": [
+          {"drug": "everolimus", "relation": "同為 mTOR 抑制劑", "known_for": "人類腎細胞癌 / 乳癌(已核准)"},
+          {"drug": "temsirolimus", "relation": "rapamycin 衍生物", "known_for": "人類腎細胞癌(已核准)"},
+          {"drug": "ridaforolimus", "relation": "mTOR 抑制劑(曾用於肉瘤試驗)", "known_for": "人類肉瘤臨床試驗"}
+        ]
+      },
+      "pet_disease_zh": "犬 骨肉瘤",
+      "pet_disease_en": "Canine Osteosarcoma (OSA)",
+      "species": "dog",
+      "human_disease": "Osteosarcoma",
+      "human_mesh": "D012516",
+      "tier": "conditional",
+      "storyline": "犬骨肉瘤與人類共享 TP53/PTEN/mTOR driver,機制完全對得上 → mTOR 抑制劑。但 324 隻犬的 sirolimus 試驗『因為沒篩 mTOR 驅動個體而失敗』:機制對 ≠ 臨床有效,要先有生物標記選病人。",
+      "driver": {
+        "gene": "TP53 / PTEN / mTOR pathway",
+        "variant": "TP53 失活、PTEN 缺失、PI3K/mTOR 活化",
+        "freq": "與人類 OSA 共享(TP53/RB1/PTEN/MYC/MET)",
+        "note": "PI3K/AKT/mTOR 在人犬 OSA 皆常活化。但需分子分層才能預測 mTOR 抑制反應。",
+        "citation": {"title": "Adjuvant sirolimus does not improve outcome in unselected canine OSA — RCT of 324 dogs (Clin Cancer Res 2021)", "url": "https://pubmed.ncbi.nlm.nih.gov/33753454/"}
+      },
+      "pathway": "PI3K/AKT/mTOR",
+      "recommended": [
+        {
+          "drug": "mTOR 抑制劑(sirolimus/rapamycin) — 僅限 mTOR 驅動個體",
+          "rationale": "抑制活化的 mTOR 通路;機制與犬 OSA driver 相符。",
+          "evidence": "⚠️ 未做基因篩選的 324 犬輔助性 sirolimus 隨機試驗未改善存活 → 需先以生物標記選出 mTOR 驅動者。臨床前細胞株/模型支持 mTOR 標靶。",
+          "citation": {"title": "Adjuvant sirolimus RCT in canine OSA (Clin Cancer Res 2021)", "url": "https://pubmed.ncbi.nlm.nih.gov/33753454/"}
+        }
+      ],
+      "sources": [
+        {"title": "Adjuvant sirolimus RCT in 324 dogs with OSA (Clin Cancer Res 2021)", "url": "https://pubmed.ncbi.nlm.nih.gov/33753454/"},
+        {"title": "Genomic characterization of canine osteosarcoma cell lines (Front Vet Sci 2021)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8165228/"}
+      ],
+      "model_candidate_scores": {
+        "paclitaxel": {"cellline_pct": 96, "selective": true},
+        "etoposide": {"cellline_pct": 81, "selective": true},
+        "eltrombopag": {"cellline_pct": 73},
+        "ketoprofen": {"cellline_pct": 51, "note": "NSAID/COX-2 機制,細胞毒篩照不到"},
+        "piroxicam": {"cellline_pct": 18, "note": "NSAID/COX-2 機制,細胞毒篩照不到"}
+      }
+    },
+    {
+      "id": "melanoma",
+      "pet_candidate_key": "Melanoma",
+      "analogy": {
+        "basis": "⚠️ 類比在此斷裂:人類黑色素瘤的成熟藥 vemurafenib/dabrafenib 靠 BRAF V600E 起效,但犬黑色素瘤幾乎全 BRAF 野生型——結構再像的 BRAF 藥也沒有 driver 可打,『結構相似』救不了缺 driver。",
+        "siblings": [
+          {"drug": "vemurafenib", "relation": "人類 BRAF 標準藥;但犬缺 BRAF driver", "known_for": "人類 BRAF V600E 黑色素瘤", "broken": true},
+          {"drug": "dabrafenib", "relation": "另一 BRAF 抑制劑;犬同樣無 BRAF V600E 可打", "known_for": "人類 BRAF 黑色素瘤", "broken": true}
+        ]
+      },
+      "pet_disease_zh": "犬 口腔黑色素瘤",
+      "pet_disease_en": "Canine Oral Melanoma",
+      "species": "dog",
+      "human_disease": "Melanoma (cutaneous/mucosal)",
+      "human_mesh": "D008545",
+      "tier": "refuted",
+      "storyline": "誠實負例:人類黑色素瘤是 BRAF/MEK 引擎、BRAF 抑制劑神效;但犬口腔黑色素瘤『幾乎全 BRAF 野生型』(~3–6%)→ 人類 BRAF 訊號不轉移。閘門主動把它標為『不可轉移』——證明這方法會證偽,不是事後合理化。",
+      "driver": {
+        "gene": "BRAF (野生型)",
+        "variant": "犬幾乎無 BRAF V600E;NRAS ~11%,MAPK 由其他機制活化",
+        "freq": "BRAF ~3–6%(野生型為主)",
+        "note": "犬黑色素瘤分子驅動與人類皮膚黑色素瘤分歧 → 人類 oracle 的 BRAF/MEK 預測在此會落空。",
+        "citation": {"title": "Cross-species genomic landscape: human vs canine/equine melanoma (Nat Commun 2019)", "url": "https://www.nature.com/articles/s41467-018-08081-1"}
+      },
+      "pathway": "MAPK(非 BRAF 驅動)",
+      "recommended": [],
+      "refuted_note": "不建議套用人類黑色素瘤的 BRAF/MEK 抑制劑——犬腫瘤缺該 driver。需另尋犬特有驅動機制。",
+      "sources": [
+        {"title": "Cross-species genomic comparison of melanoma (Nat Commun 2019)", "url": "https://www.nature.com/articles/s41467-018-08081-1"},
+        {"title": "BRAF mutations in canine cancers (PLOS One 2015)", "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0129534"}
+      ],
+      "model_candidate_scores": {
+        "dacarbazine": {"cellline_pct": 44},
+        "venetoclax": {"cellline_pct": 32},
+        "pentostatin": {"cellline_pct": 21},
+        "busulfan": {"cellline_pct": 58}
+      }
+    }
+  ]
+}

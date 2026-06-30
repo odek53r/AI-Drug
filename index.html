@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>老藥新用 · 寵物腫瘤 — 跨物種分子證據鏈</title>
+<link rel="stylesheet" href="style.css">
+<script src="vendor/cytoscape.min.js"></script>
+<script>window.cytoscape||document.write('<script src="https://unpkg.com/cytoscape@3.30.2/dist/cytoscape.min.js"><\/script>');</script>
+</head>
+<body>
+<header id="topbar">
+  <div class="brand">
+    <h1 id="app-title">🧬 老藥新用 · 寵物腫瘤</h1>
+    <p id="app-subtitle"></p>
+  </div>
+  <div class="story" id="story-strip">
+    <span class="story-step">① 輸入寵物癌症</span>
+    <span class="arrow">→</span>
+    <span class="story-step">② 找「結構相似的已知老藥」+ 對上「犬腫瘤 driver」</span>
+    <span class="arrow">→</span>
+    <span class="story-step">③ 輸出有文獻可追溯的候選藥</span>
+  </div>
+</header>
+
+<main id="layout">
+  <!-- 左:疾病選擇 + 候選清單 -->
+  <aside id="left">
+    <h2 class="panel-title">① 選擇寵物癌症</h2>
+    <div id="disease-list"></div>
+    <h2 class="panel-title">候選藥(含信心分數)</h2>
+    <div id="candidate-list"></div>
+  </aside>
+
+  <!-- 中:互動證據鏈 graph -->
+  <section id="center">
+    <div id="center-head">
+      <h2 class="panel-title" id="graph-title">② 證據鏈(可拖曳/縮放;點節點看細節)</h2>
+      <div id="tier-badge"></div>
+    </div>
+    <div id="storyline"></div>
+    <div id="cy"></div>
+    <div id="legend">
+      <span class="lg lg-sibling">已知相似老藥</span>
+      <span class="lg lg-indication">已知適應症</span>
+      <span class="lg lg-pet">寵物癌</span>
+      <span class="lg lg-human">人類癌</span>
+      <span class="lg lg-driver">driver 基因</span>
+      <span class="lg lg-pathway">靶點/通路</span>
+      <span class="lg lg-drug_rec">證據支持首選</span>
+      <span class="lg lg-evidence">犬證據</span>
+      <span class="lg lg-drug_model">模型初篩</span>
+    </div>
+  </section>
+
+  <!-- 右:證據面板 -->
+  <aside id="right">
+    <h2 class="panel-title">③ 為什麼推薦?(點圖中節點或候選藥)</h2>
+    <div id="evidence-panel">
+      <p class="hint">← 點左側候選藥,或中間 graph 的任一節點,這裡會顯示「為什麼推薦」與可追溯的文獻來源。</p>
+    </div>
+  </aside>
+</main>
+
+<footer id="footer">
+  <span id="footer-note"></span>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
