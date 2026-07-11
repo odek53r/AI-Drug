@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>模型內插網路(真實訓練圖)— 犬淋巴瘤</title>
+<script src="vendor/cytoscape.min.js"></script>
+<style>
+  html,body{margin:0;height:100%;background:#0f1720;color:#e7edf3;font-family:"Noto Sans TC",system-ui,sans-serif}
+  header{padding:10px 16px;border-bottom:1px solid #2a3a49}
+  h1{margin:0;font-size:17px}
+  .note{font-size:12px;color:#9fb0c0;margin-top:4px;line-height:1.5}
+  #cy{position:absolute;top:100px;bottom:48px;left:0;right:0}
+  #legend{position:absolute;bottom:0;left:0;right:0;height:48px;display:flex;gap:10px;align-items:center;padding:0 16px;border-top:1px solid #2a3a49;font-size:11px;flex-wrap:wrap}
+  .lg{padding:2px 9px;border-radius:10px;font-weight:700;color:#06121a}
+</style>
+</head>
+<body>
+<header>
+  <h1>🧠 模型內插網路(真實訓練圖)— 犬淋巴瘤</h1>
+  <div class="note">內插靠的是<b>藥→通路→疾病</b>這張豐富訓練圖(此病關聯 116 條通路)。綠=已知藥、紫=通路、橘=<b>模型候選</b>、青=疾病。<b>金線=化學相似兄弟藥</b>(特異訊號)。⚠️ 連到越多泛癌通路的候選(paclitaxel/venetoclax/sulfasalazine)=促雜藥,模型高排但特異性低。</div>
+</header>
+<div id="cy"></div>
+<div id="legend">
+  <span class="lg" style="background:#0f9b8e">疾病</span>
+  <span class="lg" style="background:#7b5ea7;color:#fff">通路(KEGG)</span>
+  <span class="lg" style="background:#1a9850">已知有效藥</span>
+  <span class="lg" style="background:#e8821a">模型候選</span>
+  <span style="color:#f0c674;font-weight:700">— 金線=化學相似兄弟</span>
+</div>
+<script>
+const HUBS=[['hsa05206','MicroRNAs in cancer'],['hsa05200','Pathways in cancer'],
+ ['hsa05222','Small cell lung cancer'],['hsa05169','EBV infection'],
+ ['hsa01524','Platinum drug resistance'],['hsa01100','Metabolic pathways'],
+ ['hsa04722','Neurotrophin signaling']];
+const CAND={teniposide:['hsa01524'],carmustine:[],clofarabine:['hsa01100'],
+ paclitaxel:['hsa05206','hsa05169','hsa01524','hsa04722','hsa05200','hsa05222'],
+ romidepsin:['hsa05206','hsa05169','hsa05200'],
+ venetoclax:['hsa05206','hsa05169','hsa01524','hsa04722','hsa05200','hsa05222'],
+ naproxen:['hsa05206','hsa01100','hsa05222','hsa05200'],
+ sulfasalazine:['hsa05206','hsa01100','hsa05169','hsa04722','hsa05200','hsa05222']};
+const KNOWN=['etoposide','doxorubicin','cytarabine','lomustine','vincristine','methotrexate'];
+const SIM=[['teniposide','etoposide','0.75'],['carmustine','lomustine','0.53'],['clofarabine','cytarabine','0.37']];
+const els=[{data:{id:'dis',label:'犬淋巴瘤',t:'dis'}}];
+HUBS.forEach(([id,nm])=>{ els.push({data:{id,label:nm,t:'path'}}); els.push({data:{id:'e_'+id,source:id,target:'dis',cls:'pd'}}); });
+KNOWN.forEach(k=>{ els.push({data:{id:k,label:k,t:'known'}}); els.push({data:{id:'t_'+k,source:k,target:'dis',cls:'treat'}}); });
+Object.entries(CAND).forEach(([c,ps])=>{
+  els.push({data:{id:c,label:c,t:'cand',deg:ps.length}});
+  ps.forEach(p=>els.push({data:{id:'c_'+c+'_'+p,source:c,target:p,cls:'cp'}}));
+});
+SIM.forEach(([c,k,v])=>els.push({data:{id:'s_'+c,source:c,target:k,label:v,cls:'sim'}}));
+const COL={dis:'#0f9b8e',path:'#7b5ea7',known:'#1a9850',cand:'#e8821a'};
+cytoscape({
+  container:document.getElementById('cy'), elements:els,
+  layout:{name:'cose',animate:false,padding:30,nodeRepulsion:9000,idealEdgeLength:90,nodeOverlap:16,gravity:.3},
+  style:[
+    {selector:'node',style:{'label':'data(label)','text-wrap':'wrap','text-valign':'center','text-halign':'center',
+      'text-max-width':'96px','shape':'round-rectangle','width':'label','height':'label','padding':'7px',
+      'font-size':'11px','font-weight':600,'color':'#06121a'}},
+    ...Object.entries(COL).map(([t,c])=>({selector:`node[t="${t}"]`,style:{'background-color':c,'color':(t==='path'||t==='dis')?'#fff':'#06121a'}})),
+    {selector:'node[t="dis"]',style:{'font-size':'15px','font-weight':700,'padding':'15px','border-width':3,'border-color':'#7fe3d4'}},
+    {selector:'node[t="cand"]',style:{'border-width':3,'border-color':'#ffd9a8'}},
+    {selector:'node[t="cand"][deg>=5]',style:{'background-color':'#c96a1b','border-color':'#d73027','border-width':3}},
+    {selector:'edge',style:{'width':1.6,'curve-style':'bezier','target-arrow-shape':'triangle','line-color':'#3a4d5e','target-arrow-color':'#3a4d5e','opacity':.75}},
+    {selector:'edge[cls="pd"]',style:{'line-color':'#6b5493','target-arrow-color':'#6b5493','width':2}},
+    {selector:'edge[cls="treat"]',style:{'line-color':'#2f7a4a','target-arrow-color':'#2f7a4a'}},
+    {selector:'edge[cls="cp"]',style:{'line-color':'#4a5a6a','target-arrow-color':'#4a5a6a','line-style':'dashed'}},
+    {selector:'edge[cls="sim"]',style:{'line-color':'#e8b04b','target-arrow-color':'#e8b04b','width':4,'label':'data(label)','font-size':'10px','font-weight':700,'color':'#f0c674','text-background-color':'#0e1620','text-background-opacity':.85,'text-background-padding':'2px'}},
+  ]
+});
+</script>
+</body>
+</html>

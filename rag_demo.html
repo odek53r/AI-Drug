@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>老藥新用 · RAG Demo 架構(犬淋巴瘤實例)</title>
+<style>
+  :root{--bg:#0f1720;--card:#16202b;--card2:#1c2935;--ink:#e7edf3;--muted:#9fb0c0;--line:#2a3a49;
+        --a:#0f9b8e;--b:#2b6cb0;--c:#7b5ea7;--d:#e8821a;--acc:#36c5b0;--good:#1a9850;--bad:#d73027}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif}
+  header{padding:20px 22px 8px}
+  h1{margin:0;font-size:22px}
+  .sub{color:var(--muted);font-size:14px;margin-top:6px;max-width:1150px;line-height:1.6}
+  .sub b{color:var(--ink)}
+  .flow{display:flex;gap:0;align-items:stretch;padding:22px;overflow-x:auto}
+  .stage{flex:1 1 0;min-width:240px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column}
+  .stage .no{font-size:11px;color:var(--muted);letter-spacing:1px;font-weight:700}
+  .stage h2{margin:6px 0 4px;font-size:17px;display:flex;align-items:center;gap:8px}
+  .stage .role{font-size:12px;color:var(--acc);font-weight:700;margin-bottom:10px}
+  .io{background:var(--card2);border-radius:9px;padding:9px 11px;margin:6px 0;font-size:12.5px;line-height:1.6}
+  .io .k{color:var(--muted);font-size:10.5px;display:block;margin-bottom:3px;letter-spacing:.4px}
+  .pill{display:inline-block;border-radius:6px;padding:1px 7px;margin:2px 3px 0 0;font-size:11.5px;font-weight:700}
+  .good{background:rgba(26,153,80,.2);color:#7fe0a8;border:1px solid #1a9850}
+  .bad{background:rgba(215,48,39,.15);color:#f0a19c;border:1px solid #a83227}
+  .path{background:#0e1620;border:1px solid var(--line);border-radius:6px;padding:1px 7px;margin:2px 3px 0 0;font-size:11px;display:inline-block;color:#c9b8e6}
+  .arrow{flex:0 0 44px;display:flex;align-items:center;justify-content:center;color:var(--acc);font-size:26px;font-weight:800}
+  .top{border-top:3px solid var(--x)}
+  .s1{--x:var(--a)} .s2{--x:var(--c)} .s3{--x:var(--b)} .s4{--x:var(--d)}
+  .note{margin:6px 22px 26px;padding:12px 16px;background:var(--card2);border-left:3px solid var(--acc);border-radius:0 10px 10px 0;font-size:13px;line-height:1.7;max-width:1250px}
+  .note b{color:#ffd9a8}
+  code{background:#0e1620;padding:1px 5px;border-radius:4px;font-size:12px}
+  @media(max-width:900px){.flow{flex-direction:column}.arrow{transform:rotate(90deg);flex-basis:30px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🧬 老藥新用 · RAG Demo 架構 <span style="font-size:14px;color:var(--muted)">實例:犬淋巴瘤</span></h1>
+  <div class="sub">輸入<b>犬淋巴瘤</b> → MRDDA 內插撈出 <b>teniposide、carmustine、clofarabine…</b> → RAG 檢索每個藥的犬證據 → 輸出只留 <b>teniposide</b> 這類有文獻可追溯的推薦。</div>
+</header>
+
+<div class="flow">
+  <!-- 1 Input -->
+  <div class="stage top s1">
+    <span class="no">INPUT</span>
+    <h2>🐾 犬淋巴瘤</h2>
+    <div class="role">使用者輸入的病</div>
+    <div class="io"><span class="k">輸入</span>犬淋巴瘤(Canine Lymphoma)</div>
+    <div class="io"><span class="k">已內建背景</span>Kdataset 異質圖(894 藥×454 病)+ KPet 121 真實寵物標籤;犬淋巴瘤已知藥:doxorubicin、vincristine、etoposide、lomustine、cytarabine…(CHOP)</div>
+  </div>
+  <div class="arrow">→</div>
+
+  <!-- 2 MRDDA -->
+  <div class="stage top s2">
+    <span class="no">STAGE 1 · 模型</span>
+    <h2>🧠 MRDDA 內插</h2>
+    <div class="role">粗篩:排出候選老藥</div>
+    <div class="io"><span class="k">怎麼排(具體)</span>teniposide 因結構近似已在用的 <b>etoposide(相似 0.75、共享 TOP2A)</b>,又經 <span class="path">Platinum drug resistance</span> 通路接上犬淋巴瘤,被排進前段</div>
+    <div class="io"><span class="k">Stage 1 Output:候選藥</span>
+      <span class="pill good">teniposide</span><span class="pill good">carmustine</span><span class="pill good">clofarabine</span>
+      <span class="pill bad">paclitaxel</span><span class="pill bad">venetoclax</span><span class="pill bad">sulfasalazine</span>
+      <div style="margin-top:6px;color:var(--muted);font-size:11px">綠=真兄弟藥;紅=促雜雜訊(接 <span class="path">Pathways in cancer</span> 等泛癌通路被高排)</div>
+    </div>
+  </div>
+  <div class="arrow">→</div>
+
+  <!-- 3 RAG -->
+  <div class="stage top s3">
+    <span class="no">STAGE 2 · RAG</span>
+    <h2>🔍 證據檢索</h2>
+    <div class="role">逐藥撈犬證據</div>
+    <div class="io"><span class="k">Input</span>上面 6 個候選 + 知識庫(犬基因體 / GDSC・PRISM / 文獻 / Open Targets)</div>
+    <div class="io"><span class="k">檢索結果(具體)</span>
+      <b>teniposide</b> → etoposide 已用於犬淋巴瘤(文獻)、細胞株活性 93%、共享 TOP2A ✅<br>
+      <b>sulfasalazine</b> → 抗發炎藥,查無犬淋巴瘤療效證據 ❌</div>
+    <div class="io"><span class="k">Output</span>teniposide/carmustine/clofarabine 證據鏈成立;paclitaxel/venetoclax/sulfasalazine 判為雜訊剔除</div>
+  </div>
+  <div class="arrow">→</div>
+
+  <!-- 4 Output -->
+  <div class="stage top s4">
+    <span class="no">OUTPUT</span>
+    <h2>📄 證據鏈網頁</h2>
+    <div class="role">給 PM / 投資者 / 獸醫</div>
+    <div class="io"><span class="k">最終推薦</span><span class="pill good">teniposide(信心高)</span> 及其他有證據者</div>
+    <div class="io"><span class="k">證據鏈(可視化+可點文獻)</span>
+      犬淋巴瘤 → <span class="path">TOP2A</span> → <span class="path">Platinum drug resistance</span> → <b>teniposide</b> ← 相似 0.75 → etoposide(已在用)📄</div>
+    <div class="io"><span class="k">價值</span>可追溯、去風險,直接可進實驗室</div>
+  </div>
+</div>
+
+<div class="note">
+  <b>兩層分工(誠實定位):</b> MRDDA 對犬淋巴瘤排出 6 個候選,但其中 <code>paclitaxel / venetoclax / sulfasalazine</code> 是<b>促雜雜訊</b>(靠泛癌通路被高排);<b>RAG 檢索層</b>用犬基因體與細胞株證據把它們濾掉,只留 <code>teniposide</code> 這類「結構近似已在用藥 + 有文獻」的推薦。最終網頁每個推薦都<b>附已發表文獻可追溯</b> —— 這是禁得起盡調的賣點。
+</div>
+</body>
+</html>
