@@ -31,8 +31,8 @@
 <header>
   <h1>🧬 候選藥證據圖 · <span class="c">teniposide</span> → 犬淋巴瘤</h1>
   <div class="sub">
-    <b>找到方式</b>=結構相似(模型)。<b>可信度</b>=teniposide 是 11 個已知藥中 <b>3 個(etoposide/doxorubicin/mitoxantrone)</b>的近親,
-    而這 3 個<b>全是 TOP2A(拓撲異構酶 II)抑制劑</b>——teniposide 屬於一個<b>已被證實治淋巴瘤的藥類</b>,不只是像單一顆藥。每條邊 KG 可查、可重跑。
+    完整證據鏈:<b>模型排名(Stack #8)</b> → <b>共享靶點 TOP2A</b> → <b>真實文獻</b>(人類 teniposide 治淋巴瘤 + 犬 etoposide 試驗 ORR 83%)。
+    每條邊 KG/文獻可查、可重跑。<b>點 📄 節點可開文獻</b>。誠實缺口:teniposide 尚未直接在犬驗證。
   </div>
 </header>
 <div id="cy"></div>
@@ -42,6 +42,8 @@
   <span class="lg" style="background:#0f9b8e;color:#fff">寵物病</span>
   <span class="lg" style="background:#7b5ea7;color:#fff">靶點/蛋白</span>
   <span class="lg" style="background:#2b6cb0;color:#fff">KEGG 路徑</span>
+  <span class="lg" style="background:#d0a54a">📄 文獻(可點)</span>
+  <span class="lg" style="background:#a83227;color:#fff">⚠️ 誠實缺口</span>
   <span style="color:#f0c674;font-weight:700">— 金線=化學相似</span>
 </div>
 <div class="foot">
@@ -51,8 +53,8 @@
     <span class="k">同藥類</span>3 個近親 <b>全抑制 TOP2A</b>(teniposide 也是)<br>
     <span class="k">路徑</span>TOP2A → KEGG <code>Platinum drug resistance</code><br>
     <span class="k">參照藥</span>etoposide/doxorubicin/mitoxantrone 皆淋巴瘤標準藥(標籤=1)</div>
-  <div class="box warn"><h2>誠實標註</h2>
-    「已驗證藥的結構近親 + 共享真實靶點」是藥廠接受的重定位理由。<b>模型是靠相似度找到的(消融證實)</b>,靶點/路徑是<b>補上的機制脈絡</b>來撐可信度,非宣稱「模型發現機制」。所有邊 KG 可查。</div>
+  <div class="box warn"><h2>誠實標註 + 文獻</h2>
+    模型靠相似度找到(消融證實);靶點/路徑=機制脈絡。<b>文獻(可點)</b>:人類 teniposide 治淋巴瘤、犬 etoposide 試驗 ORR 83%。<b>缺口:teniposide 未直接在犬驗證 → 待濕實驗</b>。不宣稱「已證實治犬淋巴瘤」。</div>
 </div>
 <script>
 const els=[
@@ -79,9 +81,16 @@ const els=[
   {data:{id:"tr1",source:"etop",target:"dis",label:"已知治療",cls:"treat"}},
   {data:{id:"tr2",source:"doxo",target:"dis",label:"已知治療",cls:"treat"}},
   {data:{id:"tr3",source:"mito",target:"dis",label:"已知治療",cls:"treat"}},
+  // 文獻證據層(可點連結)
+  {data:{id:"lit_h",label:"📄 人類:teniposide 治淋巴瘤",t:"lit",url:"https://en.wikipedia.org/wiki/Teniposide"}},
+  {data:{id:"lit_d",label:"📄 犬:etoposide 試驗 ORR 83%(27犬)",t:"lit",url:"https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0177486"}},
+  {data:{id:"gap",label:"⚠️ teniposide 犬證據=缺口(待濕實驗)",t:"gap"}},
+  {data:{id:"l1",source:"cand",target:"lit_h",label:"文獻支持",cls:"lit"}},
+  {data:{id:"l2",source:"etop",target:"lit_d",label:"近親犬試驗",cls:"lit"}},
+  {data:{id:"g1",source:"cand",target:"gap",label:"未直接驗證",cls:"gap"}},
 ];
-const COL={cand:"#e8821a",known:"#1a9850",dis:"#0f9b8e",prot:"#7b5ea7",path:"#2b6cb0"};
-cytoscape({
+const COL={cand:"#e8821a",known:"#1a9850",dis:"#0f9b8e",prot:"#7b5ea7",path:"#2b6cb0",lit:"#d0a54a",gap:"#a83227"};
+const cy=cytoscape({
   container:document.getElementById("cy"), elements:els,
   layout:{name:"cose",animate:false,padding:40,nodeRepulsion:12000,idealEdgeLength:130,gravity:.25,nodeOverlap:20},
   style:[
@@ -96,8 +105,13 @@ cytoscape({
     {selector:'edge[cls="tgt"]',style:{"line-color":"#8f7ab5","target-arrow-color":"#8f7ab5"}},
     {selector:'edge[cls="pth"]',style:{"line-color":"#4a7fb0","target-arrow-color":"#4a7fb0"}},
     {selector:'edge[cls="treat"]',style:{"line-color":"#2f9a5a","target-arrow-color":"#2f9a5a","width":3}},
+    {selector:'node[t="lit"]',style:{"color":"#06121a","font-size":"11px","text-max-width":"140px"}},
+    {selector:'node[t="gap"]',style:{"color":"#fff","font-size":"11px","text-max-width":"150px","border-width":2,"border-color":"#d73027"}},
+    {selector:'edge[cls="lit"]',style:{"line-color":"#c99a3a","target-arrow-color":"#c99a3a","line-style":"dashed"}},
+    {selector:'edge[cls="gap"]',style:{"line-color":"#a83227","target-arrow-color":"#a83227","line-style":"dashed"}},
   ]
 });
+cy.on("tap","node",function(e){var u=e.target.data("url"); if(u) window.open(u,"_blank");});
 </script>
 </body>
 </html>
