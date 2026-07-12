@@ -31,7 +31,7 @@
 <header>
   <h1>🧬 候選藥證據圖 · <span class="c">teniposide</span> → 犬淋巴瘤</h1>
   <div class="sub">
-    完整證據鏈:<b>模型找到 teniposide(排名第 8)</b> → <b>它和 3 個已知淋巴瘤藥攻擊同一目標</b> → <b>真實文獻</b>(人類用 teniposide 治淋巴瘤 + 近親 etoposide 在 27 隻狗試驗 83% 有效果)。
+    完整證據鏈:<b>模型找到 teniposide(排名第 8)</b> → <b>它和 3 個已知淋巴瘤藥攻擊同一目標</b> → <b>真實文獻</b>(人類用 teniposide 治淋巴瘤 + 相似藥 etoposide 在 27 隻狗試驗 83% 有效果)。
     <b>點 📄 可開文獻</b>。誠實缺口:teniposide 本身還沒在真的狗身上測過。
   </div>
 </header>
@@ -50,11 +50,11 @@
   <div class="box"><h2>怎麼找到</h2>
     <span class="k">方式</span>teniposide 和 etoposide 的化學結構相似度 <b>0.926</b>(電腦算得出)。模型排名<b>第 8</b>(共 883 個藥)。</div>
   <div class="box"><h2>為什麼可信</h2>
-    <span class="k">同一目標</span>teniposide 和 3 個近親<b>都攻擊同一個目標</b><br>
+    <span class="k">同一目標</span>teniposide 和 3 個相似藥<b>都攻擊同一個目標</b><br>
     <span class="k">同一路徑</span>都出現在同一條生物路徑(Platinum drug resistance)<br>
     <span class="k">參照藥</span>etoposide、doxorubicin、mitoxantrone <b>都是已知的淋巴瘤藥</b></div>
   <div class="box warn"><h2>誠實標註 + 文獻</h2>
-    模型是靠「長得像已知有效藥」找到的(我們測試確認過)。<b>文獻(可點)</b>:人類用 teniposide 治淋巴瘤、近親 etoposide 在狗身上 <b>83% 有效果</b>。<b>缺口:teniposide 本身還沒在真的狗身上測過</b>,所以不說「已證實能治狗的淋巴瘤」。</div>
+    模型是靠「長得像已知有效藥」找到的(我們測試確認過)。<b>文獻(可點)</b>:人類用 teniposide 治淋巴瘤、相似藥 etoposide 在狗身上 <b>83% 有效果</b>。<b>缺口:teniposide 本身還沒在真的狗身上測過</b>,所以不說「已證實能治狗的淋巴瘤」。</div>
 </div>
 <script>
 const els=[
@@ -83,10 +83,10 @@ const els=[
   {data:{id:"tr3",source:"mito",target:"dis",label:"已知治療",cls:"treat"}},
   // 文獻證據層(可點連結)
   {data:{id:"lit_h",label:"📄 人類:teniposide 治淋巴瘤",t:"lit",url:"https://en.wikipedia.org/wiki/Teniposide"}},
-  {data:{id:"lit_d",label:"📄 狗:近親 etoposide\n83% 有效果(27隻狗)",t:"lit",url:"https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0177486"}},
+  {data:{id:"lit_d",label:"📄 相似藥 etoposide\n83% 有效果(27隻狗)",t:"lit",url:"https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0177486"}},
   {data:{id:"gap",label:"⚠️ teniposide 本身\n還沒在真的狗身上測過",t:"gap"}},
   {data:{id:"l1",source:"cand",target:"lit_h",label:"文獻支持",cls:"lit"}},
-  {data:{id:"l2",source:"etop",target:"lit_d",label:"近親的狗試驗",cls:"lit"}},
+  {data:{id:"l2",source:"etop",target:"lit_d",label:"在狗身上試過",cls:"lit"}},
   {data:{id:"g1",source:"cand",target:"gap",label:"還沒測過",cls:"gap"}},
 ];
 const COL={cand:"#e8821a",known:"#1a9850",dis:"#0f9b8e",prot:"#7b5ea7",path:"#2b6cb0",lit:"#d0a54a",gap:"#a83227"};
