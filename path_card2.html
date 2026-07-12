@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>候選藥證據圖 · teniposide → 犬淋巴瘤(結構相似 + 共享靶點,可驗證)</title>
+<title>候選藥證據圖 · teniposide → 犬淋巴瘤</title>
 <script src="vendor/cytoscape.min.js"></script>
 <script>window.cytoscape||document.write('<script src="https://unpkg.com/cytoscape@3.30.2/dist/cytoscape.min.js"><\/script>');</script>
 <style>
@@ -31,8 +31,8 @@
 <header>
   <h1>🧬 候選藥證據圖 · <span class="c">teniposide</span> → 犬淋巴瘤</h1>
   <div class="sub">
-    完整證據鏈:<b>模型排名(Stack #8)</b> → <b>共享靶點 TOP2A</b> → <b>真實文獻</b>(人類 teniposide 治淋巴瘤 + 犬 etoposide 試驗 ORR 83%)。
-    每條邊 KG/文獻可查、可重跑。<b>點 📄 節點可開文獻</b>。誠實缺口:teniposide 尚未直接在犬驗證。
+    完整證據鏈:<b>模型找到 teniposide(排名第 8)</b> → <b>它和 3 個已知淋巴瘤藥攻擊同一目標</b> → <b>真實文獻</b>(人類用 teniposide 治淋巴瘤 + 近親 etoposide 在 27 隻狗試驗 83% 有效果)。
+    <b>點 📄 可開文獻</b>。誠實缺口:teniposide 本身還沒在真的狗身上測過。
   </div>
 </header>
 <div id="cy"></div>
@@ -40,21 +40,21 @@
   <span class="lg" style="background:#e8821a">候選藥</span>
   <span class="lg" style="background:#1a9850">已知標準藥</span>
   <span class="lg" style="background:#0f9b8e;color:#fff">寵物病</span>
-  <span class="lg" style="background:#7b5ea7;color:#fff">靶點/蛋白</span>
-  <span class="lg" style="background:#2b6cb0;color:#fff">KEGG 路徑</span>
+  <span class="lg" style="background:#7b5ea7;color:#fff">共同作用目標</span>
+  <span class="lg" style="background:#2b6cb0;color:#fff">共同細胞路徑</span>
   <span class="lg" style="background:#d0a54a">📄 文獻(可點)</span>
   <span class="lg" style="background:#a83227;color:#fff">⚠️ 誠實缺口</span>
   <span style="color:#f0c674;font-weight:700">— 金線=化學相似</span>
 </div>
 <div class="foot">
   <div class="box"><h2>怎麼找到</h2>
-    <span class="k">路徑</span>結構相似:teniposide ↔ etoposide = <b>0.926</b>(fused 相似度矩陣)。Stack 排名 #8/883(三成分皆 top-16)。</div>
-  <div class="box"><h2>為什麼可信(機制脈絡)</h2>
-    <span class="k">同藥類</span>3 個近親 <b>全抑制 TOP2A</b>(teniposide 也是)<br>
-    <span class="k">路徑</span>TOP2A → KEGG <code>Platinum drug resistance</code><br>
-    <span class="k">參照藥</span>etoposide/doxorubicin/mitoxantrone 皆淋巴瘤標準藥(標籤=1)</div>
+    <span class="k">方式</span>teniposide 和 etoposide 的化學結構相似度 <b>0.926</b>(電腦算得出)。模型排名<b>第 8</b>(共 883 個藥)。</div>
+  <div class="box"><h2>為什麼可信</h2>
+    <span class="k">同一目標</span>teniposide 和 3 個近親<b>都攻擊同一個目標</b><br>
+    <span class="k">同一路徑</span>都經過同一條細胞路徑<br>
+    <span class="k">參照藥</span>etoposide、doxorubicin、mitoxantrone <b>都是已知的淋巴瘤藥</b></div>
   <div class="box warn"><h2>誠實標註 + 文獻</h2>
-    模型靠相似度找到(消融證實);靶點/路徑=機制脈絡。<b>文獻(可點)</b>:人類 teniposide 治淋巴瘤、犬 etoposide 試驗 ORR 83%。<b>缺口:teniposide 未直接在犬驗證 → 待濕實驗</b>。不宣稱「已證實治犬淋巴瘤」。</div>
+    模型是靠「長得像已知有效藥」找到的(我們測試確認過)。<b>文獻(可點)</b>:人類用 teniposide 治淋巴瘤、近親 etoposide 在狗身上 <b>83% 有效果</b>。<b>缺口:teniposide 本身還沒在真的狗身上測過</b>,所以不說「已證實能治狗的淋巴瘤」。</div>
 </div>
 <script>
 const els=[
@@ -64,17 +64,17 @@ const els=[
   {data:{id:"doxo",label:"doxorubicin",t:"known",sub:"淋巴瘤標準藥"}},
   {data:{id:"mito",label:"mitoxantrone",t:"known",sub:"淋巴瘤標準藥"}},
   {data:{id:"dis",label:"犬淋巴瘤",t:"dis",sub:"11 已知藥(其中 3 個為 teniposide 同類)"}},
-  {data:{id:"top2a",label:"TOP2A",t:"prot",sub:"拓撲異構酶 IIα · P11388"}},
-  {data:{id:"path",label:"Platinum drug resistance",t:"path",sub:"KEGG hsa01524"}},
+  {data:{id:"top2a",label:"共同攻擊目標\n(TOP2A)",t:"prot",sub:"這些藥共同攻擊的目標"}},
+  {data:{id:"path",label:"共同細胞路徑",t:"path",sub:""}},
   // 邊:候選 →(相似)→ 3 個同類已知藥
   {data:{id:"s1",source:"cand",target:"etop",label:"相似 0.926",cls:"sim"}},
   {data:{id:"s2",source:"cand",target:"doxo",label:"相似 0.756",cls:"sim"}},
   {data:{id:"s3",source:"cand",target:"mito",label:"相似 0.728",cls:"sim"}},
   // 全部 4 個藥 → 共享靶點 TOP2A
-  {data:{id:"t0",source:"cand",target:"top2a",label:"靶向",cls:"tgt"}},
-  {data:{id:"t1",source:"etop",target:"top2a",label:"靶向",cls:"tgt"}},
-  {data:{id:"t2",source:"doxo",target:"top2a",label:"靶向",cls:"tgt"}},
-  {data:{id:"t3",source:"mito",target:"top2a",label:"靶向",cls:"tgt"}},
+  {data:{id:"t0",source:"cand",target:"top2a",label:"攻擊",cls:"tgt"}},
+  {data:{id:"t1",source:"etop",target:"top2a",label:"攻擊",cls:"tgt"}},
+  {data:{id:"t2",source:"doxo",target:"top2a",label:"攻擊",cls:"tgt"}},
+  {data:{id:"t3",source:"mito",target:"top2a",label:"攻擊",cls:"tgt"}},
   // TOP2A → 路徑
   {data:{id:"p1",source:"top2a",target:"path",label:"參與",cls:"pth"}},
   // 3 個已知藥 → 已知治療 → 病
@@ -83,11 +83,11 @@ const els=[
   {data:{id:"tr3",source:"mito",target:"dis",label:"已知治療",cls:"treat"}},
   // 文獻證據層(可點連結)
   {data:{id:"lit_h",label:"📄 人類:teniposide 治淋巴瘤",t:"lit",url:"https://en.wikipedia.org/wiki/Teniposide"}},
-  {data:{id:"lit_d",label:"📄 犬:etoposide 試驗 ORR 83%(27犬)",t:"lit",url:"https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0177486"}},
-  {data:{id:"gap",label:"⚠️ teniposide 犬證據=缺口(待濕實驗)",t:"gap"}},
+  {data:{id:"lit_d",label:"📄 狗:近親 etoposide\n83% 有效果(27隻狗)",t:"lit",url:"https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0177486"}},
+  {data:{id:"gap",label:"⚠️ teniposide 本身\n還沒在真的狗身上測過",t:"gap"}},
   {data:{id:"l1",source:"cand",target:"lit_h",label:"文獻支持",cls:"lit"}},
-  {data:{id:"l2",source:"etop",target:"lit_d",label:"近親犬試驗",cls:"lit"}},
-  {data:{id:"g1",source:"cand",target:"gap",label:"未直接驗證",cls:"gap"}},
+  {data:{id:"l2",source:"etop",target:"lit_d",label:"近親的狗試驗",cls:"lit"}},
+  {data:{id:"g1",source:"cand",target:"gap",label:"還沒測過",cls:"gap"}},
 ];
 const COL={cand:"#e8821a",known:"#1a9850",dis:"#0f9b8e",prot:"#7b5ea7",path:"#2b6cb0",lit:"#d0a54a",gap:"#a83227"};
 const cy=cytoscape({

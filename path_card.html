@@ -93,8 +93,8 @@
     <div class="box">
       <h2>怎麼找到的</h2>
       <div class="row">
-        <span class="k">路徑類型</span>
-        <b>結構近親(化學相似)</b>——非機制推理。<br>
+        <span class="k">方式</span>
+        <b>長得像已知有效藥(化學結構相似)</b>。<br>
         teniposide 與 <span class="pill">etoposide 0.926</span><span class="pill">doxorubicin 0.756</span><span class="pill">mitoxantrone 0.728</span>
         三個<b>已在治淋巴瘤</b>的藥高度相似 → 同類、很可能同效、不同分子。
       </div>
@@ -102,17 +102,16 @@
     <div class="box">
       <h2>怎麼驗證的(可重跑)</h2>
       <div class="row">
-        <span class="k">相似度</span>drug_sim_fused 矩陣,算得出<br>
-        <span class="k">已知治療</span>KPet_baseline 標籤 = 1<br>
-        <span class="k">路徑真實性</span>消融證實:拿掉 teniposide 的靶點邊<b>不影響</b>排名 → 確實走「相似度」而非機制路
+        <span class="k">相似度</span>電腦算得出,可重跑<br>
+        <span class="k">已知有效</span>這 3 個藥確實是淋巴瘤的已知用藥<br>
+        <span class="k">怎麼確認</span>我們測試過:teniposide 是靠「長得像已知藥」被選出來的
       </div>
     </div>
   </div>
 
   <div class="note">
-    <b>誠實標註:</b>這是「<b>已驗證藥的結構近親</b>」，是藥廠接受的重定位理由——但<b>不是「發現新機制」</b>。
-    我們不對這顆畫「teniposide→TOP2A→病」的機制路徑，因為消融證明模型<b>沒有</b>用那條路（那會是事後合理化）。
-    只畫模型真的用的路：<code>近親於已知有效藥</code>。
+    <b>誠實說明:</b>這是「<b>已知有效藥的相似藥</b>」——藥廠接受的老藥新用理由,但<b>不是「發現全新的藥」</b>。
+    我們只畫模型真正用到的線索(<b>長得像已知有效藥</b>),不硬加它其實沒用到的說法。
   </div>
 </div>
 </body>
