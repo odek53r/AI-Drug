@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>候選藥證據圖 · teniposide → 犬淋巴瘤(結構相似 + 共享靶點,可驗證)</title>
+<script src="vendor/cytoscape.min.js"></script>
+<script>window.cytoscape||document.write('<script src="https://unpkg.com/cytoscape@3.30.2/dist/cytoscape.min.js"><\/script>');</script>
+<style>
+  :root{--bg:#0f1720;--card:#16202b;--ink:#e7edf3;--muted:#9fb0c0;--line:#2a3a49;--acc:#36c5b0;--warn:#ffd9a8}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif}
+  header{padding:14px 20px 6px}
+  h1{margin:0;font-size:19px}
+  h1 .c{color:#e8821a}
+  .sub{color:var(--muted);font-size:13px;line-height:1.6;margin-top:5px;max-width:1150px}
+  .sub b{color:var(--ink)}
+  #cy{position:absolute;top:118px;bottom:150px;left:0;right:0}
+  #legend{position:absolute;bottom:110px;left:0;right:0;height:40px;display:flex;gap:9px;align-items:center;padding:0 20px;font-size:11px;flex-wrap:wrap;border-top:1px solid var(--line)}
+  .lg{padding:2px 9px;border-radius:10px;font-weight:700;color:#06121a}
+  .foot{position:absolute;bottom:0;left:0;right:0;height:110px;padding:10px 20px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:14px;font-size:12px}
+  .foot .box{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:9px 12px;overflow:auto}
+  .foot h2{margin:0 0 5px;font-size:12px;color:var(--acc)}
+  .foot .k{color:var(--muted);font-size:10.5px}
+  .warn{border-left:3px solid var(--warn)!important}
+  .warn h2{color:var(--warn)}
+  code{background:#0e1620;padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<header>
+  <h1>🧬 候選藥證據圖 · <span class="c">teniposide</span> → 犬淋巴瘤</h1>
+  <div class="sub">
+    <b>找到方式</b>=結構相似(模型)。<b>可信度</b>=它與已知淋巴瘤標準藥 etoposide <b>共享真實靶點 TOP2A</b>——兩者都是拓撲異構酶 II 抑制劑。
+    圖上每條邊都來自訓練資料 / KG,<b>可重跑</b>。
+  </div>
+</header>
+<div id="cy"></div>
+<div id="legend">
+  <span class="lg" style="background:#e8821a">候選藥</span>
+  <span class="lg" style="background:#1a9850">已知標準藥</span>
+  <span class="lg" style="background:#0f9b8e;color:#fff">寵物病</span>
+  <span class="lg" style="background:#7b5ea7;color:#fff">靶點/蛋白</span>
+  <span class="lg" style="background:#2b6cb0;color:#fff">KEGG 路徑</span>
+  <span style="color:#f0c674;font-weight:700">— 金線=化學相似</span>
+</div>
+<div class="foot">
+  <div class="box"><h2>怎麼找到</h2>
+    <span class="k">路徑</span>結構相似:teniposide ↔ etoposide = <b>0.926</b>(fused 相似度矩陣)。模型排名 #14/883。</div>
+  <div class="box"><h2>為什麼可信(機制脈絡)</h2>
+    <span class="k">共享靶點</span>兩者都抑制 <b>TOP2A(拓撲異構酶 IIα)</b><br>
+    <span class="k">路徑</span>TOP2A → KEGG <code>Platinum drug resistance</code><br>
+    <span class="k">參照藥</span>etoposide 為淋巴瘤標準藥(標籤=1)</div>
+  <div class="box warn"><h2>誠實標註</h2>
+    「已驗證藥的結構近親 + 共享真實靶點」是藥廠接受的重定位理由。<b>模型是靠相似度找到的(消融證實)</b>,靶點/路徑是<b>補上的機制脈絡</b>來撐可信度,非宣稱「模型發現機制」。所有邊 KG 可查。</div>
+</div>
+<script>
+const els=[
+  // 節點
+  {data:{id:"cand",label:"teniposide",t:"cand",sub:"候選 · 模型#14"}},
+  {data:{id:"known",label:"etoposide",t:"known",sub:"淋巴瘤標準藥"}},
+  {data:{id:"dis",label:"犬淋巴瘤",t:"dis",sub:"11 已知藥"}},
+  {data:{id:"top2a",label:"TOP2A",t:"prot",sub:"拓撲異構酶 IIα · P11388"}},
+  {data:{id:"top2b",label:"TOP2B",t:"prot",sub:"P11388 家族 · Q02880"}},
+  {data:{id:"path",label:"Platinum drug resistance",t:"path",sub:"KEGG hsa01524"}},
+  // 邊
+  {data:{id:"e1",source:"cand",target:"known",label:"化學相似 0.926",cls:"sim"}},
+  {data:{id:"e2",source:"cand",target:"top2a",label:"靶向",cls:"tgt"}},
+  {data:{id:"e3",source:"known",target:"top2a",label:"靶向",cls:"tgt"}},
+  {data:{id:"e4",source:"known",target:"top2b",label:"靶向",cls:"tgt"}},
+  {data:{id:"e5",source:"top2a",target:"path",label:"參與",cls:"pth"}},
+  {data:{id:"e6",source:"known",target:"dis",label:"已知治療",cls:"treat"}},
+];
+const COL={cand:"#e8821a",known:"#1a9850",dis:"#0f9b8e",prot:"#7b5ea7",path:"#2b6cb0"};
+cytoscape({
+  container:document.getElementById("cy"), elements:els,
+  layout:{name:"cose",animate:false,padding:40,nodeRepulsion:12000,idealEdgeLength:130,gravity:.25,nodeOverlap:20},
+  style:[
+    {selector:"node",style:{"label":"data(label)","text-valign":"center","text-halign":"center","color":"#06121a",
+      "font-size":"13px","font-weight":700,"shape":"round-rectangle","width":"label","height":"label","padding":"11px","text-wrap":"wrap","text-max-width":"120px"}},
+    ...Object.entries(COL).map(([t,c])=>({selector:`node[t="${t}"]`,style:{"background-color":c,"color":(t==="dis"||t==="prot"||t==="path")?"#fff":"#06121a"}})),
+    {selector:'node[t="cand"]',style:{"border-width":3,"border-color":"#ffd9a8","font-size":"15px"}},
+    {selector:'node[t="dis"]',style:{"border-width":3,"border-color":"#7fe3d4","font-size":"15px"}},
+    {selector:"edge",style:{"label":"data(label)","font-size":"10.5px","color":"#c8d4de","text-background-color":"#0e1620","text-background-opacity":.9,"text-background-padding":"2px",
+      "width":2,"curve-style":"bezier","target-arrow-shape":"triangle","line-color":"#3a4d5e","target-arrow-color":"#3a4d5e"}},
+    {selector:'edge[cls="sim"]',style:{"line-color":"#e8b04b","target-arrow-color":"#e8b04b","width":4,"color":"#f0c674"}},
+    {selector:'edge[cls="tgt"]',style:{"line-color":"#8f7ab5","target-arrow-color":"#8f7ab5"}},
+    {selector:'edge[cls="pth"]',style:{"line-color":"#4a7fb0","target-arrow-color":"#4a7fb0"}},
+    {selector:'edge[cls="treat"]',style:{"line-color":"#2f9a5a","target-arrow-color":"#2f9a5a","width":3}},
+  ]
+});
+</script>
+</body>
+</html>
