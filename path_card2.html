@@ -41,7 +41,7 @@
   <span class="lg" style="background:#1a9850">已知標準藥</span>
   <span class="lg" style="background:#0f9b8e;color:#fff">寵物病</span>
   <span class="lg" style="background:#7b5ea7;color:#fff">共同作用目標</span>
-  <span class="lg" style="background:#2b6cb0;color:#fff">共同細胞路徑</span>
+  <span class="lg" style="background:#2b6cb0;color:#fff">生物路徑</span>
   <span class="lg" style="background:#d0a54a">📄 文獻(可點)</span>
   <span class="lg" style="background:#a83227;color:#fff">⚠️ 誠實缺口</span>
   <span style="color:#f0c674;font-weight:700">— 金線=化學相似</span>
@@ -51,7 +51,7 @@
     <span class="k">方式</span>teniposide 和 etoposide 的化學結構相似度 <b>0.926</b>(電腦算得出)。模型排名<b>第 8</b>(共 883 個藥)。</div>
   <div class="box"><h2>為什麼可信</h2>
     <span class="k">同一目標</span>teniposide 和 3 個近親<b>都攻擊同一個目標</b><br>
-    <span class="k">同一路徑</span>都經過同一條細胞路徑<br>
+    <span class="k">同一路徑</span>都出現在同一條生物路徑(Platinum drug resistance)<br>
     <span class="k">參照藥</span>etoposide、doxorubicin、mitoxantrone <b>都是已知的淋巴瘤藥</b></div>
   <div class="box warn"><h2>誠實標註 + 文獻</h2>
     模型是靠「長得像已知有效藥」找到的(我們測試確認過)。<b>文獻(可點)</b>:人類用 teniposide 治淋巴瘤、近親 etoposide 在狗身上 <b>83% 有效果</b>。<b>缺口:teniposide 本身還沒在真的狗身上測過</b>,所以不說「已證實能治狗的淋巴瘤」。</div>
@@ -65,7 +65,7 @@ const els=[
   {data:{id:"mito",label:"mitoxantrone",t:"known",sub:"淋巴瘤標準藥"}},
   {data:{id:"dis",label:"犬淋巴瘤",t:"dis",sub:"11 已知藥(其中 3 個為 teniposide 同類)"}},
   {data:{id:"top2a",label:"共同攻擊目標\n(TOP2A)",t:"prot",sub:"這些藥共同攻擊的目標"}},
-  {data:{id:"path",label:"共同細胞路徑",t:"path",sub:""}},
+  {data:{id:"path",label:"Platinum drug resistance",t:"path",sub:"生物路徑(專有名詞)"}},
   // 邊:候選 →(相似)→ 3 個同類已知藥
   {data:{id:"s1",source:"cand",target:"etop",label:"相似 0.926",cls:"sim"}},
   {data:{id:"s2",source:"cand",target:"doxo",label:"相似 0.756",cls:"sim"}},
