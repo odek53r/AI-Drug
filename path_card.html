@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>找到路徑卡 · teniposide → 犬淋巴瘤(純模型,可驗證)</title>
+<style>
+  :root{--bg:#0f1720;--card:#16202b;--card2:#1c2935;--ink:#e7edf3;--muted:#9fb0c0;--line:#2a3a49;
+        --pet:#0f9b8e;--known:#1a9850;--cand:#e8821a;--acc:#36c5b0;--warn:#ffd9a8}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px}
+  h1{font-size:21px;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:13.5px;line-height:1.6;margin-bottom:18px}
+  .sub b{color:var(--ink)}
+  .flow{display:flex;align-items:center;gap:0;overflow-x:auto;padding:10px 0 6px}
+  .col{display:flex;flex-direction:column;gap:10px;flex:0 0 auto}
+  .node{border-radius:12px;padding:12px 15px;min-width:150px;border:1px solid var(--line);background:var(--card)}
+  .node .t{font-size:15px;font-weight:700}
+  .node .s{font-size:11.5px;color:var(--muted);margin-top:3px}
+  .cand{border:2px solid var(--cand);background:#20242b}
+  .cand .t{color:var(--cand)}
+  .known{border-left:4px solid var(--known)}
+  .pet{border:2px solid var(--pet);background:#12211f;min-width:135px}
+  .pet .t{color:#7fe3d4}
+  .arrow{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 8px;min-width:120px}
+  .arrow .lab{font-size:11px;color:var(--acc);font-weight:700;white-space:nowrap;margin-bottom:2px}
+  .arrow .ln{width:100%;height:2px;background:var(--acc);position:relative}
+  .arrow .ln:after{content:"";position:absolute;right:-1px;top:-4px;border:5px solid transparent;border-left-color:var(--acc)}
+  .simhi{color:#7fe0a8} .simlo{color:var(--muted)}
+  .panel{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px}
+  .box h2{font-size:14px;margin:0 0 8px;color:var(--acc)}
+  .box .row{font-size:13px;line-height:1.7;color:var(--ink)}
+  .box .k{color:var(--muted);font-size:11px;display:block;letter-spacing:.4px}
+  .pill{display:inline-block;background:rgba(26,153,80,.18);color:#7fe0a8;border:1px solid #1a9850;border-radius:6px;padding:1px 8px;font-size:12px;font-weight:700;margin:2px 4px 0 0}
+  .note{margin-top:18px;background:var(--card2);border-left:3px solid var(--warn);border-radius:0 10px 10px 0;padding:12px 16px;font-size:13px;line-height:1.7}
+  .note b{color:var(--warn)}
+  code{background:#0e1620;padding:1px 6px;border-radius:4px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🧭 找到路徑卡 · <span style="color:var(--cand)">teniposide</span> → 犬淋巴瘤</h1>
+  <div class="sub">
+    純模型路徑,<b>零外部查詢</b>——每個數字都來自訓練資料、<b>可重跑</b>。
+    模型推薦 teniposide,是因為它是<b>三個已知淋巴瘤標準藥的結構近親</b>。
+  </div>
+
+  <!-- 路徑:候選 → (相似) → 已知標準藥 → (治療) → 病 -->
+  <div class="flow">
+    <div class="col">
+      <div class="node cand">
+        <div class="t">teniposide</div>
+        <div class="s">候選藥 · 模型排名 #14 / 883</div>
+      </div>
+    </div>
+
+    <div class="arrow">
+      <div class="lab">化學相似度(fused）</div>
+      <div class="ln"></div>
+    </div>
+
+    <div class="col">
+      <div class="node known">
+        <div class="t">etoposide <span class="simhi">· 0.926</span></div>
+        <div class="s">已知淋巴瘤標準藥</div>
+      </div>
+      <div class="node known">
+        <div class="t">doxorubicin <span class="simhi">· 0.756</span></div>
+        <div class="s">已知淋巴瘤標準藥</div>
+      </div>
+      <div class="node known">
+        <div class="t">mitoxantrone <span class="simhi">· 0.728</span></div>
+        <div class="s">已知淋巴瘤標準藥</div>
+      </div>
+    </div>
+
+    <div class="arrow">
+      <div class="lab">已知治療(標籤=1)</div>
+      <div class="ln"></div>
+    </div>
+
+    <div class="col">
+      <div class="node pet">
+        <div class="t">犬淋巴瘤</div>
+        <div class="s">Precursor Lymphoblastic Lymphoma · 11 已知藥</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="box">
+      <h2>怎麼找到的</h2>
+      <div class="row">
+        <span class="k">路徑類型</span>
+        <b>結構近親(化學相似)</b>——非機制推理。<br>
+        teniposide 與 <span class="pill">etoposide 0.926</span><span class="pill">doxorubicin 0.756</span><span class="pill">mitoxantrone 0.728</span>
+        三個<b>已在治淋巴瘤</b>的藥高度相似 → 同類、很可能同效、不同分子。
+      </div>
+    </div>
+    <div class="box">
+      <h2>怎麼驗證的(可重跑)</h2>
+      <div class="row">
+        <span class="k">相似度</span>drug_sim_fused 矩陣,算得出<br>
+        <span class="k">已知治療</span>KPet_baseline 標籤 = 1<br>
+        <span class="k">路徑真實性</span>消融證實:拿掉 teniposide 的靶點邊<b>不影響</b>排名 → 確實走「相似度」而非機制路
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>誠實標註:</b>這是「<b>已驗證藥的結構近親</b>」，是藥廠接受的重定位理由——但<b>不是「發現新機制」</b>。
+    我們不對這顆畫「teniposide→TOP2A→病」的機制路徑，因為消融證明模型<b>沒有</b>用那條路（那會是事後合理化）。
+    只畫模型真的用的路：<code>近親於已知有效藥</code>。
+  </div>
+</div>
+</body>
+</html>
