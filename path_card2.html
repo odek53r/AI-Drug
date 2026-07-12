@@ -31,8 +31,8 @@
 <header>
   <h1>🧬 候選藥證據圖 · <span class="c">teniposide</span> → 犬淋巴瘤</h1>
   <div class="sub">
-    <b>找到方式</b>=結構相似(模型)。<b>可信度</b>=它與已知淋巴瘤標準藥 etoposide <b>共享真實靶點 TOP2A</b>——兩者都是拓撲異構酶 II 抑制劑。
-    圖上每條邊都來自訓練資料 / KG,<b>可重跑</b>。
+    <b>找到方式</b>=結構相似(模型)。<b>可信度</b>=teniposide 是 11 個已知藥中 <b>3 個(etoposide/doxorubicin/mitoxantrone)</b>的近親,
+    而這 3 個<b>全是 TOP2A(拓撲異構酶 II)抑制劑</b>——teniposide 屬於一個<b>已被證實治淋巴瘤的藥類</b>,不只是像單一顆藥。每條邊 KG 可查、可重跑。
   </div>
 </header>
 <div id="cy"></div>
@@ -48,9 +48,9 @@
   <div class="box"><h2>怎麼找到</h2>
     <span class="k">路徑</span>結構相似:teniposide ↔ etoposide = <b>0.926</b>(fused 相似度矩陣)。模型排名 #14/883。</div>
   <div class="box"><h2>為什麼可信(機制脈絡)</h2>
-    <span class="k">共享靶點</span>兩者都抑制 <b>TOP2A(拓撲異構酶 IIα)</b><br>
+    <span class="k">同藥類</span>3 個近親 <b>全抑制 TOP2A</b>(teniposide 也是)<br>
     <span class="k">路徑</span>TOP2A → KEGG <code>Platinum drug resistance</code><br>
-    <span class="k">參照藥</span>etoposide 為淋巴瘤標準藥(標籤=1)</div>
+    <span class="k">參照藥</span>etoposide/doxorubicin/mitoxantrone 皆淋巴瘤標準藥(標籤=1)</div>
   <div class="box warn"><h2>誠實標註</h2>
     「已驗證藥的結構近親 + 共享真實靶點」是藥廠接受的重定位理由。<b>模型是靠相似度找到的(消融證實)</b>,靶點/路徑是<b>補上的機制脈絡</b>來撐可信度,非宣稱「模型發現機制」。所有邊 KG 可查。</div>
 </div>
@@ -58,18 +58,27 @@
 const els=[
   // 節點
   {data:{id:"cand",label:"teniposide",t:"cand",sub:"候選 · 模型#14"}},
-  {data:{id:"known",label:"etoposide",t:"known",sub:"淋巴瘤標準藥"}},
-  {data:{id:"dis",label:"犬淋巴瘤",t:"dis",sub:"11 已知藥"}},
+  {data:{id:"etop",label:"etoposide",t:"known",sub:"淋巴瘤標準藥"}},
+  {data:{id:"doxo",label:"doxorubicin",t:"known",sub:"淋巴瘤標準藥"}},
+  {data:{id:"mito",label:"mitoxantrone",t:"known",sub:"淋巴瘤標準藥"}},
+  {data:{id:"dis",label:"犬淋巴瘤",t:"dis",sub:"11 已知藥(其中 3 個為 teniposide 同類)"}},
   {data:{id:"top2a",label:"TOP2A",t:"prot",sub:"拓撲異構酶 IIα · P11388"}},
-  {data:{id:"top2b",label:"TOP2B",t:"prot",sub:"P11388 家族 · Q02880"}},
   {data:{id:"path",label:"Platinum drug resistance",t:"path",sub:"KEGG hsa01524"}},
-  // 邊
-  {data:{id:"e1",source:"cand",target:"known",label:"化學相似 0.926",cls:"sim"}},
-  {data:{id:"e2",source:"cand",target:"top2a",label:"靶向",cls:"tgt"}},
-  {data:{id:"e3",source:"known",target:"top2a",label:"靶向",cls:"tgt"}},
-  {data:{id:"e4",source:"known",target:"top2b",label:"靶向",cls:"tgt"}},
-  {data:{id:"e5",source:"top2a",target:"path",label:"參與",cls:"pth"}},
-  {data:{id:"e6",source:"known",target:"dis",label:"已知治療",cls:"treat"}},
+  // 邊:候選 →(相似)→ 3 個同類已知藥
+  {data:{id:"s1",source:"cand",target:"etop",label:"相似 0.926",cls:"sim"}},
+  {data:{id:"s2",source:"cand",target:"doxo",label:"相似 0.756",cls:"sim"}},
+  {data:{id:"s3",source:"cand",target:"mito",label:"相似 0.728",cls:"sim"}},
+  // 全部 4 個藥 → 共享靶點 TOP2A
+  {data:{id:"t0",source:"cand",target:"top2a",label:"靶向",cls:"tgt"}},
+  {data:{id:"t1",source:"etop",target:"top2a",label:"靶向",cls:"tgt"}},
+  {data:{id:"t2",source:"doxo",target:"top2a",label:"靶向",cls:"tgt"}},
+  {data:{id:"t3",source:"mito",target:"top2a",label:"靶向",cls:"tgt"}},
+  // TOP2A → 路徑
+  {data:{id:"p1",source:"top2a",target:"path",label:"參與",cls:"pth"}},
+  // 3 個已知藥 → 已知治療 → 病
+  {data:{id:"tr1",source:"etop",target:"dis",label:"已知治療",cls:"treat"}},
+  {data:{id:"tr2",source:"doxo",target:"dis",label:"已知治療",cls:"treat"}},
+  {data:{id:"tr3",source:"mito",target:"dis",label:"已知治療",cls:"treat"}},
 ];
 const COL={cand:"#e8821a",known:"#1a9850",dis:"#0f9b8e",prot:"#7b5ea7",path:"#2b6cb0"};
 cytoscape({
