@@ -67,7 +67,7 @@
   </div>
   <div class="foot">
     <b>方法:</b>① AutoDock Vina 對接 PDB 3QX3(TOP2+DNA+etoposide 共晶,box 對準真實 poison site)· ② RDKit SA score · ③ ADMET-AI(GPU,104 終點)· ④ IP 需律師。
-    <b>誠實:</b>daunorubicin/idarubicin 是已知藥 doxorubicin 的近親、teniposide 是 etoposide 的近親——合理重定位但屬<b>內插</b>,非新機制;所有預測皆電腦粗篩,真效力/安全仍需濕實驗。teniposide 另有文獻(相似藥 etoposide 犬淋巴瘤 ORR 83%)。
+    <b>誠實:</b>daunorubicin/idarubicin 是已知藥 doxorubicin 的近親、teniposide 是 etoposide 的近親——合理重定位但屬<b>內插</b>,非新機制;所有預測皆電腦粗篩,真效力/安全仍需濕實驗。teniposide 另有文獻(相似藥 etoposide 犬淋巴瘤劑量試驗:整體 ORR 18.5%(5/27),最高劑量 6 犬 83%(5/6))。
   </div>
 </div>
 
@@ -81,7 +81,7 @@
 <script>
 const GATE={
  etop:{n:"etoposide",cls:"ref",rk:"對照 · 已知有效藥",g1:"−9.78 kcal/mol",g1c:"g1p",g1t:"強結合(驗證設定)",sa:"4.9",herg:"0.77 (77%)",dili:"0.89 (82%)",ames:"0.84 (96%)",v:"ref",vt:"基準(FDA 核准)",note:"docking 對照組:已知結合此口袋,得強分數→證明流程設對。"},
- teni:{n:"teniposide",cls:"cand",rk:"候選 · Stack #8",g1:"−11.01 kcal/mol",g1c:"g1p",g1t:"強結合 ✅",sa:"5.0",herg:"0.85 (83%)",dili:"0.93 (87%)",ames:"0.89 (97%)",v:"pass",vt:"✅ ①②③ 過",note:"另有文獻:相似藥 etoposide 於 27 隻犬淋巴瘤 ORR 83%。模型選它的理由是化學像 etoposide(消融證)。"},
+ teni:{n:"teniposide",cls:"cand",rk:"候選 · Stack #8",g1:"−11.01 kcal/mol",g1c:"g1p",g1t:"強結合 ✅",sa:"5.0",herg:"0.85 (83%)",dili:"0.93 (87%)",ames:"0.89 (97%)",v:"pass",vt:"✅ ①②③ 過",note:"另有文獻:相似藥 etoposide 犬淋巴瘤劑量試驗,整體 ORR 18.5%(5/27),最高劑量 6 犬 5/6=83%。模型選它的理由是化學像 etoposide(消融證)。"},
  daun:{n:"daunorubicin",cls:"cand",rk:"候選 · Stack #4 · 蒽環類",g1:"−11.43 kcal/mol",g1c:"g1p",g1t:"強結合(最強)✅",sa:"4.42",herg:"0.71 (73%)",dili:"0.95 (91%)",ames:"0.98 (99%)",v:"pass",vt:"✅ ①②③ 過",note:"已知淋巴瘤藥 doxorubicin 的近親。AMES 99%=基因毒性化療的機制本質(etoposide 亦 96%)。"},
  idar:{n:"idarubicin",cls:"cand",rk:"候選 · Stack #7 · 蒽環類",g1:"−10.91 kcal/mol",g1c:"g1p",g1t:"強結合 ✅",sa:"4.34",herg:"0.68 (71%)",dili:"0.94 (89%)",ames:"0.98 (99%)",v:"pass",vt:"✅ ①②③ 過",note:"doxorubicin 近親,Ro5 全過。毒性旗與 etoposide 同級。"},
  dact:{n:"dactinomycin",cls:"fail",rk:"候選 · Stack #6 · 環狀肽",g1:"+13.84 kcal/mol",g1c:"g1f",g1t:"塞不進口袋 ❌",sa:"7.02",herg:"0.78 (78%)",dili:"1.00 (99%)",ames:"0.41 (71%)",v:"fail",vt:"❌ ① 不過",note:"KG 標它打 TOP2A,但真對接為正值=太大塞不進 poison site(它是 DNA 嵌入劑)。真正的①打槍了查表假陽性。"}
