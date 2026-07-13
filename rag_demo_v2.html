@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAG Demo v2 · 犬淋巴瘤老藥新用(真證據版)</title>
+<style>
+  :root{--bg:#0f1720;--card:#16202b;--card2:#1c2935;--ink:#e7edf3;--muted:#9fb0c0;--line:#2a3a49;
+        --acc:#36c5b0;--cand:#e8821a;--in:#0f9b8e;--s1:#5a7fb0;--s2:#7b5ea7;--out:#1a9850;--fail:#d0453b}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.6}
+  a{color:#7fb2e8}
+  .wrap{max-width:1160px;margin:0 auto;padding:26px 20px 70px}
+  h1{font-size:23px;margin:0 0 4px}
+  h1 .c{color:var(--cand)}
+  .sub{color:var(--muted);font-size:14px;max-width:900px;margin-bottom:22px}
+  .sub b{color:var(--ink)}
+  /* 管線橫幅 */
+  .pipe{display:flex;align-items:stretch;gap:0;overflow-x:auto;margin-bottom:8px}
+  .stg{flex:1 1 0;min-width:180px;border-radius:12px;padding:13px 15px;margin-right:26px;position:relative;border:1px solid var(--line)}
+  .stg:last-child{margin-right:0}
+  .stg:after{content:"▶";position:absolute;right:-19px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px}
+  .stg:last-child:after{content:""}
+  .stg .tag{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+  .stg .ti{font-size:15px;font-weight:700;margin:3px 0 4px}
+  .stg .de{font-size:12px;color:var(--muted)}
+  .stg.in{background:rgba(15,155,142,.12);border-color:#0f9b8e} .stg.in .tag{color:#5fd6c6}
+  .stg.s1{background:rgba(90,127,176,.12);border-color:#5a7fb0} .stg.s1 .tag{color:#9cc0e8}
+  .stg.s2{background:rgba(123,94,167,.13);border-color:#7b5ea7} .stg.s2 .tag{color:#c3aee6}
+  .stg.out{background:rgba(26,153,80,.12);border-color:#1a9850} .stg.out .tag{color:#7fe0a8}
+  h2{font-size:17px;margin:32px 0 6px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+  h2 small{color:var(--muted);font-weight:400;font-size:13px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;margin-top:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px 17px;border-top:3px solid var(--cand)}
+  .card.fail{border-top-color:var(--fail)}
+  .card h3{margin:0 0 2px;font-size:17px}
+  .card .rk{color:var(--muted);font-size:12px;margin-bottom:10px}
+  .ev{font-size:13px;margin:7px 0;padding-left:22px;position:relative}
+  .ev .ic{position:absolute;left:0;top:0}
+  .ev b{color:var(--ink)}
+  .p{color:#7fe0a8;font-weight:700} .f{color:#ff8a7f;font-weight:700}
+  .verd{margin-top:11px;padding:8px 12px;border-radius:9px;font-weight:700;text-align:center;font-size:13px}
+  .verd.pass{background:rgba(26,153,80,.16);color:#7fe0a8;border:1px solid #1a9850}
+  .verd.hyp{background:rgba(232,163,58,.14);color:#f0c674;border:1px solid #b9862f}
+  .verd.twist{background:rgba(208,69,59,.14);color:#ff9a90;border:1px solid #a5382f}
+  .note{margin-top:24px;background:var(--card2);border-left:3px solid var(--acc);border-radius:0 10px 10px 0;padding:13px 17px;font-size:13px}
+  .note.warn{border-left-color:#e8a33a} .note.warn b{color:#f0c674}
+  .note b{color:var(--acc)}
+  .foot{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+  code{background:#0e1620;padding:1px 6px;border-radius:4px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🔎 RAG Demo <span class="c">v2</span> · 犬淋巴瘤老藥新用<span style="font-size:14px;color:var(--muted)">（真證據版）</span></h1>
+  <div class="sub">
+    用 <b>MRDDA</b> 加寵物資料撈出候選 → 用 <b>RAG</b> 對每顆候選檢索<b>真實證據</b>(分子對接、ADMET、PubMed 犬臨床文獻) → 產出可查證的證據鏈。
+    <b>v2 與 v1 的差別:證據不再是相似度佔位,而是這輪實跑出來的真數據 + 真文獻連結。</b>
+  </div>
+
+  <div class="pipe">
+    <div class="stg in"><div class="tag">Input</div><div class="ti">寵物疾病</div><div class="de">犬淋巴瘤（Precursor Lymphoblastic）</div></div>
+    <div class="stg s1"><div class="tag">Stage 1 · MRDDA 內插</div><div class="ti">撈候選 + 機制篩</div><div class="de">Stack 排名前段 ∩ 打中共同靶點 TOP2A</div></div>
+    <div class="stg s2"><div class="tag">Stage 2 · RAG 檢索</div><div class="ti">每顆查真證據</div><div class="de">對接 kcal/mol · ADMET · PubMed 犬試驗</div></div>
+    <div class="stg out"><div class="tag">Output</div><div class="ti">證據鏈網頁</div><div class="de">每顆「為什麼可能有效 + 來源連結」</div></div>
+  </div>
+
+  <h2>Output：候選證據鏈 <small>· 點連結看真實文獻</small></h2>
+  <div class="cards">
+
+    <div class="card">
+      <h3>idarubicin</h3><div class="rk">Stack #7 · 蒽環類 · 內插自 doxorubicin</div>
+      <div class="ev"><span class="ic">①</span>對接 TOP2 <b class="p">−10.91 kcal/mol</b>(強結合,≈ 已知 etoposide −9.78)</div>
+      <div class="ev"><span class="ic">③</span>ADMET 與 etoposide 同級(hERG 0.68、AMES 99%＝化療類別固有)</div>
+      <div class="ev"><span class="ic">📄</span><b>直接犬試驗:</b><a href="https://onlinelibrary.wiley.com/doi/10.1111/j.1939-1676.2012.00896.x" target="_blank">Phase I,31 隻犬淋巴瘤,口服 idarubicin「有初步抗腫瘤活性」(Vail 2012)</a></div>
+      <div class="verd pass">✅ 模型預測 + 真實犬文獻佐證</div>
+    </div>
+
+    <div class="card">
+      <h3>teniposide</h3><div class="rk">Stack #8 · 內插自 etoposide（相似 0.93）</div>
+      <div class="ev"><span class="ic">①</span>對接 TOP2 <b class="p">−11.01 kcal/mol</b>(強結合)</div>
+      <div class="ev"><span class="ic">③</span>ADMET 與 etoposide 同級</div>
+      <div class="ev"><span class="ic">📄</span><b>近親犬試驗:</b><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5432161/" target="_blank">相似藥 etoposide 於 27 隻犬淋巴瘤劑量試驗</a>(teniposide 本身尚無犬試驗)</div>
+      <div class="verd hyp">⚠️ 可信假設（本藥未在犬驗證）</div>
+    </div>
+
+    <div class="card">
+      <h3>daunorubicin</h3><div class="rk">Stack #4 · 蒽環類 · 內插自 doxorubicin</div>
+      <div class="ev"><span class="ic">①</span>對接 TOP2 <b class="p">−11.43 kcal/mol</b>(最強)</div>
+      <div class="ev"><span class="ic">③</span>ADMET 與 etoposide 同級</div>
+      <div class="ev"><span class="ic">📄</span><b>同類犬證據:</b><a href="https://pubmed.ncbi.nlm.nih.gov/20691026/" target="_blank">蒽環類(doxorubicin)是犬淋巴瘤黃金標準</a>(daunorubicin 本身尚無犬試驗)</div>
+      <div class="verd hyp">⚠️ 可信假設（本藥未在犬驗證）</div>
+    </div>
+
+    <div class="card fail">
+      <h3>dactinomycin</h3><div class="rk">Stack #6 · 環狀肽（放線菌素 D）</div>
+      <div class="ev"><span class="ic">①</span>對接 TOP2 <b class="f">+13.84（塞不進口袋）</b>→ 不走 TOP2A 機制</div>
+      <div class="ev"><span class="ic">📄</span><b>但有扎實犬文獻:</b><a href="https://pubmed.ncbi.nlm.nih.gov/18673031/" target="_blank">犬淋巴瘤搶救 49 例(JAVMA 2008)</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3894879/" target="_blank">DMAC 方案反應率 72%</a></div>
+      <div class="verd twist">🔄 誠實轉折：docking 打槍它，但它靠<b>別的機制（DNA 嵌入）</b>真的有效</div>
+    </div>
+
+  </div>
+
+  <div class="note warn">
+    <b>RAG 揭露的關鍵誠實點：</b>dactinomycin 讓我們的「機制關卡①（只驗打不打 TOP2A）」失效——它 docking 難看,卻是<b>臨床在用的犬淋巴瘤搶救藥</b>。這說明 <b>①只驗一條機制,會誤殺走別條路的有效藥</b>；而模型(內插)把它排 #6 反而是對的。RAG 把「計算打槍」與「真實文獻有效」並陳,正是它的價值——不藏矛盾。
+  </div>
+
+  <div class="note">
+    <b>誠實界線：</b>候選是模型靠「化學相似已知有效藥」<b>內插</b>出來的（非新機制發現）。它們有犬文獻,部分正因為「像有效藥才被選、也像有效藥才有效」——屬<b>補齊已知藥類別</b>。對接/ADMET 為電腦預測,真效力仍需濕實驗。這 4 顆<b>都不在我們的訓練標籤裡</b>（沒有遮任何關聯），是模型真正外推撈出、再由 RAG 佐證。
+  </div>
+
+  <div class="foot">
+    Input＝犬淋巴瘤 · Stage1＝MRDDA 凍結版 v1.0（Stack 排名＋TOP2A 機制篩）· Stage2＝AutoDock Vina＋ADMET-AI＋PubMed · Output＝本頁。演算法未改,僅新增寵物資料。
+  </div>
+</div>
+</body>
+</html>
