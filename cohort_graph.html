@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>淋巴瘤 TOP2A 世代 · 證據圖(4 大關卡)</title>
+<script src="vendor/cytoscape.min.js"></script>
+<script>window.cytoscape||document.write('<script src="https://unpkg.com/cytoscape@3.30.2/dist/cytoscape.min.js"><\/script>');</script>
+<style>
+  :root{--bg:#0f1720;--card:#16202b;--ink:#e7edf3;--muted:#9fb0c0;--line:#2a3a49;
+        --acc:#36c5b0;--cand:#e8821a;--known:#1a9850;--tgt:#7b5ea7;--dis:#0f9b8e;--fail:#d0453b}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif}
+  header{padding:13px 20px 8px}
+  h1{margin:0;font-size:19px}
+  h1 .c{color:var(--cand)}
+  .sub{color:var(--muted);font-size:13px;line-height:1.6;margin-top:5px;max-width:1150px}
+  .sub b{color:var(--ink)}
+  #stage{position:absolute;top:96px;bottom:0;left:0;right:340px}
+  #cy{position:absolute;top:0;bottom:150px;left:0;right:0}
+  #legend{position:absolute;bottom:110px;left:0;right:0;height:40px;display:flex;gap:8px;align-items:center;
+          padding:0 20px;font-size:11px;flex-wrap:wrap;border-top:1px solid var(--line)}
+  .lg{padding:2px 9px;border-radius:10px;font-weight:700;color:#06121a}
+  .foot{position:absolute;bottom:0;left:0;right:0;height:110px;padding:10px 20px;border-top:1px solid var(--line);
+        font-size:12px;color:var(--muted);overflow:auto}
+  .foot b{color:var(--ink)}
+  /* 右側明細面板 */
+  #panel{position:absolute;top:96px;bottom:0;right:0;width:340px;background:var(--card);border-left:1px solid var(--line);
+         padding:16px 18px;overflow:auto}
+  #panel h2{margin:0 0 3px;font-size:17px}
+  #panel .rk{color:var(--muted);font-size:12px;margin-bottom:12px}
+  .gate{border:1px solid var(--line);border-radius:9px;padding:9px 11px;margin-bottom:9px;background:#0e1620}
+  .gate .lab{font-size:11px;color:var(--acc);font-weight:700;letter-spacing:.3px}
+  .gate .val{font-size:14px;margin-top:2px}
+  .gate.g1p{border-left:3px solid var(--known)} .gate.g1f{border-left:3px solid var(--fail)}
+  .gate.g3{border-left:3px solid #e8a33a}
+  .p{color:#7fe0a8;font-weight:700} .f{color:#ff8a7f;font-weight:700}
+  .verdict{margin-top:6px;padding:8px 11px;border-radius:9px;font-weight:700;text-align:center}
+  .verdict.pass{background:rgba(26,153,80,.18);color:#7fe0a8;border:1px solid #1a9850}
+  .verdict.fail{background:rgba(208,69,59,.18);color:#ff8a7f;border:1px solid #d0453b}
+  .verdict.ref{background:rgba(90,127,176,.16);color:#9cc0e8;border:1px solid #4a6a90}
+  .hint{color:var(--muted);font-size:12.5px;line-height:1.7}
+  .note{font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.6;border-top:1px dashed var(--line);padding-top:9px}
+  @media(max-width:820px){#stage{right:0}#panel{position:static;width:auto;height:auto;border-left:none;border-top:1px solid var(--line)}
+    #cy{right:0}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🧬 淋巴瘤 <span class="c">TOP2A 世代</span> · 證據圖(4 大關卡實測)</h1>
+  <div class="sub">
+    模型找到<b>多個打中同一機制靶點 TOP2A</b> 的候選。金線=模型內插所依據的化學相似;紫線=對接 TOP2A(標結合能);綠線=已知治療。
+    <b>點任一藥看 4 關卡明細</b>。dactinomycin 被真對接打槍(塞不進口袋)。
+  </div>
+</header>
+
+<div id="stage">
+  <div id="cy"></div>
+  <div id="legend">
+    <span class="lg" style="background:#e8821a">候選藥(過關)</span>
+    <span class="lg" style="background:#d0453b;color:#fff">候選(①不過)</span>
+    <span class="lg" style="background:#1a9850">已知有效藥</span>
+    <span class="lg" style="background:#7b5ea7;color:#fff">共同機制靶點</span>
+    <span class="lg" style="background:#0f9b8e;color:#fff">寵物病</span>
+    <span style="color:#f0c674;font-weight:700">— 金=化學相似</span>
+    <span style="color:#9a86c0;font-weight:700">— 紫=對接TOP2A</span>
+  </div>
+  <div class="foot">
+    <b>方法:</b>① AutoDock Vina 對接 PDB 3QX3(TOP2+DNA+etoposide 共晶,box 對準真實 poison site)· ② RDKit SA score · ③ ADMET-AI(GPU,104 終點)· ④ IP 需律師。
+    <b>誠實:</b>daunorubicin/idarubicin 是已知藥 doxorubicin 的近親、teniposide 是 etoposide 的近親——合理重定位但屬<b>內插</b>,非新機制;所有預測皆電腦粗篩,真效力/安全仍需濕實驗。teniposide 另有文獻(相似藥 etoposide 犬淋巴瘤 ORR 83%)。
+  </div>
+</div>
+
+<div id="panel">
+  <div id="pcontent">
+    <p class="hint">👈 點圖上任一顆藥,看它的<br>① 對接有效性 ② 可合成 ③ ADMET 安全 明細。</p>
+    <p class="hint" style="margin-top:14px"><b style="color:#e8821a">teniposide / daunorubicin / idarubicin</b> = ①②③ 過關。<br><b style="color:#ff8a7f">dactinomycin</b> = ① 被對接打槍。</p>
+  </div>
+</div>
+
+<script>
+const GATE={
+ etop:{n:"etoposide",cls:"ref",rk:"對照 · 已知有效藥",g1:"−9.78 kcal/mol",g1c:"g1p",g1t:"強結合(驗證設定)",sa:"4.9",herg:"0.77 (77%)",dili:"0.89 (82%)",ames:"0.84 (96%)",v:"ref",vt:"基準(FDA 核准)",note:"docking 對照組:已知結合此口袋,得強分數→證明流程設對。"},
+ teni:{n:"teniposide",cls:"cand",rk:"候選 · Stack #8",g1:"−11.01 kcal/mol",g1c:"g1p",g1t:"強結合 ✅",sa:"5.0",herg:"0.85 (83%)",dili:"0.93 (87%)",ames:"0.89 (97%)",v:"pass",vt:"✅ ①②③ 過",note:"另有文獻:相似藥 etoposide 於 27 隻犬淋巴瘤 ORR 83%。模型選它的理由是化學像 etoposide(消融證)。"},
+ daun:{n:"daunorubicin",cls:"cand",rk:"候選 · Stack #4 · 蒽環類",g1:"−11.43 kcal/mol",g1c:"g1p",g1t:"強結合(最強)✅",sa:"4.42",herg:"0.71 (73%)",dili:"0.95 (91%)",ames:"0.98 (99%)",v:"pass",vt:"✅ ①②③ 過",note:"已知淋巴瘤藥 doxorubicin 的近親。AMES 99%=基因毒性化療的機制本質(etoposide 亦 96%)。"},
+ idar:{n:"idarubicin",cls:"cand",rk:"候選 · Stack #7 · 蒽環類",g1:"−10.91 kcal/mol",g1c:"g1p",g1t:"強結合 ✅",sa:"4.34",herg:"0.68 (71%)",dili:"0.94 (89%)",ames:"0.98 (99%)",v:"pass",vt:"✅ ①②③ 過",note:"doxorubicin 近親,Ro5 全過。毒性旗與 etoposide 同級。"},
+ dact:{n:"dactinomycin",cls:"fail",rk:"候選 · Stack #6 · 環狀肽",g1:"+13.84 kcal/mol",g1c:"g1f",g1t:"塞不進口袋 ❌",sa:"7.02",herg:"0.78 (78%)",dili:"1.00 (99%)",ames:"0.41 (71%)",v:"fail",vt:"❌ ① 不過",note:"KG 標它打 TOP2A,但真對接為正值=太大塞不進 poison site(它是 DNA 嵌入劑)。真正的①打槍了查表假陽性。"}
+};
+function show(id){
+ const g=GATE[id]; if(!g) return;
+ document.getElementById("pcontent").innerHTML=
+  '<h2>'+g.n+'</h2><div class="rk">'+g.rk+'</div>'+
+  '<div class="gate '+g.g1c+'"><div class="lab">① 有效性 · 對接 TOP2</div><div class="val"><b class="'+(g.g1c=="g1p"?"p":"f")+'">'+g.g1+'</b> — '+g.g1t+'</div></div>'+
+  '<div class="gate"><div class="lab">② 可合成 · SA score</div><div class="val">'+g.sa+(parseFloat(g.sa)<4.5?' (易)':' (偏難,大分子)')+'</div></div>'+
+  '<div class="gate g3"><div class="lab">③ 安全 · ADMET(值/百分位)</div><div class="val">hERG '+g.herg+'<br>DILI '+g.dili+'<br>AMES '+g.ames+'</div></div>'+
+  '<div class="verdict '+g.v+'">'+g.vt+'</div>'+
+  '<div class="note">'+g.note+'</div>';
+}
+const els=[
+  {data:{id:"dis",label:"犬淋巴瘤",t:"dis"}},
+  {data:{id:"top2a",label:"TOP2A\n共同機制靶點",t:"tgt"}},
+  {data:{id:"etop",label:"etoposide",t:"known"}},
+  {data:{id:"doxo",label:"doxorubicin",t:"known"}},
+  {data:{id:"mito",label:"mitoxantrone",t:"known"}},
+  {data:{id:"teni",label:"teniposide",t:"cand"}},
+  {data:{id:"daun",label:"daunorubicin",t:"cand"}},
+  {data:{id:"idar",label:"idarubicin",t:"cand"}},
+  {data:{id:"dact",label:"dactinomycin",t:"fail"}},
+  // 已知藥 → 病(治療)
+  {data:{source:"etop",target:"dis",cls:"treat",label:"已知治療"}},
+  {data:{source:"doxo",target:"dis",cls:"treat",label:"已知治療"}},
+  {data:{source:"mito",target:"dis",cls:"treat",label:"已知治療"}},
+  // 所有藥 → TOP2A(對接分數)
+  {data:{source:"etop",target:"top2a",cls:"dockp",label:"−9.78"}},
+  {data:{source:"doxo",target:"top2a",cls:"tgt",label:"打靶"}},
+  {data:{source:"mito",target:"top2a",cls:"tgt",label:"打靶"}},
+  {data:{source:"teni",target:"top2a",cls:"dockp",label:"對接 −11.01 ✓"}},
+  {data:{source:"daun",target:"top2a",cls:"dockp",label:"對接 −11.43 ✓"}},
+  {data:{source:"idar",target:"top2a",cls:"dockp",label:"對接 −10.91 ✓"}},
+  {data:{source:"dact",target:"top2a",cls:"dockf",label:"對接 +13.84 ✗塞不進"}},
+  // TOP2A → 病(機制)
+  {data:{source:"top2a",target:"dis",cls:"mech",label:"毒化機制"}},
+  // 候選 → 近親已知藥(化學相似,金線)
+  {data:{source:"teni",target:"etop",cls:"sim",label:"相似 0.93"}},
+  {data:{source:"daun",target:"doxo",cls:"sim",label:"近親"}},
+  {data:{source:"idar",target:"doxo",cls:"sim",label:"近親"}},
+];
+const COL={dis:"#0f9b8e",tgt:"#7b5ea7",known:"#1a9850",cand:"#e8821a",fail:"#d0453b"};
+const cy=cytoscape({
+  container:document.getElementById("cy"), elements:els,
+  layout:{name:"cose",animate:false,padding:36,nodeRepulsion:14000,idealEdgeLength:120,gravity:.3,nodeOverlap:24},
+  style:[
+    {selector:"node",style:{"label":"data(label)","text-valign":"center","text-halign":"center","color":"#06121a",
+      "font-size":"13px","font-weight":700,"shape":"round-rectangle","width":"label","height":"label",
+      "padding":"11px","text-wrap":"wrap","text-max-width":"110px"}},
+    ...Object.entries(COL).map(([t,c])=>({selector:'node[t="'+t+'"]',style:{"background-color":c,
+      "color":(t==="dis"||t==="tgt"||t==="fail")?"#fff":"#06121a"}})),
+    {selector:'node[t="cand"]',style:{"border-width":3,"border-color":"#ffd9a8","font-size":"14px"}},
+    {selector:'node[t="fail"]',style:{"border-width":3,"border-color":"#ff9a90","font-size":"14px"}},
+    {selector:'node[t="dis"]',style:{"border-width":3,"border-color":"#7fe3d4","font-size":"15px"}},
+    {selector:'node[t="tgt"]',style:{"border-width":3,"border-color":"#b6a2d6","font-size":"14px"}},
+    {selector:"edge",style:{"label":"data(label)","font-size":"10px","color":"#c8d4de","text-background-color":"#0e1620",
+      "text-background-opacity":.9,"text-background-padding":"2px","width":2,"curve-style":"bezier",
+      "target-arrow-shape":"triangle","line-color":"#3a4d5e","target-arrow-color":"#3a4d5e"}},
+    {selector:'edge[cls="sim"]',style:{"line-color":"#e8b04b","target-arrow-color":"#e8b04b","width":4,"color":"#f0c674","line-style":"dashed"}},
+    {selector:'edge[cls="tgt"]',style:{"line-color":"#8f7ab5","target-arrow-color":"#8f7ab5"}},
+    {selector:'edge[cls="dockp"]',style:{"line-color":"#9a86c0","target-arrow-color":"#9a86c0","width":3.5,"color":"#c9b8e6"}},
+    {selector:'edge[cls="dockf"]',style:{"line-color":"#d0453b","target-arrow-color":"#d0453b","width":3.5,"color":"#ff9a90","line-style":"dashed"}},
+    {selector:'edge[cls="treat"]',style:{"line-color":"#2f9a5a","target-arrow-color":"#2f9a5a","width":3}},
+    {selector:'edge[cls="mech"]',style:{"line-color":"#5a7fb0","target-arrow-color":"#5a7fb0","line-style":"dotted","width":2.5}},
+    {selector:'node.sel',style:{"border-width":5,"border-color":"#fff"}},
+  ]
+});
+cy.on("tap","node",function(e){ cy.nodes().removeClass("sel"); e.target.addClass("sel"); show(e.target.id()); });
+show("daun");  // 預設顯示最強的
+cy.getElementById("daun").addClass("sel");
+</script>
+</body>
+</html>
