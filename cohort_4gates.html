@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>淋巴瘤 TOP2A 世代 · 4 大關卡實測(標準工具)</title>
+<style>
+  :root{--bg:#0f1720;--card:#16202b;--card2:#1c2935;--ink:#e7edf3;--muted:#9fb0c0;--line:#2a3a49;
+        --acc:#36c5b0;--pass:#1a9850;--warn:#e8a33a;--fail:#d0453b;--cand:#e8821a;--ref:#5a7fb0}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,sans-serif;line-height:1.6}
+  .wrap{max-width:1180px;margin:0 auto;padding:26px 20px 60px}
+  h1{font-size:23px;margin:0 0 4px}
+  h1 .c{color:var(--cand)}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:20px;max-width:900px}
+  .sub b{color:var(--ink)}
+  h2{font-size:17px;margin:30px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+  .scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+  table{border-collapse:collapse;width:100%;min-width:760px;font-size:13.5px}
+  th,td{padding:10px 12px;text-align:center;border-bottom:1px solid var(--line);white-space:nowrap}
+  th{background:var(--card2);color:var(--acc);font-weight:700;font-size:12.5px}
+  td.drug{text-align:left;font-weight:700}
+  tr:last-child td{border-bottom:none}
+  .ref td{background:rgba(90,127,176,.12)}
+  .ref td.drug{color:#9cc0e8}
+  .drug small{display:block;color:var(--muted);font-weight:400;font-size:11px}
+  .p{color:#7fe0a8;font-weight:700} .w{color:var(--warn);font-weight:700} .f{color:#ff8a7f;font-weight:700}
+  .pill{display:inline-block;padding:2px 9px;border-radius:20px;font-size:12px;font-weight:700}
+  .pill.pass{background:rgba(26,153,80,.18);color:#7fe0a8;border:1px solid #1a9850}
+  .pill.fail{background:rgba(208,69,59,.18);color:#ff8a7f;border:1px solid #d0453b}
+  .pill.na{background:rgba(159,176,192,.14);color:var(--muted);border:1px solid var(--line)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  @media(max-width:720px){.grid{grid-template-columns:1fr}}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .box.key{border-left:3px solid var(--acc)}
+  .box.fail{border-left:3px solid var(--fail)}
+  .box.warn{border-left:3px solid var(--warn)}
+  .box h3{margin:0 0 7px;font-size:14px;color:var(--acc)}
+  .box.fail h3{color:#ff8a7f} .box.warn h3{color:var(--warn)}
+  .box p{margin:5px 0;font-size:13px}
+  .note{margin-top:22px;background:var(--card2);border-left:3px solid var(--warn);border-radius:0 10px 10px 0;padding:13px 17px;font-size:13px}
+  .note b{color:var(--warn)}
+  code{background:#0e1620;padding:1px 6px;border-radius:4px;font-size:12px}
+  .foot{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+  .legend{font-size:12px;color:var(--muted);margin:8px 0 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🧬 淋巴瘤 <span class="c">TOP2A 世代</span> · 4 大關卡實測</h1>
+  <div class="sub">
+    除了 teniposide,模型還找到<b>其他打中同一機制靶點(TOP2A)的候選</b>。這裡把它們全部跑過
+    <b>標準版 4 大關卡</b>——①分子對接(AutoDock Vina)②可合成(RDKit SA)③安全(ADMET-AI)④IP。
+    以已知有效藥 <b>etoposide 當對照</b>。犬淋巴瘤已知藥中,etoposide／doxorubicin／mitoxantrone 三個共享 TOP2A。
+  </div>
+
+  <h2>① ~ ④ 關卡總表(5 藥 × 4 關)</h2>
+  <div class="scroll">
+  <table>
+    <tr>
+      <th>候選藥<br>(Stack 排名)</th>
+      <th>① 有效性<br>對接 TOP2 (kcal/mol)</th>
+      <th>② 可合成<br>SA score</th>
+      <th>③ 安全 · hERG</th>
+      <th>③ 安全 · DILI</th>
+      <th>③ 安全 · AMES</th>
+      <th>④ IP</th>
+      <th>總判</th>
+    </tr>
+    <tr class="ref">
+      <td class="drug">etoposide<small>對照 · 已知有效</small></td>
+      <td>−9.78 <span class="p">強</span></td>
+      <td>4.9</td>
+      <td>0.77 (77%)</td><td>0.89 (82%)</td><td>0.84 (96%)</td>
+      <td><span class="pill na">N/A</span></td>
+      <td>基準</td>
+    </tr>
+    <tr>
+      <td class="drug">teniposide<small>#8 · 已 docking+文獻確認</small></td>
+      <td><span class="p">−11.01</span></td>
+      <td>5.0</td>
+      <td>0.85 (83%)</td><td>0.93 (87%)</td><td>0.89 (97%)</td>
+      <td><span class="pill na">N/A</span></td>
+      <td><span class="pill pass">✅ 過</span></td>
+    </tr>
+    <tr>
+      <td class="drug">daunorubicin<small>#4 · 蒽環類</small></td>
+      <td><span class="p">−11.43</span></td>
+      <td>4.42</td>
+      <td>0.71 (73%)</td><td>0.95 (91%)</td><td>0.98 (99%)</td>
+      <td><span class="pill na">N/A</span></td>
+      <td><span class="pill pass">✅ 過</span></td>
+    </tr>
+    <tr>
+      <td class="drug">idarubicin<small>#7 · 蒽環類</small></td>
+      <td><span class="p">−10.91</span></td>
+      <td>4.34</td>
+      <td>0.68 (71%)</td><td>0.94 (89%)</td><td>0.98 (99%)</td>
+      <td><span class="pill na">N/A</span></td>
+      <td><span class="pill pass">✅ 過</span></td>
+    </tr>
+    <tr>
+      <td class="drug">dactinomycin<small>#6 · 環狀肽</small></td>
+      <td><span class="f">+13.84 塞不進</span></td>
+      <td>7.02</td>
+      <td>0.78 (78%)</td><td>1.00 (99%)</td><td>0.41 (71%)</td>
+      <td><span class="pill na">N/A</span></td>
+      <td><span class="pill fail">❌ ①不過</span></td>
+    </tr>
+  </table>
+  </div>
+  <p class="legend">③ 數字 = 毒性機率(0–1),括號 = 在已核准藥中的百分位。對接:越負越強,&lt;−9 為強結合。</p>
+
+  <h2>怎麼讀這張表</h2>
+  <div class="grid">
+    <div class="box key">
+      <h3>✅ 3 個候選過機制關,且對接≥已知有效藥</h3>
+      <p>teniposide／daunorubicin／idarubicin 對接 TOP2 都 <b>比對照 etoposide(−9.78)還強</b>(−10.9~−11.4)→ 確實鎖進 TOP2 poison site,<b>①有效性硬過</b>。</p>
+    </div>
+    <div class="box fail">
+      <h3>❌ docking 濾掉一個 KG 假陽性</h3>
+      <p>dactinomycin 被 KG 標為打 TOP2A,但<b>實際對接 +13.84(正值=塞不進口袋)</b>——它是大環狀肽、機制是 DNA 嵌入,不走 poison site。<b>真正的①(對接)打槍了查表的假陽性。</b></p>
+    </div>
+    <div class="box warn">
+      <h3>⚠️ ②③ 的旗都是「化療類別固有」</h3>
+      <p>hERG/DILI/AMES 都偏高——<b>但對照 etoposide(FDA 核准、臨床在用)每項一樣紅</b>。基因毒性(AMES 高)本來就是化療殺癌的機制。與已核准藥同級 = 沒有獨有新風險。</p>
+    </div>
+    <div class="box">
+      <h3>誠實:這仍是「內插」</h3>
+      <p>daunorubicin/idarubicin 是<b>已知淋巴瘤藥 doxorubicin 的近親</b>,teniposide 是 etoposide 的近親。模型找到它們=「找已知有效藥的同類」——合理重定位,<b>但不是新機制發現</b>。</p>
+    </div>
+  </div>
+
+  <h2>更大的圖:全掃 50 病共 49 筆機制match</h2>
+  <div class="scroll">
+  <table>
+    <tr><th>疾病</th><th>共同機制靶點</th><th>候選類型</th><th>是否有趣</th></tr>
+    <tr><td class="drug">犬淋巴瘤</td><td>拓撲異構酶 TOP2A</td><td>teniposide + 蒽環類(daunorubicin/idarubicin)</td><td><span class="p">★ 獨立藥,已 4 關測試</span></td></tr>
+    <tr><td class="drug">自體免疫溶血性貧血</td><td>糖皮質激素受體 NR3C1</td><td>一堆皮質類固醇(dexamethasone…)</td><td class="w">同 class 兄弟</td></tr>
+    <tr><td class="drug">心衰竭</td><td>血管收縮素轉化酶 ACE</td><td>一堆 ACE 抑制劑(lisinopril…)</td><td class="w">同 class 兄弟</td></tr>
+    <tr><td class="drug">肌陣攣癲癇</td><td>GABA-A 受體</td><td>一堆苯二氮平(clonazepam…)</td><td class="w">同 class 兄弟</td></tr>
+    <tr><td class="drug">開放隅角青光眼</td><td>碳酸酐酶 CA1</td><td>碳酸酐酶抑制劑(brinzolamide…)</td><td class="w">同 class 兄弟</td></tr>
+  </table>
+  </div>
+  <p class="legend">49 筆中,45 筆是「同 class 兄弟」(模型找到某已知藥的同類藥,自然打同 class 靶)——合理但無聊。真正獨立、值得深測的是<b>淋巴瘤 TOP2A 世代</b>。</p>
+
+  <div class="note">
+    <b>方法與界線:</b>①對接=AutoDock Vina 1.2.5,受體 PDB 3QX3(人類 TOP2 + DNA + etoposide 共晶,box 對準真實 poison site;TOP2A/TOP2B 此位點保守)。②=RDKit SA score / PAINS。③=ADMET-AI(104 終點,GPU)。所有預測都是<b>電腦事前粗篩</b>,誤差有限(對接 ±2–3 kcal/mol)——過關代表「有資格進實驗室」,<b>真有效性與安全仍需外包濕實驗拍板</b>。teniposide 另有文獻佐證(相似藥 etoposide 於 27 隻犬淋巴瘤 ORR 83%);daunorubicin/idarubicin 目前僅計算層級,尚無犬試驗。
+  </div>
+
+  <div class="foot">
+    產生檔:<code>find_mechanism_matches.py</code>(機制篩選)· <code>dock/</code>(Vina 對接)· <code>dock/gate23_cohort.py</code>(SA+ADMET)。資料:MRDDA 凍結版 v1.0-frozen。演算法未改,僅新增寵物資料。
+  </div>
+</div>
+</body>
+</html>
