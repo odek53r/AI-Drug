@@ -31,7 +31,7 @@
 <header>
   <h1>🧬 候選藥證據圖 · <span class="c">teniposide</span> → 犬淋巴瘤</h1>
   <div class="sub">
-    完整證據鏈:<b>模型找到 teniposide(排名第 8)</b> → <b>它和 3 個已知淋巴瘤藥攻擊同一目標</b> → <b>真實文獻</b>(人類用 teniposide 治淋巴瘤 + 相似藥 etoposide 在 27 隻狗試驗 83% 有效果)。
+    完整證據鏈:<b>模型找到 teniposide(排名第 8)</b> → <b>它和 3 個已知淋巴瘤藥攻擊同一目標</b> → <b>真實文獻</b>(人類用 teniposide 治淋巴瘤 + 相似藥 etoposide 犬淋巴瘤劑量試驗:整體反應率 18.5%(5/27),最高劑量 6 犬達 83%(5/6))。
     <b>點 📄 可開文獻</b>。誠實缺口:teniposide 本身還沒在真的狗身上測過。
   </div>
 </header>
@@ -54,7 +54,7 @@
     <span class="k">同一路徑</span>都出現在同一條生物路徑(Platinum drug resistance)<br>
     <span class="k">參照藥</span>etoposide、doxorubicin、mitoxantrone <b>都是已知的淋巴瘤藥</b></div>
   <div class="box warn"><h2>誠實標註 + 文獻</h2>
-    模型是靠「長得像已知有效藥」找到的(我們測試確認過)。<b>文獻(可點)</b>:人類用 teniposide 治淋巴瘤、相似藥 etoposide 在狗身上 <b>83% 有效果</b>。<b>缺口:teniposide 本身還沒在真的狗身上測過</b>,所以不說「已證實能治狗的淋巴瘤」。</div>
+    模型是靠「長得像已知有效藥」找到的(我們測試確認過)。<b>文獻(可點)</b>:人類用 teniposide 治淋巴瘤、相似藥 etoposide 在狗身上<b>整體反應率 18.5%(27 犬);最高劑量 6 犬達 83%</b>。<b>缺口:teniposide 本身還沒在真的狗身上測過</b>,所以不說「已證實能治狗的淋巴瘤」。</div>
 </div>
 <script>
 const els=[
@@ -83,7 +83,7 @@ const els=[
   {data:{id:"tr3",source:"mito",target:"dis",label:"已知治療",cls:"treat"}},
   // 文獻證據層(可點連結)
   {data:{id:"lit_h",label:"📄 人類:teniposide 治淋巴瘤",t:"lit",url:"https://en.wikipedia.org/wiki/Teniposide"}},
-  {data:{id:"lit_d",label:"📄 相似藥 etoposide\n83% 有效果(27隻狗)",t:"lit",url:"https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0177486"}},
+  {data:{id:"lit_d",label:"📄 相似藥 etoposide\n27犬整體18.5%·最高劑量6犬83%",t:"lit",url:"https://pmc.ncbi.nlm.nih.gov/articles/PMC5432161/"}},
   {data:{id:"gap",label:"⚠️ teniposide 本身\n還沒在真的狗身上測過",t:"gap"}},
   {data:{id:"l1",source:"cand",target:"lit_h",label:"文獻支持",cls:"lit"}},
   {data:{id:"l2",source:"etop",target:"lit_d",label:"在狗身上試過",cls:"lit"}},
