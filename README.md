@@ -2,6 +2,23 @@
 
 給投資者/合作夥伴看的離線靜態 Demo:輸入寵物癌症 → 系統用「犬腫瘤 driver ∩ 既有犬藥物反應」找線索 → 輸出**每一條都有已發表文獻可追溯**的候選藥。
 
+---
+
+## 🔬 想重現模型結果? → [`repro/`](repro/)
+
+`repro/` 是**完整可重現包**:資料 + 程式 + 已訓練 GNN 輸出 + 驗證腳本。
+
+```bash
+cd repro
+python produce_candidates.py    # 數秒,免重訓 → stack_candidates.csv
+python nested_cv.py             # 無偏評估 → 全部 74±1 / 非人氣 59±1 / 真novel 14±4
+python leak_audit_v2.py         # 洩漏稽核 + null 負對照
+```
+
+> **誠實摘要**:模型是**內插引擎**——遮住已知寵物藥能撈回 **74%**,但**人氣先驗就佔 42%**,真正 novel 的重定位只有 **14%**(隨機 5.6%)。細節與所有可重跑數字見 [`repro/README.md`](repro/README.md)。
+
+---
+
 ## 啟動(無需安裝任何套件)
 ```bash
 cd demo
