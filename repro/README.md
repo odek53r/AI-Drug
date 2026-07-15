@@ -21,16 +21,38 @@
 
 ## 二、環境
 
+### 只要重現候選(`run_all.py`)— 不需要 GPU / DGL
 ```bash
-# 核心(訓練 / 評估)
-python>=3.10, numpy, pandas, scikit-learn, torch, dgl
+pip install numpy pandas scikit-learn      # 這樣就夠了
+python run_all.py
+```
+> `run_all.py` 只讀凍結的 GNN 輸出 + 純 numpy 運算,**不需要 torch/dgl/GPU**。
 
-# 四關卡(選用)
-pip install rdkit                      # ②可合成 ③結構警訊
-pip install admet-ai                   # ③ADMET(注意:會拉自己的 torch)
+### 要重訓 GNN — 需要 GPU + DGL
+**建議直接用容器**(ARM64 上 PyPI 的 dgl 是 CPU-only,自己裝很痛苦):
+```bash
+docker run --gpus all -it -v $PWD:/workspace nvcr.io/nvidia/dgl:25.08 bash
+```
+
+**本包實測通過的版本組合**(DGL 對 torch 版本很挑,這組確認可跑):
+| 套件 | 版本 |
+|---|---|
+| python | 3.12.3 |
+| torch | 2.13.0+cu130 |
+| **dgl** | **2.5** |
+| numpy | 1.26.4 |
+| pandas | 2.2.3 |
+| scikit-learn | 1.6.1 |
+| CUDA | 13.0(實測於 NVIDIA GB10) |
+
+### 四關卡(選用)
+```bash
+pip install rdkit                            # ②可合成 ③結構警訊
+pip install admet-ai                         # ③ADMET ⚠️ 會拉自己的 torch,可能覆蓋既有版本
 apt-get install -y autodock-vina openbabel   # ①分子對接
 ```
-> GPU 訓練建議用 `nvcr.io/nvidia/dgl:25.08`(ARM64 上 PyPI 的 dgl 是 CPU-only)。
+> ⚠️ `admet-ai` 會安裝自己的 torch,**可能覆蓋掉容器裡調好的 torch**。建議另開容器/venv 跑 ADMET。
+> 若 `import admet_ai` 報 `operator torchvision::nms does not exist`,執行 `pip uninstall -y torchvision` 即可(ADMET 用不到 torchvision,是 torchmetrics 的影像模組硬拉的)。
 
 ---
 
