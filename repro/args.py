@@ -32,8 +32,9 @@ parser.add_argument('-dp', '--dropout', default=0.4, type=float,
 # Parallel orchestration (does not affect the algorithm; only schedules folds)
 parser.add_argument('--fold', default=-1, type=int,
                     help='Run a single fold index (for parallel runner); -1 = all')
-parser.add_argument('--mode', default='all', type=str, choices=['all', 'fold', 'aggregate'],
-                    help='Parallel runner mode')
+parser.add_argument('--mode', default='all', type=str, choices=['all', 'fold', 'aggregate', 'full'],
+                    help='Parallel runner mode. "full" = 全資料訓練(不遮任何標籤)→ result_full.csv,'
+                         '只用於產候選,不可用於報 recall/AUC')
 
 args = parser.parse_args()
 args.saved_path = args.saved_path + '_' + str(args.seed)

@@ -10,7 +10,7 @@
 
 ```bash
 cd repro
-python produce_candidates.py    # 數秒,免重訓 → stack_candidates.csv
+python run_all.py               # 🚀 一鍵完整重現候選藥物(含 20 項自我驗證)
 python nested_cv.py             # 無偏評估 → 全部 74±1 / 非人氣 59±1 / 真novel 14±4
 python leak_audit_v2.py         # 洩漏稽核 + null 負對照
 ```

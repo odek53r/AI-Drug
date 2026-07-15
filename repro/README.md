@@ -36,11 +36,30 @@ apt-get install -y autodock-vina openbabel   # ①分子對接
 
 ## 三、重現(由快到慢)
 
-### 1️⃣ 產出候選清單(數秒,免重訓)
+### 0️⃣ 🚀 一鍵完整重現候選藥物(數十秒)
 ```bash
-python produce_candidates.py          # → stack_candidates.csv(50 病 × top8)
+python run_all.py
 ```
-用已附的 `resultKPetSup2_par_42/result.csv`(10 折 OOF 輸出)+ Stack 融合。
+跑完整條流水線並**自我驗證 20 項**:資料完整性 → 載入凍結 GNN → prop → NMF → Stack → 產候選 → 比對指紋。
+全部通過會印 `✅ 全部通過 — 候選藥物完全重現`,並產出 `stack_candidates.csv`(50 病 × top8 = 400 候選)。
+
+> **為什麼不現場重訓 GNN?** GNN 訓練用 GPU atomicAdd,**有非確定性**——重訓不會逐位元相同,候選會抖動。
+> 讀凍結檔 → 後段全部確定性 → **候選 100% 可重現**。要自己重訓見 5️⃣。
+
+### ⚠️ 兩個模型檔,兩種用途(**不可混用**)
+
+| 檔案 | 訓練方式 | 只能用來 | 已知有效藥的平均分 |
+|---|---|---|---|
+| `resultKPetSup2_par_42/result.csv` | 10 折 **OOF** | **報效能**(leak-free) | 0.621(真預測) |
+| `resultKPetFull_42/result_full.csv` | **全資料**(2,825 標籤全用) | **產候選** | **0.999**(≈背下來了) |
+
+**證據**:全資料版把已知標籤背到 **0.999** → 它是在默寫答案,**絕不可拿來報 recall/AUC**;
+但正因為它用光所有已知標籤,**產候選時更準**。權重 β=0.7/γ=0.5 **鎖死**(由 OOF 版誠實選出,不用全資料版重搜,否則是拿洩漏分數挑參數)。
+
+### 1️⃣ 只產候選(等同 run_all 的核心)
+```bash
+python produce_candidates.py          # → stack_candidates.csv
+```
 
 ### 2️⃣ 無偏評估(~15 分)
 ```bash
@@ -64,13 +83,26 @@ bash dock/dock_run.sh                 # ①Vina 對接(需先抓 PDB 3QX3)
 python dock/gate23_cohort.py          # ②SA + ③ADMET(GPU)
 ```
 
-### 5️⃣ 從頭重訓 GNN(每折約 40 分 × 10 折)
+### 5️⃣ 從頭重訓 GNN
+
+**A. 全資料版(產候選用)— 約 15 分**
+```bash
+python train_parallel.py -da KPet --mode full -sp resultKPetFull -se 42   # → result_full.csv
+```
+
+**B. 10 折 OOF 版(報效能用)— 每折約 15 分 × 10**
 ```bash
 for k in $(seq 0 9); do
   python train_parallel.py -da KPet --mode fold --fold $k -sp resultKPet_par -se 42
 done
-python train_parallel.py -da KPet --mode aggregate -sp resultKPet_par   # → result.csv
+python train_parallel.py -da KPet --mode aggregate -sp resultKPet_par     # → result.csv
 ```
+
+> ⚠️ 重訓後**候選會與本包附的略有出入**(GPU atomicAdd 非確定性)。要完全重現請直接用附的凍結檔。
+> 📌 `--mode full` 的效能備註:原始 per-fold 迴圈有兩處純浪費——用 45 萬元素的 Python tuple 做索引
+> (313ms × 4/epoch)、以及算完就丟的 AUPR(64ms)。全資料訓練時 mask=全部格子,
+> `score[mask].flatten()` 與 `score.flatten()` **逐位元相同**(已驗證),故直接 flatten。
+> 結果不變,速度約 8×,GPU 使用率 3% → 66%。`model.py` 零修改。
 
 ---
 
