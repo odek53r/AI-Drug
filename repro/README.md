@@ -153,6 +153,47 @@ python train_parallel.py -da KPet --mode aggregate -sp resultKPet_par     # → 
 
 ---
 
+## 三之二、想換成自己的資料集?
+
+腳本的維度**全部從資料讀**(不寫死 894/504/454),所以可以增刪藥/病/標籤。實測結果:
+
+| 你想做的 | 可以嗎 | 要注意 |
+|---|---|---|
+| **新增寵物疾病** | ✅ 最單純 | 4 個檔要一起改(見下),然後**必須重訓** |
+| **新增/刪除標籤** | ✅ | 改 `KPet_baseline.csv` + `sup_positives.json`,**必須重訓** |
+| **新增/刪除藥物** | ⚠️ 可以但麻煩 | 相似度矩陣要重建,見下 |
+| **刪除疾病** | ⚠️ 可以但麻煩 | 所有關聯檔指向它的列都要一起刪 |
+
+> ⚠️ **只要動過資料,`--skip-train` 就不能用**——附的 GNN 是舊維度,腳本會擋下並要你重訓。
+
+### 新增一個寵物疾病(最常見)
+```
+1. dataset/KPet/KPet_baseline.csv        加一欄(0/1),1 = 已知有效
+2. dataset/KPet/KPet_pet_diseases.csv    加一列(kpet_index 接續、name、species)
+3. dataset/KPet/KPet_pet_disease_disease.csv  加【雙向兩列】橋接到對應的人類病
+4. sup_positives.json                    加該病的已知用藥標籤
+5. python run_all.py                     重訓(~15 分)
+```
+> 💡 **第 3 步別漏**:沒橋接的寵物病在圖上是**孤島**,候選會近乎隨機。腳本會警告你。
+
+### 新增/刪除藥物
+建圖的藥物節點數是由**相似度矩陣的維度**決定的,不是標籤矩陣。所以要同步重建:
+```
+dataset/Kdataset/drug_drug_baseline.csv   ← 必須是 藥數×藥數
+dataset/KPet/drug_sim_fused.csv           ← python build_mech_sim.py 0.3
+```
+
+### 刪除疾病/藥物
+DGL 依**關聯檔裡出現過的最大 index** 建節點。若還有檔案指向已刪的 index,
+節點數就會跟標籤矩陣對不上。要一併清理:
+`Kdataset.csv` / `drug_protein.csv` / `pathway_disease.csv` / `KPet_pet_disease_disease.csv`
+
+> ✅ 上述每種情況腳本都會在**開跑前**檢查並明確告訴你要修哪個檔,
+> 不會讓你對著 PyTorch 的 `Target size must be the same as input size` 或
+> DGL 的 `Expect number of features to match number of nodes` 猜半天。
+
+---
+
 ## 四、演算法
 
 ```
