@@ -21,14 +21,15 @@
 
 ## 二、環境
 
-### 只要重現候選(`run_all.py`)— 不需要 GPU / DGL
+### A. 用附的現成 GNN 產候選 — 不需要 GPU / DGL
 ```bash
 pip install numpy pandas scikit-learn      # 這樣就夠了
-python run_all.py
+python run_all.py --skip-train             # 4 秒
 ```
-> `run_all.py` 只讀凍結的 GNN 輸出 + 純 numpy 運算,**不需要 torch/dgl/GPU**。
+> `--skip-train` 只讀現成的 GNN 輸出 + 純 numpy,**不需要 torch/dgl/GPU**。
+> 但那是重跑我們既有模型的答案,**不是你自己訓練的**。
 
-### 要重訓 GNN — 需要 GPU + DGL
+### B. 自己訓練(`run_all.py` 預設)— 需要 GPU + DGL
 **建議直接用容器**(ARM64 上 PyPI 的 dgl 是 CPU-only,自己裝很痛苦):
 ```bash
 docker run --gpus all -it -v $PWD:/workspace nvcr.io/nvidia/dgl:25.08 bash
@@ -105,10 +106,6 @@ for s in 42 43 44 45 46; do python run_all.py --seed $s --out cand_$s.csv; done
 **證據**:全資料版把已知標籤背到 **0.999** → 它是在默寫答案,**絕不可拿來報 recall/AUC**;
 但正因為它用光所有已知標籤,**產候選時更準**。權重 β=0.7/γ=0.5 **鎖死**(由 OOF 版誠實選出,不用全資料版重搜,否則是拿洩漏分數挑參數)。
 
-### 1️⃣ 只產候選(等同 run_all 的核心)
-```bash
-python produce_candidates.py          # → stack_candidates.csv
-```
 
 ### 2️⃣ 無偏評估(~15 分)
 ```bash
@@ -147,7 +144,8 @@ done
 python train_parallel.py -da KPet --mode aggregate -sp resultKPet_par     # → result.csv
 ```
 
-> ⚠️ 重訓後**候選會與本包附的略有出入**(GPU atomicAdd 非確定性)。要完全重現請直接用附的凍結檔。
+> ⚠️ 重訓後**候選會與本包附的不同**(見前面「每次訓練的結果都不一樣」:三份同設定訓練彼此相關僅 0.74)。
+> 這不是錯誤,是 MetaPath2Vec 的非確定性。想要穩健結論請跑多個 seed 取共識。
 > 📌 `--mode full` 的效能備註:原始 per-fold 迴圈有兩處純浪費——用 45 萬元素的 Python tuple 做索引
 > (313ms × 4/epoch)、以及算完就丟的 AUPR(64ms)。全資料訓練時 mask=全部格子,
 > `score[mask].flatten()` 與 `score.flatten()` **逐位元相同**(已驗證),故直接 flatten。
@@ -217,7 +215,10 @@ Stack = z(GNN) + 0.7·z(prop) + 0.5·z(NMF)
 | prop / NMF | 評估時 `Y0[測試]=0` + 硬檢查 | ✅ **leak = 0**(3 seeds) |
 | 指標本身 | 負對照:單位矩陣 | ✅ 公正中位排名 → **0%** |
 
-> ⚠️ **踩過的坑**:`leak_check.py` 用**樂觀 tie 排名**`(col>col[d]).sum()+1`,會讓單位矩陣得 95% — 那是**指標假象不是洩漏**。請用 `nested_cv.py` 的中位排名。
+> ⚠️ **踩過的坑(留作警惕)**:早期的稽核腳本用**樂觀 tie 排名** `(col>col[d]).sum()+1`,
+> 會把測試藥擺在平手塊最前面 → 單位矩陣(等於完全不傳播)竟得到 **95%**,看起來像嚴重洩漏。
+> 那是**指標假象,不是洩漏**。換成公正的中位排名 `(col>col[d]).sum()+((col==col[d]).sum()+1)/2` 後,單位矩陣 → **0%**。
+> 該腳本已移除;`nested_cv.py` 與 `leak_audit_v2.py` 都用中位排名。
 
 ---
 
@@ -231,21 +232,53 @@ Stack = z(GNN) + 0.7·z(prop) + 0.5·z(NMF)
 
 ---
 
-## 九、檔案地圖
+## 九、檔案地圖 — 哪些該看,哪些不用
+
+**只想產候選?你只需要 `run_all.py`。** 其他都是選用的。
+
+### 🟢 核心(跑 `run_all.py` 必要,共 6 支)
+| 檔案 | 角色 |
+|---|---|
+| `run_all.py` | **入口**——訓練 → prop → NMF → Stack → 產候選 |
+| `train_parallel.py` | GNN 訓練(`--mode full` 全資料 / `--mode fold` 10 折 OOF) |
+| `model.py` | **原始 MRDDA 演算法,零修改** |
+| `load_data.py` `utils.py` `args.py` | 建圖 / MetaPath2Vec / 參數 |
 
 ```
-repro/
-├── model.py load_data.py utils.py args.py      # 原始 MRDDA(model.py 零修改)
-├── train_parallel.py                           # 10 折 OOF 訓練
-├── produce_candidates.py                       # Stack → 候選清單
-├── nested_cv.py                                # 無偏評估
-├── build_mech_sim.py                           # 融合相似度(α=0.3)
-├── leak_check.py leak_audit_components.py leak_audit_v2.py   # 洩漏稽核
-├── verify_pipeline.py hit_pipeline.py teni_test.py find_mechanism_matches.py  # 四關卡
-├── dock/                                       # ①Vina 對接 + ③ADMET
-├── sup_positives.json                          # 121 寵物標籤
-├── resultKPetSup2_par_42/result.csv            # 已訓練 GNN 輸出(10折 OOF,免重訓)
-└── dataset/{Kdataset,KPet,Bdataset}/           # 全部訓練資料
+run_all.py ──(subprocess)──> train_parallel.py ──(import)──> args, load_data, model, utils
 ```
+
+### 🔵 誠實評估(產出我們對外宣稱的數字)
+| 檔案 | 產出 |
+|---|---|
+| `nested_cv.py` | **74±1 / 59±1 / 14±4**(巢狀 CV,leak=0)← README 引用的數字來源 |
+| `leak_audit_v2.py` | null 負對照(單位/全1/打散)× 兩種排名指標 |
+| `leak_audit_components.py` | 各成分貢獻(GNN/prop/NMF 各撈回多少) |
+
+### 🟡 四關卡分析(需 RDKit / AutoDock Vina / ADMET-AI)
+| 檔案 | 用途 |
+|---|---|
+| `hit_pipeline.py` | 四關卡 Go/No-Go 表(以肥大細胞瘤為例) |
+| `teni_test.py` | teniposide 走完四關 |
+| `find_mechanism_matches.py` | 全 50 病掃「打中共同機制靶點」的候選 |
+| `verify_pipeline.py` | 獨立驗證上面幾支的宣稱(14 項 PASS/FAIL) |
+| `dock/` | ①Vina 對接 + ③ADMET 的腳本 |
+
+### ⚪ 資料生成(已附成品,通常不用跑)
+| 檔案 | 產出 |
+|---|---|
+| `build_mech_sim.py` | `drug_sim_fused.csv`(α=0.3:30% 化學 + 70% 機轉) |
+
+### 資料與模型
+```
+sup_positives.json                    121 個寵物標籤
+resultKPetSup2_par_42/result.csv      10 折 OOF GNN  → 只給評估用
+resultKPetFull_42/result_full.csv     全資料 GNN     → 只給產候選用(--skip-train 時)
+dataset/{Kdataset,KPet,Bdataset}/     全部訓練資料
+stack_candidates.csv                  範例輸出(2500 候選)
+```
+
+> 🗑️ **已移除**:`produce_candidates.py`(被 `run_all.py` 取代,且會覆蓋輸出)、
+> `leak_check.py`(用樂觀 tie 排名,會讓單位矩陣得到 95% 的假象;`leak_audit_v2.py` 已涵蓋且用公正的中位排名)。
 
 線上 Demo:[證據圖](https://odek53r.github.io/AI-Drug/cohort_graph.html) · [RAG Demo v2](https://odek53r.github.io/AI-Drug/rag_demo_v2.html)

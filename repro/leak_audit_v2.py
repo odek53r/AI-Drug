@@ -11,7 +11,7 @@ sp=json.load(open("sup_positives.json")); labels=[(r[0],r[1]) for r in sp]; n=le
 zc=lambda M:(M-M.mean(0))/(M.std(0)+1e-9)
 def norm(S): S=(S+S.T)/2; S=S.copy(); np.fill_diagonal(S,0); return S/np.maximum(S.sum(1,keepdims=True),1e-9)
 # 兩種排名指標並列比對
-best_rank=lambda col,d:(col>col[d]).sum()+1                       # leak_check 用的(樂觀)
+best_rank=lambda col,d:(col>col[d]).sum()+1                       # 樂觀 tie(早期腳本用的,會產生假象)
 mid_rank =lambda col,d:(col>col[d]).sum()+((col==col[d]).sum()+1)/2.0   # nested_cv 用的(公正)
 
 Nf_real=load("dataset/KPet/drug_sim_fused.csv")

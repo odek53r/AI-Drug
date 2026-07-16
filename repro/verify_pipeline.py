@@ -7,8 +7,10 @@
  C. RDKit 描述子對不對(用已知文獻分子量交叉驗,抓 SMILES 對錯)
  D. 「top15 沒一個打 KIT」重算屬實
  E. 9 個 KIT 藥的排名重算(#39–582、imatinib #109)
- F. hit_pipeline 的 Stack 排名 = 凍結產品 produce_candidates 一致
- G. RDKit 決定性:PAINS/SA 重跑數字一致
+ F. RDKit 決定性:PAINS/SA 重跑數字一致
+
+註:D/E 的排名是用 10 折 OOF 的 result.csv 算的(確定性,可重現)。
+    若你自己重訓 GNN,排名會不同 —— 那是 m2v 非確定性,不是錯誤。
 """
 import csv, os, sys
 import numpy as np
@@ -92,19 +94,11 @@ ima=kit_ranks.get("DB00619")
 check("E: KIT 藥排名落在 #39–582 區間", 30<=rmin<=50 and 550<=rmax<=650, f"實際 #{rmin}–{rmax}")
 check("E: imatinib(DB00619) ≈ #109", ima is not None and 95<=ima<=125, f"實際 #{ima}")
 
-print("="*70); print("F. hit_pipeline 排名 = 凍結產品 produce_candidates 一致?"); print("="*70)
-# produce_candidates 輸出 stack_candidates.csv(病名 keyed, top8)。比對肥大細胞瘤 top8
-pc_top=[]
-if os.path.exists("stack_candidates.csv"):
-    for r in csv.DictReader(open("stack_candidates.csv")):
-        if "Mast" in r["disease"]: pc_top.append(r["drugbank"])
-# 我方 top8 的 drugbank
-my_top8=[node2db.get(d,str(d)) for d in top15[:8]]
-overlap=len(set(pc_top)&set(my_top8))
-check("肥大細胞瘤 top8 與凍結產品高度一致", pc_top==[] or overlap>=6,
-      f"重疊 {overlap}/8(產品:{pc_top[:8]} / 本腳本:{my_top8})")
+# 註:原本這裡有一項「F. 與 produce_candidates 的 top8 比對」,已移除。
+#     produce_candidates.py 已被 run_all.py 取代(截斷也從 top8 改為 top50);
+#     更根本的是 —— GNN 訓練非確定性,拿排名當一致性檢查只會產生假警報。
 
-print("="*70); print("G. RDKit 決定性:重跑 PAINS/SA 與文件數字一致"); print("="*70)
+print("="*70); print("F. RDKit 決定性:重跑 PAINS/SA 與文件數字一致"); print("="*70)
 params=FilterCatalog.FilterCatalogParams(); params.AddCatalog(FilterCatalog.FilterCatalogParams.FilterCatalogs.PAINS)
 pains=FilterCatalog.FilterCatalog(params)
 DOC={"DB00997":(4.49,1),"DB00563":(3.09,0),"DB00541":(7.26,0)}  # 文件記的 (SA, PAINS)

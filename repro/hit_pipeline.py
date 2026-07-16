@@ -26,7 +26,7 @@ Y=load("dataset/KPet/KPet_baseline.csv"); nd,ndis=Y.shape
 DIS=503; KIT=17695
 known=set(np.where(Y[:,DIS]==1)[0])
 
-# --- Stack 排序 (同 produce_candidates) ---
+# --- Stack 排序 (同 run_all.py 的 Stack) ---
 zc=lambda M:(M-M.mean(0))/(M.std(0)+1e-9)
 def norm(S): S=(S+S.T)/2; S=S.copy(); np.fill_diagonal(S,0); return S/np.maximum(S.sum(1,keepdims=True),1e-9)
 Nf=norm(load("dataset/KPet/drug_sim_fused.csv"))
