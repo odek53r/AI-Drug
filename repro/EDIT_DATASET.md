@@ -323,7 +323,7 @@ python run_all.py
 # G. 改完必做
 
 ```bash
-python run_all.py        # 一律從頭重訓(約 15 分,需 GPU)
+python run_all.py        # 一律從頭重訓(GPU ~15 分 / CPU ~2 小時,自動偵測)
 ```
 
 `run_all.py` 會在**開跑前**檢查並告訴你哪裡不一致:

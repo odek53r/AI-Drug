@@ -3,7 +3,8 @@
 """run_all.py — 從頭跑完整條流水線,產出寵物老藥新用的候選清單
 
 用法:
-    python run_all.py                  訓練 GNN(~15 分,需 GPU)再產候選
+    python run_all.py                  訓練 GNN 再產候選(GPU ~15 分 / CPU ~2 小時,自動偵測)
+    python run_all.py --cpu            強制 CPU(沒 GPU 時會自動啟用)
     python run_all.py --seed 43        換一個 seed 訓練(建議跑多個,見下)
 
 本專案【不隨附訓練好的模型】,每次都從頭訓練 —— 隨附模型會讓人拿到別人訓練的
@@ -11,7 +12,7 @@
 
 流程:
   ① 資料完整性檢查(維度、標籤數)
-  ② 訓練全資料 GNN → resultKPetFull_<seed>/result_full.csv   (~15 分)
+  ② 訓練全資料 GNN → resultKPetFull_<seed>/result_full.csv   (GPU ~15 分 / CPU ~2 小時)
   ③ prop 雙向標籤傳播(秒級現算,零參數)
   ④ NMF 非負矩陣分解(秒級現算,零參數)
   ⑤ Stack 合成(權重鎖死 β=0.7 / γ=0.5)
@@ -48,11 +49,13 @@ np.seterr(all="ignore")
 ap = argparse.ArgumentParser(description="產出寵物老藥新用候選清單(一律從頭訓練)")
 ap.add_argument("--seed", type=int, default=42, help="訓練 seed(預設 42)")
 ap.add_argument("--out", default="stack_candidates.csv", help="輸出檔名")
+ap.add_argument("--cpu", action="store_true",
+                help="強制用 CPU 訓練(約 2 小時)。沒有 GPU 時會自動啟用,不必手動加")
 A = ap.parse_args()
 
 BETA, GAMMA = 0.7, 0.5                            # 鎖死:由 OOF 版誠實選出
 TOPK = 50                                         # ← 必須是 50,見下
-# 本專案【不隨附訓練好的模型】,每次都從頭訓練(約 15 分鐘,需 GPU)。
+# 本專案【不隨附訓練好的模型】,每次都從頭訓練(GPU ~15 分 / CPU ~2 小時)。
 # 理由:隨附模型會讓人拿到別人訓練的答案卻以為是自己跑出來的 —— 這正是
 # 先前 --skip-train 造成的問題(它寫死讀 resultKPetFull_42,連 --seed 43 也讀那個)。
 # 註:args.py:40 會自動補上 '_<seed>',所以這裡不能自己再帶 seed。
@@ -96,7 +99,7 @@ Y = load("dataset/Kdataset/Kdataset_baseline.csv"); nd, ndis = Y.shape
 # 維度全部【從資料讀】,不寫死 —— 使用者可自行增刪藥/病/標籤
 n_drug_file = sum(1 for _ in csv.DictReader(open("dataset/Kdataset/omics/drug.csv")))
 # 人類病數 = disease_disease_baseline.csv 的維度(它只涵蓋人類病,寵物病沒有 MeSH 相似度)。
-# 不能再用 omics/disease.csv 的列數 —— 合併後那裡面人類+寵物都有。load_KPet 也是這樣判定的。
+# 不能再用 omics/disease.csv 的列數 —— 合併後那裡面人類+寵物都有。load_Kdataset() 也是這樣判定的。
 N_HUMAN = sum(1 for _ in open("dataset/Kdataset/disease_disease_baseline.csv"))
 dis_rows = list(csv.DictReader(open("dataset/Kdataset/omics/disease.csv")))
 pet_rows = [r for r in dis_rows if int(r["ID"]) >= N_HUMAN]
@@ -170,18 +173,34 @@ if FAIL:
 print("=" * 72)
 print("② 全資料 GNN(從頭訓練)")
 print("=" * 72)
+# 自動偵測 GPU。沒有就退回 CPU —— 慢很多但跑得完,不該讓沒 GPU 的人直接卡死。
+# 兩個開關要一起給才走得到 CPU:-id ""(train_parallel)+ MRDDA_DEVICE(utils 的 m2v)。
+env = dict(os.environ)
+try:
+    import torch
+    HAS_GPU = torch.cuda.is_available()
+except Exception:
+    HAS_GPU = False
 cmd = [sys.executable, "train_parallel.py", "-da", "Kdataset", "--mode", "full",
        "-sp", SAVED, "-se", str(A.seed)]
-print(f"  執行:{' '.join(cmd)}")
-print(f"  4000 epochs,約 15 分鐘(需 GPU)。訓練 log 即時顯示:")
+if A.cpu or not HAS_GPU:
+    cmd += ["-id", ""]
+    env["MRDDA_DEVICE"] = "cpu"
+    why = "--cpu" if A.cpu else "偵測不到 CUDA GPU"
+    print(f"  ⚠️ 用 CPU 訓練({why})。實測 ~33 epoch/分 → 4000 epochs 約 2 小時。")
+    print(f"     有 GPU 的話只要 ~15 分。CPU 與 GPU 的 loss/AUC 實測一致。")
+else:
+    print(f"  4000 epochs,約 15 分鐘(GPU)。")
+print(f"  執行:{' '.join(x if x else '\"\"' for x in cmd)}")
+print("  訓練 log 即時顯示:")
 print("  " + "-" * 68)
 t0 = time.time()
-r = subprocess.run(cmd)
+r = subprocess.run(cmd, env=env)
 if r.returncode != 0:
     print("\n❌ 訓練失敗(rc=%d)。常見原因:" % r.returncode)
-    print("   · 沒有 GPU / DGL 裝錯 → 見 README「環境」")
-    print("   · tensor size 不符    → 相似度矩陣與資料維度沒對齊(前面的 ① 檢查會先擋)")
-    print("   · CUDA out of memory  → 關掉其他訓練程序再跑")
+    print("   · DGL 裝錯          → 見 README「環境」(PyPI 的 dgl 是 CPU-only)")
+    print("   · tensor size 不符  → 相似度矩陣與資料維度沒對齊(前面的 ① 檢查會先擋)")
+    print("   · CUDA out of memory → 關掉其他訓練程序,或改用 --cpu")
     sys.exit(1)
 print("  " + "-" * 68)
 print(f"  ✅ 訓練完成,耗時 {(time.time()-t0)/60:.1f} 分 → {GNN_FULL}")

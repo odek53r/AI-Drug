@@ -26,14 +26,36 @@
 
 ## 二、環境
 
-**需要 GPU**(4000 epochs 約 15 分鐘)。
+**GPU 不是必要的** —— `run_all.py` 會自動偵測,沒有 GPU 就退回 CPU:
+
+| | 4000 epochs | |
+|---|---|---|
+| GPU | **~15 分** | ~300 epoch/分 |
+| CPU | **~2 小時** | ~33 epoch/分。實測 loss/AUC 與 GPU 一致 |
+
+### ✅ 已驗證的環境(唯一實測過的)
 
 ```
-python == 3.10
-torch  == 2.5.1
-dgl    >= 1.1.2      # 需 CUDA 版;PyPI 上的 dgl 是 CPU-only
-rdkit                # build_mech_sim.py 算 ECFP4 用
+nvcr.io/nvidia/dgl:25.08-py3
+  python 3.12.3 · torch 2.13.0+cu130 · dgl 2.5 · rdkit 2026.03.3 · aarch64
 ```
+
+```bash
+docker run -d --name mrdda-gpu --gpus all \
+  -v /path/to/repro:/workspace/MRDDA \
+  nvcr.io/nvidia/dgl:25.08-py3 sleep infinity
+
+docker exec mrdda-gpu bash -lc 'cd /workspace/MRDDA && python3 run_all.py'
+```
+
+> ⚠️ **為什麼要 docker**:PyPI 上的 `dgl` 是 **CPU-only**,ARM64 更是沒有 CUDA wheel。
+> 想吃 GPU 就得用 NVIDIA 的映像。x86_64 或許能自行 pip 裝 CUDA 版 dgl,
+> **但我們沒測過** —— 上面那組是唯一實測過的組合。
+>
+> ⚠️ `utils.py` 為新版 numpy 打過補丁(`np.mat` → `np.asmatrix`),所以
+> **上游 README 寫的 python 3.10 / torch 2.5.1 我們沒測過**,不保證可跑。
+
+`rdkit` 只有 `build_mech_sim.py`(增刪藥物時重建相似度)才需要。
 
 > 📌 **本包不隨附訓練好的模型**,每次都從頭訓練。
 > 理由:隨附模型會讓人拿到別人訓練的答案,卻以為是自己跑出來的。
@@ -43,8 +65,9 @@ rdkit                # build_mech_sim.py 算 ECFP4 用
 ## 三、重現
 
 ```bash
-python run_all.py                  # 訓練 + 產候選(~15 分)
+python run_all.py                  # 訓練 + 產候選(GPU ~15 分 / CPU ~2 小時)
 python run_all.py --seed 43        # 換 seed
+python run_all.py --cpu            # 強制 CPU(沒 GPU 時會自動啟用,不必手動加)
 ```
 
 輸出 `stack_candidates.csv`:50 個寵物病 × top50 候選藥。
