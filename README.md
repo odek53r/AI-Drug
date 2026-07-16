@@ -10,12 +10,13 @@
 
 ```bash
 cd repro
-python run_all.py               # 🚀 一鍵完整重現候選藥物(含 20 項自我驗證)
+python run_all.py               # 🚀 訓練 GNN(~15分)→ 產候選;--skip-train 則 4 秒用現成的
 python nested_cv.py             # 無偏評估 → 全部 74±1 / 非人氣 59±1 / 真novel 14±4
 python leak_audit_v2.py         # 洩漏稽核 + null 負對照
 ```
 
-> **誠實摘要**:模型是**內插引擎**——遮住已知寵物藥能撈回 **74%**,但**人氣先驗就佔 42%**,真正 novel 的重定位只有 **14%**(隨機 5.6%)。細節與所有可重跑數字見 [`repro/README.md`](repro/README.md)。
+> **誠實摘要**:模型是**內插引擎**——遮住已知寵物藥能撈回 **74%**(recall@50),但**人氣先驗就佔 42%**,真正 novel 的重定位只有 **14%**(隨機 5.6%)。
+> ⚠️ **GNN 訓練非確定性**:同設定跑 3 次,模型彼此相關僅 **0.74**,某藥排名可從 #5 飄到 #30 → **請跑多個 seed 取共識,別信單次名次**。細節見 [`repro/README.md`](repro/README.md)。
 
 ---
 

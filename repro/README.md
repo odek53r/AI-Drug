@@ -58,15 +58,42 @@ apt-get install -y autodock-vina openbabel   # ①分子對接
 
 ## 三、重現(由快到慢)
 
-### 0️⃣ 🚀 一鍵完整重現候選藥物(數十秒)
-```bash
-python run_all.py
-```
-跑完整條流水線並**自我驗證 20 項**:資料完整性 → 載入凍結 GNN → prop → NMF → Stack → 產候選 → 比對指紋。
-全部通過會印 `✅ 全部通過 — 候選藥物完全重現`,並產出 `stack_candidates.csv`(50 病 × top8 = 400 候選)。
+### 0️⃣ 🚀 一鍵跑完整條流水線
 
-> **為什麼不現場重訓 GNN?** GNN 訓練用 GPU atomicAdd,**有非確定性**——重訓不會逐位元相同,候選會抖動。
-> 讀凍結檔 → 後段全部確定性 → **候選 100% 可重現**。要自己重訓見 5️⃣。
+```bash
+python run_all.py                  # 訓練 GNN(實測 14.7 分,需 GPU)→ 產候選
+python run_all.py --skip-train     # 跳過訓練,用附的現成 GNN(4 秒,純 CPU)
+python run_all.py --seed 43 --out cand_43.csv    # 換 seed
+```
+流程:資料完整性檢查 → **訓練/載入 GNN** → prop → NMF → Stack → 產候選 → 無洩漏檢查。
+產出 `stack_candidates.csv`(50 病 × **top50** = 2500 候選)。
+
+### ⚠️⚠️ 跑之前必讀:每次訓練的結果都不一樣
+
+**GNN 訓練是非確定性的**,而且源頭在原始碼:`utils.py` 的 **MetaPath2Vec 即使給同一個 seed,
+每次產生的節點特徵都不同**(實測最大差異 0.12),整個模型跟著變。
+
+實測(3 份**同設定**訓練):
+
+| 量測 | 結果 |
+|---|---|
+| 三份模型彼此相關係數 | **僅 0.74** |
+| dactinomycin 對犬淋巴瘤的排名 | **#5 / #30 / #7** 之間跳 |
+| 跨 seed 名次一致率 | rank1 **58%**、rank5 14%、rank8 **10%** |
+| top50 清單重疊 | 82% |
+
+**→ 不要把單次訓練的名次當結論。** 正確用法:
+```bash
+for s in 42 43 44 45 46; do python run_all.py --seed $s --out cand_$s.csv; done
+# 再取「每次都進 top50」的藥 = 穩健候選
+```
+> 💡 單跑一份只吃 34% GPU;**平行跑 3 份可吃到 93%**,5 個 seed 從 77 分縮到約 40 分:
+> ```bash
+> for s in 42 43 44; do python run_all.py --seed $s --out cand_$s.csv & done; wait
+> ```
+
+> 📌 `--skip-train` 用的是本包附的 `resultKPetFull_42/result_full.csv`。
+> 那**只是重跑我們既有模型的答案,不是你自己訓練出來的結果**——腳本也會這樣提醒你。
 
 ### ⚠️ 兩個模型檔,兩種用途(**不可混用**)
 
