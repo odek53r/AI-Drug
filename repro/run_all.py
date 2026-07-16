@@ -1,28 +1,38 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""run_all.py — 一鍵完整重現候選藥物(全資料訓練版)
+"""run_all.py — 產出寵物老藥新用的候選清單(全資料訓練版)
 
-跑完整條流水線並自我驗證:
+用法:
+    python run_all.py                → stack_candidates.csv(50 病 × top50 = 2500 候選)
+
+流程:
   ① 資料完整性檢查(維度、標籤數)
-  ② 載入凍結的全資料 GNN(result_full.csv)
+  ② 載入全資料 GNN(result_full.csv)
   ③ prop 雙向標籤傳播(秒級現算,零參數)
   ④ NMF 非負矩陣分解(秒級現算,零參數)
   ⑤ Stack 合成(權重鎖死 β=0.7 / γ=0.5)
   ⑥ 產候選:對「還沒有藥-病關聯」的格子排名
-  ⑦ 自我驗證:比對已知指紋,確認完全重現
+  ⑦ 無洩漏檢查
 
-── 兩個設計決定(重要)────────────────────────────────────────
-為什麼不在這裡重訓 GNN?
-    GNN 訓練用 GPU atomicAdd,有非確定性 → 重訓不會逐位元相同 → 候選會抖動。
-    本腳本讀「凍結的 result_full.csv」→ 後段全部確定性 → 候選 100% 可重現。
-    要自己重訓:python train_parallel.py -da KPet --mode full -sp resultKPetFull -se 42
+── 設計決定 ────────────────────────────────────────────────
+本腳本不重訓 GNN,只讀 result_full.csv。要自己重訓:
+    python train_parallel.py -da KPet --mode full -sp resultKPetFull -se 42
+    (再把產出的 result_full.csv 放到 GNN_FULL 指的位置)
+
+⚠️ 重訓後排名會與範例不同,這是正常的:
+    GNN 訓練是非確定性的 —— utils.py 的 MetaPath2Vec 即使給同一個 seed,
+    每次產生的節點特徵都不同(實測最大差異 0.12),整個模型跟著變。
+    實測:3 份同設定的訓練,彼此相關係數僅 0.74;某藥排名可從 #5 飄到 #30。
+    → 因此本腳本【不驗排名指紋】,只驗「一定要成立」的資料完整性與無洩漏。
+    → 想要穩健結論:跑數個 seed,只採信每次都入榜的藥。
 
 為什麼權重 β/γ 鎖死而不搜?
     β=0.7/γ=0.5 是當初用「誠實的 10 折 OOF 版」選出來的。
     全資料版 GNN 看過所有標籤,拿它重搜權重 = 用洩漏的分數挑參數 → 不可。
 
 ⚠️ 誠實界線:本腳本產的是「候選假設」,不是已證實的療法。
-    效能數字請看 nested_cv.py(用 OOF 版,leak-free):全部 74±1 / 非人氣 59±1 / 真novel 14±4
+    效能數字請看 nested_cv.py(用 OOF 版,leak-free):
+    recall@50 = 全部 74±1 / 非人氣 59±1 / 真novel 重定位 14±4(隨機 5.6%)
 """
 import csv, json, os, sys
 import numpy as np
@@ -30,8 +40,20 @@ np.seterr(all="ignore")
 
 GNN_FULL = "resultKPetFull_42/result_full.csv"   # 全資料訓練(產候選用)
 BETA, GAMMA = 0.7, 0.5                            # 鎖死:由 OOF 版誠實選出
-TOPK = 8
+TOPK = 50                                         # ← 必須是 50,見下
 FAIL = []
+
+# ── 為什麼 TOPK=50 而不是 8?(實測,可用 topk_choice.py 重跑)────────────
+# 我們宣稱的效能指標本身就是 recall@50。若交付 top8,等於交付一個從未驗證過的截斷點:
+#
+#   截斷    全部    非人氣   重定位(真novel)   跨seed穩定度
+#   top8    21%     10%      0/12  ← 一個都撈不到    69%
+#   top50   75%     62%      2/12                    82%
+#
+# top8 對「真正的新用途」撈回率是 0/12 —— 本專案的核心目的在該截斷下完全失效;
+# 且 top50 反而更穩(短清單的入榜邊界競爭最激烈)。代價僅 400→2500 列,
+# 仍為使用者排除 94% 的藥(50/894)。
+
 
 def ok(cond, msg, detail=""):
     print(f"  [{'✅' if cond else '❌'}] {msg}" + (f" — {detail}" if detail else ""))
@@ -128,25 +150,24 @@ print(f"  待預測格子:894 藥 × 50 寵物病 − 121 已知 = {n_unknown:,}
 print(f"  → stack_candidates.csv:50 病 × top{TOPK} = {len(rows)-1} 個候選")
 
 print("=" * 72)
-print("⑦ 自我驗證:比對已知指紋(確認完全重現)")
+print("⑦ 無洩漏檢查")
 print("=" * 72)
-db2node = {v: k for k, v in node2db.items()}
-DIS = 462
-known462 = set(np.where(Y[:, DIS] == 1)[0])
-c462 = [d for d in np.argsort(-comb[:, DIS]) if d not in known462]
-EXPECT = [("daunorubicin", "DB00694", 5), ("dactinomycin", "DB00970", 8),
-          ("idarubicin", "DB01177", 9), ("teniposide", "DB00444", 10)]
-for name, db, exp in EXPECT:
-    r = c462.index(db2node[db]) + 1
-    ok(r == exp, f"犬淋巴瘤 {name} 排名 = #{exp}", f"實際 #{r}")
-for name, db, _ in EXPECT:
-    d = db2node[db]
-    ok(Y[d, DIS] == 0, f"{name} 對犬淋巴瘤是「未知」(無洩漏)", f"Y={Y[d,DIS]:.0f}")
+# 註:此處不驗「排名指紋」。排名取決於 GNN 權重,而 GNN 訓練是非確定性的
+#     (utils.py 的 MetaPath2Vec 即使同 seed 也會產生不同特徵,實測差異 0.12),
+#     使用者自行重訓後排名本來就會不同 → 拿指紋當檢查只會發出假警報。
+#     這裡只驗「一定要成立」的事:輸出的候選必須都是資料裡沒記載的格子(Y=0)。
+viol = 0
+for c in range(454, 504):
+    kn = np.where(Y[:, c] == 1)[0]
+    cand = [d for d in np.argsort(-comb[:, c]) if d not in set(kn)][:TOPK]
+    viol += int(Y[cand, c].sum())          # 任何一個候選若 Y=1 就是把已知藥當新發現
+ok(viol == 0, "所有候選皆為 Y=0(未記載)的格子,無已知藥混入", f"違反 {viol} 個")
+ok(int(Y[:, 454:].sum()) == 121, "寵物標籤未被更動 = 121", f"{int(Y[:,454:].sum())}")
 
 print("=" * 72)
 if FAIL:
     print(f"❌ {len(FAIL)} 項未通過:{FAIL}"); sys.exit(1)
-print("✅ 全部通過 — 候選藥物完全重現")
+print(f"✅ 全部通過 — 已產出 {len(rows)-1} 個候選 → stack_candidates.csv")
 print("=" * 72)
 print("誠實提醒:")
 print("  · 這些是「候選假設」,不是已證實療法;真效力需濕實驗驗證。")
