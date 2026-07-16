@@ -23,9 +23,15 @@ from utils import get_metrics_auc, set_seed, m2v, plot_result_auc, plot_result_a
 from args import args
 
 
+def _baseline_path():
+    """標籤矩陣的位置 = ./dataset/Kdataset/Kdataset_baseline.csv
+    (894×504 = 894 藥 × [454 人類病 + 50 寵物病];寵物資料已併入原始檔案)。"""
+    return './dataset/{}/{}_baseline.csv'.format(args.dataset, args.dataset)
+
+
 def prepare():
     simplefilter(action='ignore', category=FutureWarning)
-    df = pd.read_csv('./dataset/{}/{}_baseline.csv'.format(args.dataset, args.dataset), header=None).values
+    df = pd.read_csv(_baseline_path(), header=None).values
     data = np.array([[i, j, df[i, j]] for i in range(df.shape[0]) for j in range(df.shape[1])]).astype('int64')
     data_pos = data[np.where(data[:, -1] == 1)[0]]
     data_neg = data[np.where(data[:, -1] == 0)[0]]

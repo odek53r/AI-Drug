@@ -5,7 +5,7 @@ parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFo
 parser.add_argument('-id', '--device_id', default='0', type=str,
                     help='Set the device (GPU ids).')
 parser.add_argument('-da', '--dataset', type=str,
-                    choices=['Kdataset', 'Bdataset', 'Cdataset', 'KPet'], default='Kdataset',
+                    choices=['Kdataset'], default='Kdataset',
                     help='Set the data set for training.')
 parser.add_argument('-sp', '--saved_path', type=str,
                     help='Path to save training results', default='resultK')
