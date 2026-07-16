@@ -1,0 +1,401 @@
+disease,rank,drug,drugbank,score
+Hypertension,1,DB00722,DB00722,8.64
+Hypertension,2,DB00682,DB00682,8.28
+Hypertension,3,clopidogrel,DB00758,8.26
+Hypertension,4,DB01088,DB01088,8.09
+Hypertension,5,DB00575,DB00575,8.00
+Hypertension,6,losartan,DB00678,7.97
+Hypertension,7,DB00657,DB00657,7.95
+Hypertension,8,DB01275,DB01275,7.86
+Asthma,1,cyclosporine,DB00091,7.57
+Asthma,2,DB01234,DB01234,6.88
+Asthma,3,methylprednisolone,DB00959,6.53
+Asthma,4,DB00620,DB00620,6.13
+Asthma,5,DB00443,DB00443,6.03
+Asthma,6,DB00741,DB00741,5.69
+Asthma,7,budesonide,DB01222,5.66
+Asthma,8,DB00180,DB00180,5.55
+"Dermatitis, Atopic",1,DB01234,DB01234,8.40
+"Dermatitis, Atopic",2,DB00443,DB00443,8.31
+"Dermatitis, Atopic",3,methylprednisolone,DB00959,8.20
+"Dermatitis, Atopic",4,DB00620,DB00620,7.79
+"Dermatitis, Atopic",5,DB00741,DB00741,7.77
+"Dermatitis, Atopic",6,prednisone,DB00635,7.72
+"Dermatitis, Atopic",7,DB01380,DB01380,7.58
+"Dermatitis, Atopic",8,methotrexate,DB00563,7.12
+Breast Neoplasms,1,methotrexate,DB00563,6.07
+Breast Neoplasms,2,vincristine,DB00541,5.06
+Breast Neoplasms,3,prednisolone,DB00860,4.97
+Breast Neoplasms,4,DB01234,DB01234,4.74
+Breast Neoplasms,5,methylprednisolone,DB00959,4.55
+Breast Neoplasms,6,DB00443,DB00443,4.36
+Breast Neoplasms,7,prednisone,DB00635,4.15
+Breast Neoplasms,8,sirolimus,DB00877,4.14
+Brain Neoplasms,1,DB01234,DB01234,6.78
+Brain Neoplasms,2,methylprednisolone,DB00959,6.52
+Brain Neoplasms,3,vinblastine,DB00570,6.33
+Brain Neoplasms,4,methotrexate,DB00563,5.91
+Brain Neoplasms,5,cytarabine,DB00987,5.83
+Brain Neoplasms,6,DB00443,DB00443,5.70
+Brain Neoplasms,7,prednisone,DB00635,5.70
+Brain Neoplasms,8,doxorubicin,DB00997,5.55
+Osteoarthritis,1,zonisamide,DB00909,11.43
+Osteoarthritis,2,DB00794,DB00794,11.04
+Osteoarthritis,3,DB01068,DB01068,9.98
+Osteoarthritis,4,DB00776,DB00776,9.83
+Osteoarthritis,5,levetiracetam,DB01202,9.72
+Osteoarthritis,6,DB00861,DB00861,8.48
+Osteoarthritis,7,DB00580,DB00580,8.41
+Osteoarthritis,8,DB00749,DB00749,8.39
+"Arthritis, Rheumatoid",1,cyclosporine,DB00091,10.79
+"Arthritis, Rheumatoid",2,DB00443,DB00443,8.46
+"Arthritis, Rheumatoid",3,DB01234,DB01234,8.23
+"Arthritis, Rheumatoid",4,DB00864,DB00864,8.12
+"Arthritis, Rheumatoid",5,DB00620,DB00620,7.92
+"Arthritis, Rheumatoid",6,prednisone,DB00635,7.83
+"Arthritis, Rheumatoid",7,methylprednisolone,DB00959,7.47
+"Arthritis, Rheumatoid",8,piroxicam,DB00554,7.06
+"Diabetes Mellitus, Type 2",1,metformin,DB00331,9.09
+"Diabetes Mellitus, Type 2",2,DB01029,DB01029,8.75
+"Diabetes Mellitus, Type 2",3,DB00672,DB00672,8.73
+"Diabetes Mellitus, Type 2",4,DB00912,DB00912,8.71
+"Diabetes Mellitus, Type 2",5,DB00222,DB00222,8.70
+"Diabetes Mellitus, Type 2",6,DB01124,DB01124,8.69
+"Diabetes Mellitus, Type 2",7,DB00731,DB00731,8.69
+"Diabetes Mellitus, Type 2",8,DB01252,DB01252,8.68
+Precursor Cell Lymphoblastic Leukemia-Lymphoma,1,DB01181,DB01181,8.20
+Precursor Cell Lymphoblastic Leukemia-Lymphoma,2,DB01073,DB01073,6.32
+Precursor Cell Lymphoblastic Leukemia-Lymphoma,3,imatinib,DB00619,6.26
+Precursor Cell Lymphoblastic Leukemia-Lymphoma,4,DB00309,DB00309,6.03
+Precursor Cell Lymphoblastic Leukemia-Lymphoma,5,daunorubicin,DB00694,5.83
+Precursor Cell Lymphoblastic Leukemia-Lymphoma,6,DB01042,DB01042,5.76
+Precursor Cell Lymphoblastic Leukemia-Lymphoma,7,DB01008,DB01008,5.63
+Precursor Cell Lymphoblastic Leukemia-Lymphoma,8,dactinomycin,DB00970,5.61
+"Leukemia, Myeloid, Acute",1,imatinib,DB00619,13.14
+"Leukemia, Myeloid, Acute",2,vincristine,DB00541,11.70
+"Leukemia, Myeloid, Acute",3,cytarabine,DB00987,11.57
+"Leukemia, Myeloid, Acute",4,doxorubicin,DB00997,11.30
+"Leukemia, Myeloid, Acute",5,DB01008,DB01008,11.20
+"Leukemia, Myeloid, Acute",6,DB01073,DB01073,8.91
+"Leukemia, Myeloid, Acute",7,DB00305,DB00305,7.70
+"Leukemia, Myeloid, Acute",8,DB00888,DB00888,7.29
+"Colitis, Ulcerative",1,DB00244,DB00244,9.87
+"Colitis, Ulcerative",2,DB00741,DB00741,9.63
+"Colitis, Ulcerative",3,DB01250,DB01250,9.11
+"Colitis, Ulcerative",4,DB01033,DB01033,9.09
+"Colitis, Ulcerative",5,DB00620,DB00620,8.10
+"Colitis, Ulcerative",6,DB00864,DB00864,8.03
+"Colitis, Ulcerative",7,DB01234,DB01234,7.96
+"Colitis, Ulcerative",8,DB14539,DB14539,7.91
+Multiple Myeloma,1,DB01234,DB01234,9.19
+Multiple Myeloma,2,prednisolone,DB00860,8.77
+Multiple Myeloma,3,DB00620,DB00620,8.49
+Multiple Myeloma,4,methylprednisolone,DB00959,8.06
+Multiple Myeloma,5,DB00443,DB00443,7.79
+Multiple Myeloma,6,vinblastine,DB00570,7.47
+Multiple Myeloma,7,DB00741,DB00741,7.30
+Multiple Myeloma,8,methotrexate,DB00563,7.27
+Peptic Ulcer,1,DB00585,DB00585,10.31
+Peptic Ulcer,2,DB00501,DB00501,9.65
+Peptic Ulcer,3,DB00448,DB00448,9.57
+Peptic Ulcer,4,DB00736,DB00736,8.13
+Peptic Ulcer,5,DB00213,DB00213,8.10
+Peptic Ulcer,6,DB01129,DB01129,8.09
+Peptic Ulcer,7,DB00863,DB00863,8.01
+Peptic Ulcer,8,DB00604,DB00604,7.95
+"Glaucoma, Open-Angle",1,DB01144,DB01144,8.21
+"Glaucoma, Open-Angle",2,DB01210,DB01210,7.98
+"Glaucoma, Open-Angle",3,DB00668,DB00668,7.86
+"Glaucoma, Open-Angle",4,DB01194,DB01194,7.77
+"Glaucoma, Open-Angle",5,DB00388,DB00388,7.71
+"Glaucoma, Open-Angle",6,DB00287,DB00287,7.67
+"Glaucoma, Open-Angle",7,DB00484,DB00484,7.64
+"Glaucoma, Open-Angle",8,DB00521,DB00521,7.63
+Depression,1,clomipramine,DB01242,10.29
+Depression,2,DB00285,DB00285,9.39
+Depression,3,DB00215,DB00215,9.04
+Depression,4,DB01104,DB01104,8.81
+Depression,5,DB00715,DB00715,8.70
+Depression,6,DB01238,DB01238,8.58
+Depression,7,DB00176,DB00176,8.51
+Depression,8,DB01068,DB01068,7.50
+"Lupus Erythematosus, Cutaneous",1,DB00443,DB00443,10.90
+"Lupus Erythematosus, Cutaneous",2,DB01234,DB01234,10.72
+"Lupus Erythematosus, Cutaneous",3,methylprednisolone,DB00959,10.48
+"Lupus Erythematosus, Cutaneous",4,DB00620,DB00620,10.29
+"Lupus Erythematosus, Cutaneous",5,prednisone,DB00635,9.96
+"Lupus Erythematosus, Cutaneous",6,DB01380,DB01380,9.76
+"Lupus Erythematosus, Cutaneous",7,DB00741,DB00741,9.70
+"Lupus Erythematosus, Cutaneous",8,azathioprine,DB00993,8.98
+Colorectal Neoplasms,1,cytarabine,DB00987,11.11
+Colorectal Neoplasms,2,DB00305,DB00305,10.71
+Colorectal Neoplasms,3,DB03209,DB03209,9.09
+Colorectal Neoplasms,4,paclitaxel,DB01229,8.98
+Colorectal Neoplasms,5,DB01248,DB01248,8.87
+Colorectal Neoplasms,6,DB00322,DB00322,8.31
+Colorectal Neoplasms,7,DB09256,DB09256,8.25
+Colorectal Neoplasms,8,DB12947,DB12947,8.00
+"Carcinoma, Renal Cell",1,everolimus,DB01590,13.18
+"Carcinoma, Renal Cell",2,gemcitabine,DB00441,11.36
+"Carcinoma, Renal Cell",3,imatinib,DB00619,9.69
+"Carcinoma, Renal Cell",4,DB06626,DB06626,9.63
+"Carcinoma, Renal Cell",5,DB06287,DB06287,9.54
+"Carcinoma, Renal Cell",6,DB00530,DB00530,9.11
+"Carcinoma, Renal Cell",7,streptozocin,DB00428,8.82
+"Carcinoma, Renal Cell",8,sorafenib,DB00398,8.78
+Pemphigus,1,DB00741,DB00741,8.97
+Pemphigus,2,DB01234,DB01234,8.81
+Pemphigus,3,budesonide,DB01222,8.48
+Pemphigus,4,methylprednisolone,DB00959,8.12
+Pemphigus,5,DB00443,DB00443,8.06
+Pemphigus,6,DB00620,DB00620,7.99
+Pemphigus,7,sulfasalazine,DB00795,7.78
+Pemphigus,8,prednisone,DB00635,7.53
+"Carcinoma, Non-Small-Cell Lung",1,DB00603,DB00603,7.98
+"Carcinoma, Non-Small-Cell Lung",2,DB01248,DB01248,7.94
+"Carcinoma, Non-Small-Cell Lung",3,everolimus,DB01590,7.84
+"Carcinoma, Non-Small-Cell Lung",4,capecitabine,DB01101,7.57
+"Carcinoma, Non-Small-Cell Lung",5,DB00977,DB00977,7.38
+"Carcinoma, Non-Small-Cell Lung",6,DB00014,DB00014,7.31
+"Carcinoma, Non-Small-Cell Lung",7,DB03209,DB03209,7.13
+"Carcinoma, Non-Small-Cell Lung",8,paclitaxel,DB01229,6.94
+Hyperthyroidism,1,DB00550,DB00550,17.73
+Hyperthyroidism,2,DB00115,DB00115,15.48
+Hyperthyroidism,3,DB11191,DB11191,15.31
+Hyperthyroidism,4,DB11190,DB11190,14.08
+Hyperthyroidism,5,DB00279,DB00279,12.23
+Hyperthyroidism,6,DB00451,DB00451,12.21
+Hyperthyroidism,7,DB00608,DB00608,8.56
+Hyperthyroidism,8,methylprednisolone,DB00959,8.49
+Urinary Bladder Neoplasms,1,methotrexate,DB00563,11.41
+Urinary Bladder Neoplasms,2,prednisolone,DB00860,9.61
+Urinary Bladder Neoplasms,3,cytarabine,DB00987,8.66
+Urinary Bladder Neoplasms,4,imatinib,DB00619,8.63
+Urinary Bladder Neoplasms,5,DB01073,DB01073,8.55
+Urinary Bladder Neoplasms,6,doxorubicin,DB00997,8.36
+Urinary Bladder Neoplasms,7,vincristine,DB00541,8.00
+Urinary Bladder Neoplasms,8,methylprednisolone,DB00959,7.29
+Anxiety Disorders,1,DB00285,DB00285,8.81
+Anxiety Disorders,2,DB00215,DB00215,8.74
+Anxiety Disorders,3,DB01104,DB01104,8.45
+Anxiety Disorders,4,DB00715,DB00715,8.41
+Anxiety Disorders,5,DB00176,DB00176,8.22
+Anxiety Disorders,6,diazepam,DB00829,7.76
+Anxiety Disorders,7,DB00475,DB00475,7.61
+Anxiety Disorders,8,DB01553,DB01553,7.60
+"Anemia, Hemolytic, Autoimmune",1,DB00741,DB00741,8.07
+"Anemia, Hemolytic, Autoimmune",2,DB01234,DB01234,7.93
+"Anemia, Hemolytic, Autoimmune",3,budesonide,DB01222,7.61
+"Anemia, Hemolytic, Autoimmune",4,DB00443,DB00443,7.06
+"Anemia, Hemolytic, Autoimmune",5,DB00244,DB00244,6.99
+"Anemia, Hemolytic, Autoimmune",6,DB01380,DB01380,6.92
+"Anemia, Hemolytic, Autoimmune",7,sulfasalazine,DB00795,6.91
+"Anemia, Hemolytic, Autoimmune",8,DB00620,DB00620,6.65
+Aspergillosis,1,amphotericin,DB00681,17.26
+Aspergillosis,2,DB01263,DB01263,13.15
+Aspergillosis,3,ketoconazole,DB01026,12.82
+Aspergillosis,4,DB01099,DB01099,12.19
+Aspergillosis,5,DB01141,DB01141,11.17
+Aspergillosis,6,fluconazole,DB00196,10.85
+Aspergillosis,7,DB06636,DB06636,10.09
+Aspergillosis,8,DB00251,DB00251,9.41
+Squamous Cell Carcinoma of Head and Neck,1,methotrexate,DB00563,12.32
+Squamous Cell Carcinoma of Head and Neck,2,imatinib,DB00619,9.76
+Squamous Cell Carcinoma of Head and Neck,3,DB00712,DB00712,8.76
+Squamous Cell Carcinoma of Head and Neck,4,prednisolone,DB00860,8.17
+Squamous Cell Carcinoma of Head and Neck,5,vincristine,DB00541,8.09
+Squamous Cell Carcinoma of Head and Neck,6,DB00482,DB00482,8.08
+Squamous Cell Carcinoma of Head and Neck,7,prednisone,DB00635,8.02
+Squamous Cell Carcinoma of Head and Neck,8,DB01073,DB01073,7.98
+"Myoclonic Epilepsy, Juvenile",1,gabapentin,DB00996,13.85
+"Myoclonic Epilepsy, Juvenile",2,DB00794,DB00794,13.43
+"Myoclonic Epilepsy, Juvenile",3,DB00776,DB00776,12.45
+"Myoclonic Epilepsy, Juvenile",4,DB01068,DB01068,9.30
+"Myoclonic Epilepsy, Juvenile",5,DB01595,DB01595,9.21
+"Myoclonic Epilepsy, Juvenile",6,DB00181,DB00181,7.43
+"Myoclonic Epilepsy, Juvenile",7,DB00564,DB00564,7.13
+"Myoclonic Epilepsy, Juvenile",8,DB00575,DB00575,7.06
+Hypoparathyroidism,1,DB01070,DB01070,14.60
+Hypoparathyroidism,2,DB00169,DB00169,14.24
+Hypoparathyroidism,3,DB00153,DB00153,14.17
+Hypoparathyroidism,4,DB00146,DB00146,13.08
+Hypoparathyroidism,5,DB01436,DB01436,12.31
+Hypoparathyroidism,6,DB06410,DB06410,8.75
+Hypoparathyroidism,7,furosemide,DB00695,8.43
+Hypoparathyroidism,8,DB01197,DB01197,8.11
+Heart Failure,1,DB00722,DB00722,8.20
+Heart Failure,2,DB00881,DB00881,7.86
+Heart Failure,3,DB00519,DB00519,7.86
+Heart Failure,4,DB00492,DB00492,7.85
+Heart Failure,5,DB00178,DB00178,7.76
+Heart Failure,6,DB01197,DB01197,7.41
+Heart Failure,7,DB01029,DB01029,7.32
+Heart Failure,8,DB00691,DB00691,7.28
+Osteosarcoma,1,methotrexate,DB00563,7.49
+Osteosarcoma,2,thalidomide,DB01041,5.65
+Osteosarcoma,3,desmopressin,DB00035,5.33
+Osteosarcoma,4,prednisone,DB00635,4.53
+Osteosarcoma,5,prednisolone,DB00860,4.49
+Osteosarcoma,6,DB00650,DB00650,4.38
+Osteosarcoma,7,DB01234,DB01234,4.37
+Osteosarcoma,8,sorafenib,DB00398,4.27
+"Carcinoma, Hepatocellular",1,methotrexate,DB00563,10.80
+"Carcinoma, Hepatocellular",2,cytarabine,DB00987,8.93
+"Carcinoma, Hepatocellular",3,vincristine,DB00541,8.91
+"Carcinoma, Hepatocellular",4,fluorouracil,DB00544,8.65
+"Carcinoma, Hepatocellular",5,DB00305,DB00305,8.61
+"Carcinoma, Hepatocellular",6,DB01181,DB01181,8.22
+"Carcinoma, Hepatocellular",7,etoposide,DB00773,8.12
+"Carcinoma, Hepatocellular",8,prednisone,DB00635,7.77
+"Carcinoma, Islet Cell",1,DB00620,DB00620,9.47
+"Carcinoma, Islet Cell",2,methylprednisolone,DB00959,9.25
+"Carcinoma, Islet Cell",3,prednisolone,DB00860,9.18
+"Carcinoma, Islet Cell",4,melphalan,DB00361,8.33
+"Carcinoma, Islet Cell",5,DB00443,DB00443,8.33
+"Carcinoma, Islet Cell",6,DB11921,DB11921,8.22
+"Carcinoma, Islet Cell",7,lomustine,DB01206,8.21
+"Carcinoma, Islet Cell",8,methotrexate,DB00563,7.89
+Polycythemia Vera,1,imatinib,DB00619,12.40
+Polycythemia Vera,2,DB01008,DB01008,11.27
+Polycythemia Vera,3,cytarabine,DB00987,11.16
+Polycythemia Vera,4,vincristine,DB00541,10.50
+Polycythemia Vera,5,doxorubicin,DB00997,10.45
+Polycythemia Vera,6,DB13832,DB13832,8.83
+Polycythemia Vera,7,methotrexate,DB00563,8.47
+Polycythemia Vera,8,DB00305,DB00305,8.25
+Cryptococcosis,1,itraconazole,DB01167,14.11
+Cryptococcosis,2,DB01263,DB01263,13.72
+Cryptococcosis,3,voriconazole,DB00582,13.46
+Cryptococcosis,4,DB01099,DB01099,12.72
+Cryptococcosis,5,DB01141,DB01141,11.39
+Cryptococcosis,6,ketoconazole,DB01026,11.38
+Cryptococcosis,7,DB00251,DB00251,9.64
+Cryptococcosis,8,DB00362,DB00362,9.63
+"Mycobacterium Infections, Nontuberculous",1,DB01045,DB01045,12.44
+"Mycobacterium Infections, Nontuberculous",2,DB00446,DB00446,10.87
+"Mycobacterium Infections, Nontuberculous",3,DB01201,DB01201,9.85
+"Mycobacterium Infections, Nontuberculous",4,DB00314,DB00314,9.78
+"Mycobacterium Infections, Nontuberculous",5,DB00609,DB00609,9.74
+"Mycobacterium Infections, Nontuberculous",6,DB00233,DB00233,9.72
+"Mycobacterium Infections, Nontuberculous",7,DB00339,DB00339,9.71
+"Mycobacterium Infections, Nontuberculous",8,DB00951,DB00951,9.62
+Cushing Syndrome,1,itraconazole,DB01167,18.28
+Cushing Syndrome,2,amphotericin,DB00681,13.54
+Cushing Syndrome,3,DB01263,DB01263,12.43
+Cushing Syndrome,4,fluconazole,DB00196,8.61
+Cushing Syndrome,5,DB08933,DB08933,8.53
+Cushing Syndrome,6,DB00646,DB00646,7.75
+Cushing Syndrome,7,DB00257,DB00257,7.17
+Cushing Syndrome,8,DB00936,DB00936,6.64
+Chromoblastomycosis,1,DB01263,DB01263,14.66
+Chromoblastomycosis,2,ketoconazole,DB01026,13.29
+Chromoblastomycosis,3,voriconazole,DB00582,13.19
+Chromoblastomycosis,4,DB01099,DB01099,12.76
+Chromoblastomycosis,5,fluconazole,DB00196,11.93
+Chromoblastomycosis,6,DB01141,DB01141,10.79
+Chromoblastomycosis,7,DB00646,DB00646,9.33
+Chromoblastomycosis,8,DB00362,DB00362,9.07
+"Diabetes Insipidus, Neurogenic",1,doxorubicin,DB00997,19.11
+"Diabetes Insipidus, Neurogenic",2,prednisone,DB00635,8.53
+"Diabetes Insipidus, Neurogenic",3,thalidomide,DB01041,8.41
+"Diabetes Insipidus, Neurogenic",4,metformin,DB00331,8.12
+"Diabetes Insipidus, Neurogenic",5,sirolimus,DB00877,7.83
+"Diabetes Insipidus, Neurogenic",6,DB00067,DB00067,7.56
+"Diabetes Insipidus, Neurogenic",7,DB00999,DB00999,7.28
+"Diabetes Insipidus, Neurogenic",8,everolimus,DB01590,6.74
+Histoplasmosis,1,amphotericin,DB00681,17.39
+Histoplasmosis,2,ketoconazole,DB01026,17.06
+Histoplasmosis,3,DB01263,DB01263,13.52
+Histoplasmosis,4,DB01099,DB01099,13.20
+Histoplasmosis,5,fluconazole,DB00196,12.61
+Histoplasmosis,6,voriconazole,DB00582,12.32
+Histoplasmosis,7,DB00646,DB00646,7.06
+Histoplasmosis,8,DB00257,DB00257,6.42
+"Pneumonia, Pneumocystis",1,DB00618,DB00618,8.14
+"Pneumonia, Pneumocystis",2,DB00537,DB00537,7.87
+"Pneumonia, Pneumocystis",3,DB01137,DB01137,7.71
+"Pneumonia, Pneumocystis",4,DB00535,DB00535,7.26
+"Pneumonia, Pneumocystis",5,DB00446,DB00446,7.06
+"Pneumonia, Pneumocystis",6,DB01059,DB01059,6.94
+"Pneumonia, Pneumocystis",7,DB01165,DB01165,6.94
+"Pneumonia, Pneumocystis",8,DB00080,DB00080,6.79
+Leishmaniasis,1,DB00328,DB00328,16.03
+Leishmaniasis,2,DB00945,DB00945,14.32
+Leishmaniasis,3,DB04854,DB04854,12.46
+Leishmaniasis,4,DB11560,DB11560,11.37
+Leishmaniasis,5,DB12319,DB12319,11.13
+Leishmaniasis,6,DB01009,DB01009,10.78
+Leishmaniasis,7,DB00706,DB00706,10.17
+Leishmaniasis,8,DB01394,DB01394,9.46
+Melanoma,1,DB00851,DB00851,14.86
+Melanoma,2,DB01008,DB01008,13.04
+Melanoma,3,DB08881,DB08881,12.27
+Melanoma,4,DB01181,DB01181,11.84
+Melanoma,5,imatinib,DB00619,10.29
+Melanoma,6,DB06412,DB06412,9.15
+Melanoma,7,DB00262,DB00262,7.03
+Melanoma,8,hydroxyurea,DB01005,6.08
+"Cholestasis, Intrahepatic",1,DB05990,DB05990,8.55
+"Cholestasis, Intrahepatic",2,DB00166,DB00166,8.36
+"Cholestasis, Intrahepatic",3,DB00464,DB00464,8.36
+"Cholestasis, Intrahepatic",4,DB01220,DB01220,8.32
+"Cholestasis, Intrahepatic",5,DB04847,DB04847,8.26
+"Cholestasis, Intrahepatic",6,DB00460,DB00460,8.23
+"Cholestasis, Intrahepatic",7,DB00699,DB00699,8.21
+"Cholestasis, Intrahepatic",8,DB01065,DB01065,7.36
+Thyroid Neoplasms,1,methotrexate,DB00563,11.06
+Thyroid Neoplasms,2,prednisone,DB00635,10.48
+Thyroid Neoplasms,3,vincristine,DB00541,9.44
+Thyroid Neoplasms,4,cytarabine,DB00987,8.69
+Thyroid Neoplasms,5,paclitaxel,DB01229,8.56
+Thyroid Neoplasms,6,etoposide,DB00773,8.54
+Thyroid Neoplasms,7,DB01181,DB01181,8.20
+Thyroid Neoplasms,8,DB01042,DB01042,7.56
+Adrenal Cortex Neoplasms,1,DB01011,DB01011,14.98
+Adrenal Cortex Neoplasms,2,amphotericin,DB00681,10.29
+Adrenal Cortex Neoplasms,3,DB01108,DB01108,10.01
+Adrenal Cortex Neoplasms,4,itraconazole,DB01167,5.50
+Adrenal Cortex Neoplasms,5,DB01263,DB01263,5.13
+Adrenal Cortex Neoplasms,6,voriconazole,DB00582,4.42
+Adrenal Cortex Neoplasms,7,DB01099,DB01099,3.84
+Adrenal Cortex Neoplasms,8,fluconazole,DB00196,3.07
+Hemangiosarcoma,1,methotrexate,DB00563,9.24
+Hemangiosarcoma,2,vincristine,DB00541,8.83
+Hemangiosarcoma,3,prednisone,DB00635,7.52
+Hemangiosarcoma,4,vinblastine,DB00570,7.28
+Hemangiosarcoma,5,paclitaxel,DB01229,7.24
+Hemangiosarcoma,6,mitoxantrone,DB01204,6.99
+Hemangiosarcoma,7,cytarabine,DB00987,6.93
+Hemangiosarcoma,8,DB00845,DB00845,6.76
+Hepatolenticular Degeneration,1,DB00380,DB00380,9.61
+Hepatolenticular Degeneration,2,DB06823,DB06823,9.61
+Hepatolenticular Degeneration,3,DB00963,DB00963,9.51
+Hepatolenticular Degeneration,4,DB12243,DB12243,9.15
+Hepatolenticular Degeneration,5,DB06769,DB06769,9.10
+Hepatolenticular Degeneration,6,DB00740,DB00740,8.76
+Hepatolenticular Degeneration,7,DB00583,DB00583,7.93
+Hepatolenticular Degeneration,8,DB00929,DB00929,6.48
+"Cardiomyopathy, Hypertrophic, Familial",1,DB01219,DB01219,9.50
+"Cardiomyopathy, Hypertrophic, Familial",2,DB00945,DB00945,9.47
+"Cardiomyopathy, Hypertrophic, Familial",3,DB00682,DB00682,9.01
+"Cardiomyopathy, Hypertrophic, Familial",4,DB01203,DB01203,8.05
+"Cardiomyopathy, Hypertrophic, Familial",5,DB00571,DB00571,7.84
+"Cardiomyopathy, Hypertrophic, Familial",6,DB00264,DB00264,7.45
+"Cardiomyopathy, Hypertrophic, Familial",7,DB00393,DB00393,7.14
+"Cardiomyopathy, Hypertrophic, Familial",8,DB06209,DB06209,7.11
+"Hepatitis, Autoimmune",1,cyclosporine,DB00091,10.68
+"Hepatitis, Autoimmune",2,DB00741,DB00741,9.98
+"Hepatitis, Autoimmune",3,sulfasalazine,DB00795,9.63
+"Hepatitis, Autoimmune",4,methotrexate,DB00563,9.55
+"Hepatitis, Autoimmune",5,DB01234,DB01234,9.50
+"Hepatitis, Autoimmune",6,prednisone,DB00635,8.88
+"Hepatitis, Autoimmune",7,DB00443,DB00443,8.87
+"Hepatitis, Autoimmune",8,DB00620,DB00620,8.86
+"Leukemia, Mast-Cell",1,cyclosporine,DB00091,8.03
+"Leukemia, Mast-Cell",2,DB01234,DB01234,7.11
+"Leukemia, Mast-Cell",3,DB00443,DB00443,6.86
+"Leukemia, Mast-Cell",4,methylprednisolone,DB00959,6.83
+"Leukemia, Mast-Cell",5,methotrexate,DB00563,6.81
+"Leukemia, Mast-Cell",6,DB00741,DB00741,6.59
+"Leukemia, Mast-Cell",7,prednisone,DB00635,6.39
+"Leukemia, Mast-Cell",8,cytarabine,DB00987,6.37
