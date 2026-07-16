@@ -1,0 +1,45 @@
+# ⚠️ 只靠這個檔【裝不出能吃 GPU 的環境】,請先讀完下面再動手。
+#
+# ── 已驗證的環境(唯一實測過的組合)────────────────────────────────────
+#   nvcr.io/nvidia/dgl:25.08-py3
+#   python 3.12.3 · torch 2.13.0+cu130 · dgl 2.5 · aarch64
+#
+#   docker run -d --name mrdda-gpu --gpus all \
+#     -v /path/to/repro:/workspace/MRDDA \
+#     nvcr.io/nvidia/dgl:25.08-py3 sleep infinity
+#   docker exec mrdda-gpu bash -lc 'cd /workspace/MRDDA && python3 run_all.py'
+#
+#   ↑ 這個映像【已內含】torch 與 dgl,直接用就好,不必再裝它們。
+#
+# ── 為什麼不把 torch / dgl 寫進這個檔 ───────────────────────────────────
+#   PyPI 上的 `dgl` 是 CPU-only —— pip install dgl 會裝到一個「能 import、
+#   但吃不到 GPU」的版本,而且不會有任何警告。ARM64 更是連 CUDA wheel 都沒有。
+#   torch 的 CUDA 版也需要特定的 --index-url。
+#   把它們寫在這裡只會讓人以為裝好了,實際上跑起來是 CPU(慢 8 倍)或直接炸。
+#
+#   要自行安裝(x86_64,我們沒測過):
+#     torch : https://pytorch.org/get-started/locally/
+#     dgl   : https://www.dgl.ai/pages/start.html   ← 選對應的 CUDA 版本
+#
+# ── 沒有 GPU 也可以跑 ──────────────────────────────────────────────────
+#   run_all.py 會自動偵測,沒有 GPU 就退回 CPU(~2 小時 vs GPU ~15 分)。
+#   實測 CPU 與 GPU 的 loss/AUC 一致。此時 CPU-only 的 dgl 就夠用。
+#
+# ─────────────────────────────────────────────────────────────────────
+# 以下版本 = 上述映像內的實際版本(不是猜的)
+
+numpy==1.26.4
+pandas==2.2.3
+scipy==1.15.3
+scikit-learn==1.6.1
+
+# utils.py 在模組頂層 import,即使不畫圖也必須裝
+matplotlib==3.10.3
+seaborn==0.13.2
+
+# 只有 build_mech_sim.py(增刪藥物後重建相似度)需要
+rdkit==2026.03.3
+
+# 這兩個【不要】從這裡裝,見檔頭:
+#   torch==2.13.0+cu130
+#   dgl==2.5
