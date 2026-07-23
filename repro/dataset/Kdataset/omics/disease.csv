@@ -453,53 +453,52 @@ ID,Disease,Name
 451,D012373,Rocky Mountain Spotted Fever
 452,D020163,Ornithine Carbamoyltransferase Deficiency Disease
 453,D007946,"Leukemia, Mast-Cell"
-454,D006973,寵物-Hypertension
-455,D001249,寵物-Asthma
-456,D003876,"寵物-Dermatitis, Atopic"
-457,D001943,寵物-Breast Neoplasms
-458,D001932,寵物-Brain Neoplasms
-459,D010003,寵物-Osteoarthritis
-460,D001172,"寵物-Arthritis, Rheumatoid"
-461,D003924,"寵物-Diabetes Mellitus, Type 2"
-462,D054198,寵物-Precursor Cell Lymphoblastic Leukemia-Lymphoma
-463,D015470,"寵物-Leukemia, Myeloid, Acute"
-464,D003093,"寵物-Colitis, Ulcerative"
+454,D064726,Triple Negative Breast Neoplasms
+455,D006973,寵物-Hypertension
+456,D001249,寵物-Asthma
+457,D003876,"寵物-Dermatitis, Atopic"
+458,D001943,寵物-Breast Neoplasms
+459,D001932,寵物-Brain Neoplasms
+460,D010003,寵物-Osteoarthritis
+461,D001172,"寵物-Arthritis, Rheumatoid"
+462,D003924,"寵物-Diabetes Mellitus, Type 2"
+463,D054198,寵物-Precursor Cell Lymphoblastic Leukemia-Lymphoma
+464,D015470,"寵物-Leukemia, Myeloid, Acute"
 465,D009101,寵物-Multiple Myeloma
 466,D010437,寵物-Peptic Ulcer
 467,D005902,"寵物-Glaucoma, Open-Angle"
-468,D003863,寵物-Depression
-469,D008178,"寵物-Lupus Erythematosus, Cutaneous"
-470,D015179,寵物-Colorectal Neoplasms
-471,D002292,"寵物-Carcinoma, Renal Cell"
-472,D010392,寵物-Pemphigus
-473,D002289,"寵物-Carcinoma, Non-Small-Cell Lung"
-474,D006980,寵物-Hyperthyroidism
-475,D001749,寵物-Urinary Bladder Neoplasms
-476,D001008,寵物-Anxiety Disorders
-477,D000744,"寵物-Anemia, Hemolytic, Autoimmune"
-478,D001228,寵物-Aspergillosis
-479,D000077195,寵物-Squamous Cell Carcinoma of Head and Neck
-480,D020190,"寵物-Myoclonic Epilepsy, Juvenile"
-481,D007011,寵物-Hypoparathyroidism
-482,D006333,寵物-Heart Failure
-483,D012516,寵物-Osteosarcoma
-484,D006528,"寵物-Carcinoma, Hepatocellular"
-485,D018273,"寵物-Carcinoma, Islet Cell"
-486,D011087,寵物-Polycythemia Vera
-487,D003453,寵物-Cryptococcosis
-488,D009165,"寵物-Mycobacterium Infections, Nontuberculous"
-489,D003480,寵物-Cushing Syndrome
-490,D002862,寵物-Chromoblastomycosis
-491,D020790,"寵物-Diabetes Insipidus, Neurogenic"
-492,D006660,寵物-Histoplasmosis
-493,D011020,"寵物-Pneumonia, Pneumocystis"
-494,D007896,寵物-Leishmaniasis
-495,D008545,寵物-Melanoma
-496,D002780,"寵物-Cholestasis, Intrahepatic"
-497,D013964,寵物-Thyroid Neoplasms
-498,D000306,寵物-Adrenal Cortex Neoplasms
-499,D006394,寵物-Hemangiosarcoma
-500,D006527,寵物-Hepatolenticular Degeneration
-501,D024741,"寵物-Cardiomyopathy, Hypertrophic, Familial"
-502,D019693,"寵物-Hepatitis, Autoimmune"
-503,D007946,"寵物-Leukemia, Mast-Cell"
+468,D008178,"寵物-Lupus Erythematosus, Cutaneous"
+469,D015179,寵物-Colorectal Neoplasms
+470,D002292,"寵物-Carcinoma, Renal Cell"
+471,D010392,寵物-Pemphigus
+472,D002289,"寵物-Carcinoma, Non-Small-Cell Lung"
+473,D006980,寵物-Hyperthyroidism
+474,D001749,寵物-Urinary Bladder Neoplasms
+475,D001008,寵物-Anxiety Disorders
+476,D000744,"寵物-Anemia, Hemolytic, Autoimmune"
+477,D001228,寵物-Aspergillosis
+478,D000077195,寵物-Squamous Cell Carcinoma of Head and Neck
+479,D020190,"寵物-Myoclonic Epilepsy, Juvenile"
+480,D007011,寵物-Hypoparathyroidism
+481,D006333,寵物-Heart Failure
+482,D012516,寵物-Osteosarcoma
+483,D006528,"寵物-Carcinoma, Hepatocellular"
+484,D018273,"寵物-Carcinoma, Islet Cell"
+485,D011087,寵物-Polycythemia Vera
+486,D003453,寵物-Cryptococcosis
+487,D009165,"寵物-Mycobacterium Infections, Nontuberculous"
+488,D003480,寵物-Cushing Syndrome
+489,D002862,寵物-Chromoblastomycosis
+490,D020790,"寵物-Diabetes Insipidus, Neurogenic"
+491,D006660,寵物-Histoplasmosis
+492,D011020,"寵物-Pneumonia, Pneumocystis"
+493,D007896,寵物-Leishmaniasis
+494,D008545,寵物-Melanoma
+495,D002780,"寵物-Cholestasis, Intrahepatic"
+496,D013964,寵物-Thyroid Neoplasms
+497,D000306,寵物-Adrenal Cortex Neoplasms
+498,D006394,寵物-Hemangiosarcoma
+499,D006527,寵物-Hepatolenticular Degeneration
+500,D024741,"寵物-Cardiomyopathy, Hypertrophic, Familial"
+501,D019693,"寵物-Hepatitis, Autoimmune"
+502,D007946,"寵物-Leukemia, Mast-Cell"

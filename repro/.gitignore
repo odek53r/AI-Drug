@@ -1,0 +1,5 @@
+# 本包不隨附訓練好的模型 —— 每次都從頭訓練(見 README 二、環境)
+resultKPetFull_*/
+result*/
+__pycache__/
+*.pyc

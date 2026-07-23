@@ -36,8 +36,13 @@ def load_Kdataset():
     # 這些橋接存在 interactions/disease_disease.csv(原始檔,格式相同),取 index>=n_human 的列。
     # 註:disease_disease_baseline.csv 維持 454×454 —— 它被上面的 top-15 邏輯消費,
     #     寵物列若放進去會憑空多 15 條相似邊(實測 100→2648),破壞「寵物病只有 1 條橋接」的設計。
+    # 只取 Sim==1.0 的當【邊】—— 那是「寵物病↔同名人類病」的橋接(96 條)。
+    # 檔案裡另有寵物病對其他人類病的 Wang 相似度(Sim<1),那是給 run_all.py 的
+    # prop 用的【權重】,不是圖上的邊;若一併當邊會讓寵物邊從 96 暴增到 4498,
+    # 大幅改變 GNN 的圖結構。
     _dd_all = pd.read_csv(KD + '/interactions/disease_disease.csv')
-    pet_dd = _dd_all[(_dd_all['Disease1'] >= n_human) | (_dd_all['Disease2'] >= n_human)][['Disease1', 'Disease2']]
+    _pet_rows = (_dd_all['Disease1'] >= n_human) | (_dd_all['Disease2'] >= n_human)
+    pet_dd = _dd_all[_pet_rows & (_dd_all['Sim'] == 1.0)][['Disease1', 'Disease2']]
     disease_disease = pd.concat([disease_disease, pet_dd], ignore_index=True)
     drug_protein = pd.read_csv(KD + '/associations/drug_protein.csv')
     protein_gene = pd.read_csv(KD + '/associations/protein_gene.csv')

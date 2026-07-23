@@ -227,11 +227,22 @@ if ddb.shape != (N_HUMAN, N_HUMAN):
     print(f"\n❌ disease_disease_baseline 維度 {ddb.shape} ≠ 人類病數 {N_HUMAN}"); sys.exit(1)
 Sdis = np.zeros((ndis, ndis), dtype=np.float32); Sdis[:N_HUMAN, :N_HUMAN] = ddb
 nb = 0
-# 橋接住在 interactions/disease_disease.csv(原始檔,格式相同);取 index >= N_HUMAN 的列。
+# 寵物病的相似度直接讀 interactions/disease_disease.csv 裡【用 Wang's method 算出來的值】。
+#
+# 舊做法是 Sdis[p,:] = ddb[h,:](整列複製橋接對象的相似度),但 ddb 的列序與
+# omics/disease.csv 的 ID 對不上(上游已知問題,454 列裡只有 2 列沒位移),
+# 複製過來的是別的病的輪廓 —— 實測「寵物-Hypertension」的近鄰變成 IgA 血管炎、
+# 嗜酸性白血球增多症;改用 Wang 直接算後是 Essential Hypertension 0.72、
+# 肺高壓 0.60、動脈阻塞 0.43,生物學上正確。逐格只有 72.3% 相同。
+#
+# 公式:Wang's method(MeSH DAG,δ=0.5),與 REDDA disease_similarity.py 相同,
+# 已驗證能重現原矩陣 95.62%(解出列序後)。
 for row in csv.DictReader(open("dataset/Kdataset/interactions/disease_disease.csv")):
     a, b = int(row["Disease1"]), int(row["Disease2"]); h, p = (a, b) if a < b else (b, a)
-    if p >= N_HUMAN and h < N_HUMAN:          # 寵物病 p 繼承人類病 h 的相似度結構
-        Sdis[p, :N_HUMAN] = ddb[h, :]; Sdis[:N_HUMAN, p] = ddb[:, h]; Sdis[p, h] = Sdis[h, p] = 1; nb += 1
+    if p >= N_HUMAN and h < N_HUMAN:
+        v = float(row["Sim"])
+        Sdis[p, h] = Sdis[h, p] = v
+        if v == 1.0: nb += 1                  # Sim==1.0 = 同名橋接,用來計數
 NSdis = norm(Sdis)
 bridged = len(set(np.where(Sdis[N_HUMAN:, :N_HUMAN].sum(1) > 0)[0]))
 ok(nb > 0, f"寵物病↔人類病橋接 = {nb} 列({bridged}/{len(PET_COLS)} 個寵物病有橋接)")
