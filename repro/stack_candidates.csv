@@ -197,7 +197,7 @@ Breast Neoplasms,45,DB00620,DB00620,0.87
 Breast Neoplasms,46,DB01248,DB01248,0.87
 Breast Neoplasms,47,DB00480,DB00480,0.82
 Breast Neoplasms,48,DB00884,DB00884,0.79
-Breast Neoplasms,49,melphalan,DB00361,0.79
+Breast Neoplasms,49,vinorelbine,DB00361,0.79
 Breast Neoplasms,50,etoposide,DB00773,0.76
 Brain Neoplasms,1,DB01234,DB01234,8.50
 Brain Neoplasms,2,methylprednisolone,DB00959,7.58
@@ -423,7 +423,7 @@ Precursor Cell Lymphoblastic Leukemia-Lymphoma,21,daunorubicin,DB00694,4.76
 Precursor Cell Lymphoblastic Leukemia-Lymphoma,22,DB01380,DB01380,4.74
 Precursor Cell Lymphoblastic Leukemia-Lymphoma,23,idarubicin,DB01177,4.72
 Precursor Cell Lymphoblastic Leukemia-Lymphoma,24,imatinib,DB00619,4.72
-Precursor Cell Lymphoblastic Leukemia-Lymphoma,25,melphalan,DB00361,4.65
+Precursor Cell Lymphoblastic Leukemia-Lymphoma,25,vinorelbine,DB00361,4.65
 Precursor Cell Lymphoblastic Leukemia-Lymphoma,26,paclitaxel,DB01229,4.63
 Precursor Cell Lymphoblastic Leukemia-Lymphoma,27,streptozocin,DB00428,4.56
 Precursor Cell Lymphoblastic Leukemia-Lymphoma,28,vinblastine,DB00570,4.55
@@ -805,7 +805,7 @@ Pemphigus,3,DB01234,DB01234,10.63
 Pemphigus,4,DB00443,DB00443,10.32
 Pemphigus,5,methylprednisolone,DB00959,10.22
 Pemphigus,6,prednisone,DB00635,9.71
-Pemphigus,7,melphalan,DB00361,8.07
+Pemphigus,7,vinorelbine,DB00361,8.07
 Pemphigus,8,DB09053,DB09053,7.93
 Pemphigus,9,DB00741,DB00741,5.34
 Pemphigus,10,teniposide,DB00444,4.16
@@ -963,7 +963,7 @@ Urinary Bladder Neoplasms,11,DB00305,DB00305,5.74
 Urinary Bladder Neoplasms,12,paclitaxel,DB01229,5.69
 Urinary Bladder Neoplasms,13,DB00741,DB00741,5.60
 Urinary Bladder Neoplasms,14,DB00482,DB00482,5.58
-Urinary Bladder Neoplasms,15,melphalan,DB00361,5.51
+Urinary Bladder Neoplasms,15,vinorelbine,DB00361,5.51
 Urinary Bladder Neoplasms,16,daunorubicin,DB00694,5.36
 Urinary Bladder Neoplasms,17,DB00631,DB00631,5.29
 Urinary Bladder Neoplasms,18,idarubicin,DB01177,5.01
@@ -1192,7 +1192,7 @@ Squamous Cell Carcinoma of Head and Neck,40,DB01073,DB01073,3.07
 Squamous Cell Carcinoma of Head and Neck,41,vincristine,DB00541,2.96
 Squamous Cell Carcinoma of Head and Neck,42,DB01250,DB01250,2.82
 Squamous Cell Carcinoma of Head and Neck,43,DB01181,DB01181,2.76
-Squamous Cell Carcinoma of Head and Neck,44,melphalan,DB00361,2.72
+Squamous Cell Carcinoma of Head and Neck,44,vinorelbine,DB00361,2.72
 Squamous Cell Carcinoma of Head and Neck,45,DB13832,DB13832,2.69
 Squamous Cell Carcinoma of Head and Neck,46,DB01296,DB01296,2.56
 Squamous Cell Carcinoma of Head and Neck,47,paclitaxel,DB01229,2.44
@@ -1452,7 +1452,7 @@ Osteosarcoma,50,DB11596,DB11596,0.59
 "Carcinoma, Islet Cell",1,prednisolone,DB00860,11.61
 "Carcinoma, Islet Cell",2,DB00185,DB00185,11.51
 "Carcinoma, Islet Cell",3,lomustine,DB01206,11.16
-"Carcinoma, Islet Cell",4,melphalan,DB00361,10.17
+"Carcinoma, Islet Cell",4,vinorelbine,DB00361,10.17
 "Carcinoma, Islet Cell",5,DB00761,DB00761,4.77
 "Carcinoma, Islet Cell",6,DB01144,DB01144,3.24
 "Carcinoma, Islet Cell",7,sirolimus,DB00877,1.76
@@ -2184,7 +2184,7 @@ Hemangiosarcoma,32,DB01008,DB01008,0.51
 Hemangiosarcoma,33,DB00309,DB00309,0.50
 Hemangiosarcoma,34,DB11596,DB11596,0.47
 Hemangiosarcoma,35,DB01234,DB01234,0.44
-Hemangiosarcoma,36,melphalan,DB00361,0.43
+Hemangiosarcoma,36,vinorelbine,DB00361,0.43
 Hemangiosarcoma,37,sorafenib,DB00398,0.34
 Hemangiosarcoma,38,DB09256,DB09256,0.34
 Hemangiosarcoma,39,fluorouracil,DB00544,0.31
@@ -2376,7 +2376,7 @@ Hepatolenticular Degeneration,50,DB00323,DB00323,0.14
 "Leukemia, Mast-Cell",25,prednisone,DB00635,4.96
 "Leukemia, Mast-Cell",26,DB01380,DB01380,4.95
 "Leukemia, Mast-Cell",27,DB00620,DB00620,4.92
-"Leukemia, Mast-Cell",28,melphalan,DB00361,4.84
+"Leukemia, Mast-Cell",28,vinorelbine,DB00361,4.84
 "Leukemia, Mast-Cell",29,streptozocin,DB00428,4.73
 "Leukemia, Mast-Cell",30,DB00631,DB00631,4.71
 "Leukemia, Mast-Cell",31,DB00851,DB00851,4.68

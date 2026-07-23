@@ -276,13 +276,11 @@ print("⑥ 產候選:對「還沒有藥-病關聯」的格子排名")
 print("=" * 72)
 _drow = list(csv.DictReader(open("dataset/Kdataset/omics/drug.csv")))
 node2db = {int(r["ID"]): r["Drug"] for r in _drow}
-node2name = {int(r["ID"]): r["Name"] for r in _drow if r.get("Name")}   # 藥名住在 omics/drug.csv 的 Name 欄
-DBN = {"DB00619":"imatinib","DB01254":"dasatinib","DB00398":"sorafenib","DB01268":"sunitinib",
-       "DB08896":"regorafenib","DB01229":"paclitaxel","DB00444":"teniposide","DB00773":"etoposide",
-       "DB00694":"daunorubicin","DB01177":"idarubicin","DB00970":"dactinomycin","DB00997":"doxorubicin",
-       "DB00541":"vincristine","DB00570":"vinblastine","DB01590":"everolimus","DB00877":"sirolimus",
-       "DB06176":"romidepsin","DB11581":"venetoclax","DB00563":"methotrexate","DB01204":"mitoxantrone"}
-nm = lambda d: node2name.get(d) or DBN.get(node2db.get(d, ""), node2db.get(d, str(d)))
+# 藥名只從 omics/drug.csv 的 Name 欄讀。先前這裡另外寫死了 20 個藥名當備援,
+# 那等於把資料藏在程式碼裡、無法追溯來源;已全部搬進 omics/drug.csv
+# (20/20 經 PubChem xref/RegistryID→synonyms 驗證)。沒有名字就顯示 DrugBank ID。
+node2name = {int(r["ID"]): r["Name"] for r in _drow if r.get("Name", "").strip()}
+nm = lambda d: node2name.get(d) or node2db.get(d, str(d))
 pet = {int(r["ID"]): r["Name"].replace("寵物-", "") for r in pet_rows}   # 病名住在 omics/disease.csv 的 Name 欄
 
 rows = [["disease", "rank", "drug", "drugbank", "score"]]
